@@ -1,0 +1,11 @@
+Model Information:
+* title:	t-34 low-poly tank
+* source:	https://sketchfab.com/3d-models/t-34-low-poly-tank-fc128adffa18499f85205a6743d1e671
+* author:	alex-toma (https://sketchfab.com/alex-toma)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "t-34 low-poly tank" (https://sketchfab.com/3d-models/t-34-low-poly-tank-fc128adffa18499f85205a6743d1e671) by alex-toma (https://sketchfab.com/alex-toma) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

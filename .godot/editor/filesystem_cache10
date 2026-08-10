@@ -1,0 +1,236 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1786377926
+titan_rig.tscn::PackedScene/PackedScene::5746890588784853699::1785931472::0::1::::<><><>0<>0<><>::uid://bto1oej15m4ve::::res://assets/characters/godzilla_rigged_animated_0.jpg<>uid://cvl5i1i3qq273::::res://assets/characters/godzilla_rigged_animated_1.jpg<>uid://da2ae16d6uv34::::res://assets/characters/godzilla_rigged_animated_2.jpg
+::res://addons/::1785852576
+::res://ai/::1786371176
+state_machine.gd::GDScript/GDScript::6849080861361628431::1786195464::0::1::::<>RefCounted<><>0<>0<><>::
+::res://assets/::1786029504
+::res://assets/audio/::1785852576
+::res://assets/characters/::1786371182
+godzilla_rigged_animated.glb::PackedScene/PackedScene::9061674965807018566::1785877628::1786371182::1::::<><><>0<>0<>51694cea947423c0072b3b23788ea219<>res://.godot/imported/godzilla_rigged_animated.glb-781dffc0322328d728a49a9df1064b4d.scn::uid://bto1oej15m4ve::::res://assets/characters/godzilla_rigged_animated_0.jpg<>uid://cvl5i1i3qq273::::res://assets/characters/godzilla_rigged_animated_1.jpg<>uid://da2ae16d6uv34::::res://assets/characters/godzilla_rigged_animated_2.jpg
+godzilla_rigged_animated_0.jpg::CompressedTexture2D/CompressedTexture2D::3750513869517707138::1785856588::1786371179::1::::<><><>0<>0<>4b451d09bbbc6a708b222a740c9c3f4b<>res://.godot/imported/godzilla_rigged_animated_0.jpg-f2e97178a3f015f1edc1aff3b7325f4a.s3tc.ctex::
+godzilla_rigged_animated_1.jpg::CompressedTexture2D/CompressedTexture2D::6271352414473546312::1785856588::1786371179::1::::<><><>0<>0<>177685efd59c55dc86639390a71042dd<>res://.godot/imported/godzilla_rigged_animated_1.jpg-c0f06b533def177d71a2a2bbb39aa0dc.s3tc.ctex::
+godzilla_rigged_animated_2.jpg::CompressedTexture2D/CompressedTexture2D::7215008807289121369::1785856589::1786371179::1::::<><><>0<>0<>a153160a89a260d6e3cec02a3da1c0bf<>res://.godot/imported/godzilla_rigged_animated_2.jpg-a01621fc9301272960d84bd2dd324e90.s3tc.ctex::
+::res://assets/characters/environments/::1785852576
+::res://assets/environments/::1786382517
+mountain_low_poly.glb::PackedScene/PackedScene::257310061170642707::1786022215::1786371183::1::::<><><>0<>0<>9ecde0b541eaf09a56f977a602ee14bb<>res://.godot/imported/mountain_low_poly.glb-42719561d91732a60d2b109dcaa824f0.scn::uid://c01ox58vypj40::::res://assets/environments/mountain_low_poly_0.png<>uid://xt2hebm6i2mt::::res://assets/environments/mountain_low_poly_1.png<>uid://crolghi0jhtmi::::res://assets/environments/mountain_low_poly_2.png
+mountain_low_poly_0.png::CompressedTexture2D/CompressedTexture2D::6582129018766975983::1786022225::1786371179::1::::<><><>0<>0<>8aafb7d5ede058d766fa88812331a14c<>res://.godot/imported/mountain_low_poly_0.png-49efd8d9d91f71d327985ed9eea62781.s3tc.ctex::
+mountain_low_poly_1.png::CompressedTexture2D/CompressedTexture2D::1655218652589111943::1786022226::1786371179::1::::<><><>0<>0<>efa70358fc179b265d1d525d133d50b2<>res://.godot/imported/mountain_low_poly_1.png-2457a3a91212688c1ccbc75ab532a250.s3tc.ctex::
+mountain_low_poly_2.png::CompressedTexture2D/CompressedTexture2D::5995631980643546452::1786022227::1786371179::1::::<><><>0<>0<>6fa4e0e58a70d98eb0069d0a986f516a<>res://.godot/imported/mountain_low_poly_2.png-a205ce212893ebe734e40a8a4d12ac1c.s3tc.ctex::
+rocky_ground.glb::PackedScene/PackedScene::4309371485174189143::1786021376::1786371193::1::::<><><>0<>0<>02e31c0602832b183553ef4b0c7408bc<>res://.godot/imported/rocky_ground.glb-9b8ac86a8e4fb9156fe4fdaf823f1674.scn::uid://ct3h8pgqxcfgb::::res://assets/environments/rocky_ground_0.png<>uid://8dkkhgxoqwja::::res://assets/environments/rocky_ground_1.png<>uid://ku6tuh4ducx5::::res://assets/environments/rocky_ground_2.png
+rocky_ground_0.png::CompressedTexture2D/CompressedTexture2D::6164716721647583713::1786021394::1786371179::1::::<><><>0<>0<>e7ad1888328ebdb58b86d0fc3e8cc9cf<>res://.godot/imported/rocky_ground_0.png-363301c095cca6372ef6c59b78b23699.s3tc.ctex::
+rocky_ground_1.png::CompressedTexture2D/CompressedTexture2D::2323050379180617162::1786021396::1786371179::1::::<><><>0<>0<>54c3f67285e5d3eaba046409a4e07f26<>res://.godot/imported/rocky_ground_1.png-33ae6c555bf50a752ce4e892c8a67220.s3tc.ctex::
+rocky_ground_2.png::CompressedTexture2D/CompressedTexture2D::745093210924532068::1786021397::1786371178::1::::<><><>0<>0<>2860efb0e91e4008d803f042dbe99de5<>res://.godot/imported/rocky_ground_2.png-c0abe6529726280fcb581f41af34ae04.s3tc.ctex::
+terrain_materials.glb::PackedScene/PackedScene::2177525491732849917::1786382446::1786382517::1::::<><><>0<>0<>2994fadf1707ecee047a137f1741f908<>res://.godot/imported/terrain_materials.glb-189b90df3b046c4162d28b394462b41e.scn::uid://n5ub0txutilr::::res://assets/environments/terrain_materials_0.png<>uid://cm6wi6ooh3dmg::::res://assets/environments/terrain_materials_1.png<>uid://dngiqemd66e1d::::res://assets/environments/terrain_materials_2.png<>uid://bjile0aeiapv6::::res://assets/environments/terrain_materials_3.png<>uid://do43xsvwj0bf::::res://assets/environments/terrain_materials_4.png<>uid://1kk8jru2kb3m::::res://assets/environments/terrain_materials_5.png<>uid://busfiv62ejpcn::::res://assets/environments/terrain_materials_6.png<>uid://c5hkdx01tpwmf::::res://assets/environments/terrain_materials_7.png<>uid://fc3fpyh2o7w4::::res://assets/environments/terrain_materials_8.png<>uid://byfg0u6de0eo3::::res://assets/environments/terrain_materials_9.png<>uid://bgcladiqrfw1m::::res://assets/environments/terrain_materials_10.png<>uid://boyxbu15fq2ux::::res://assets/environments/terrain_materials_11.png<>uid://ocrgn8yvqmmj::::res://assets/environments/terrain_materials_12.png<>uid://cuqyghjmqpyqe::::res://assets/environments/terrain_materials_13.png<>uid://ba3afmpw2tug2::::res://assets/environments/terrain_materials_14.png<>uid://crr3l3r0a826k::::res://assets/environments/terrain_materials_15.png<>uid://c01xu706g5w7s::::res://assets/environments/terrain_materials_16.png<>uid://bn0bun3mw878e::::res://assets/environments/terrain_materials_17.png<>uid://g1bova0jjl01::::res://assets/environments/terrain_materials_18.png<>uid://w6tqi40pj3cu::::res://assets/environments/terrain_materials_19.png<>uid://yq2bgof7jgjk::::res://assets/environments/terrain_materials_20.png<>uid://chi34boml2hgm::::res://assets/environments/terrain_materials_21.png<>uid://66u5mpvvp5y7::::res://assets/environments/terrain_materials_22.png<>uid://bvkwv6gubqaj1::::res://assets/environments/terrain_materials_23.png<>uid://288unqxsw4ru::::res://assets/environments/terrain_materials_24.png<>uid://dox5358875dgq::::res://assets/environments/terrain_materials_25.png<>uid://5pyauqiwf7qp::::res://assets/environments/terrain_materials_26.png<>uid://c2tm1hc5j408u::::res://assets/environments/terrain_materials_27.png<>uid://efdyutr2yxke::::res://assets/environments/terrain_materials_28.png<>uid://ibovk5mttjmv::::res://assets/environments/terrain_materials_29.png<>uid://gkg6junt5obf::::res://assets/environments/terrain_materials_30.png<>uid://cbuctrpwh5gsk::::res://assets/environments/terrain_materials_31.png<>uid://dpbuftgku3ro8::::res://assets/environments/terrain_materials_32.png<>uid://owik2pl84073::::res://assets/environments/terrain_materials_33.png<>uid://bf807hxc5o4c6::::res://assets/environments/terrain_materials_34.png<>uid://0gdknvo7u8es::::res://assets/environments/terrain_materials_35.png<>uid://clq1tnlpswwc::::res://assets/environments/terrain_materials_36.png<>uid://c8n5x4ofnb6hq::::res://assets/environments/terrain_materials_37.png<>uid://bo7bv2vb16qg2::::res://assets/environments/terrain_materials_38.png<>uid://dbt4sipxl1btr::::res://assets/environments/terrain_materials_39.png<>uid://yltri5ey41rq::::res://assets/environments/terrain_materials_40.png<>uid://cbnnp2vynk5s5::::res://assets/environments/terrain_materials_41.png<>uid://4h6v828tf1yi::::res://assets/environments/terrain_materials_42.png<>uid://ctmvc8fxgj0h3::::res://assets/environments/terrain_materials_43.png<>uid://cni7hwsex2vfu::::res://assets/environments/terrain_materials_44.png
+terrain_materials_0.png::CompressedTexture2D/CompressedTexture2D::975603769072983839::1786382480::1786382481::1::::<><><>0<>0<>17e16e56e2ce09d2350755351c360440<>res://.godot/imported/terrain_materials_0.png-3707cd61d55be21f7e3d80a046492b88.ctex::
+terrain_materials_1.png::CompressedTexture2D/CompressedTexture2D::5680454912108216122::1786382481::1786382481::1::::<><><>0<>0<>b0862ac4400eabe53d3bd8bbe0ea2af6<>res://.godot/imported/terrain_materials_1.png-a2816405c0696ec8b5f065bde6526199.ctex::
+terrain_materials_2.png::CompressedTexture2D/CompressedTexture2D::8084617822352703055::1786382482::1786382482::1::::<><><>0<>0<>49f190dfe4d5ababb7a73ce722ab7b87<>res://.godot/imported/terrain_materials_2.png-c161197e58203677c704daa1a8847352.ctex::
+terrain_materials_3.png::CompressedTexture2D/CompressedTexture2D::3035311641840125477::1786382482::1786382483::1::::<><><>0<>0<>e816cd3f18ac343a4a1b0931788cf217<>res://.godot/imported/terrain_materials_3.png-ce5256e73e6d4e2abaa478376056c647.ctex::
+terrain_materials_4.png::CompressedTexture2D/CompressedTexture2D::241279851317957331::1786382484::1786382484::1::::<><><>0<>0<>d74e9436d3c6c28577c6ea7064510c67<>res://.godot/imported/terrain_materials_4.png-51be1224cf091bc4c74c9282a368f1c3.ctex::
+terrain_materials_5.png::CompressedTexture2D/CompressedTexture2D::1846220313172977032::1786382484::1786382485::1::::<><><>0<>0<>5fd4f14b5e3a3ca05563e8a4d94c2827<>res://.godot/imported/terrain_materials_5.png-04638bc3c79a9aaa84bfe8ad71eb76d3.ctex::
+terrain_materials_6.png::CompressedTexture2D/CompressedTexture2D::3827675379453659061::1786382485::1786382486::1::::<><><>0<>0<>493b8f8318078f94ea6f0ddfc7d4a73e<>res://.godot/imported/terrain_materials_6.png-923d621c85abfd38fe789ff4b9372f2d.ctex::
+terrain_materials_7.png::CompressedTexture2D/CompressedTexture2D::6893571095979461917::1786382486::1786382486::1::::<><><>0<>0<>21f3e004873baeab52b6469057787a59<>res://.godot/imported/terrain_materials_7.png-7323b64cf7e4b5b60a095b0b51dce0cb.ctex::
+terrain_materials_8.png::CompressedTexture2D/CompressedTexture2D::356782803745542153::1786382486::1786382487::1::::<><><>0<>0<>550885bd2e01daaffd56b62984677cb1<>res://.godot/imported/terrain_materials_8.png-6784c6925b77d62707c17ce13034ec95.ctex::
+terrain_materials_9.png::CompressedTexture2D/CompressedTexture2D::4081684865078977456::1786382487::1786382488::1::::<><><>0<>0<>ecada3f12e37f763e5e7af34bff8db00<>res://.godot/imported/terrain_materials_9.png-13716d9ef2f41ce38f5f2ad5e0b5a1b3.ctex::
+terrain_materials_10.png::CompressedTexture2D/CompressedTexture2D::2812350558628239120::1786382488::1786382489::1::::<><><>0<>0<>2cacf64914ff45ffe5d47b36b7633432<>res://.godot/imported/terrain_materials_10.png-a8875d61857da48dddfd6aa364139c3b.ctex::
+terrain_materials_11.png::CompressedTexture2D/CompressedTexture2D::3420008929352845499::1786382489::1786382490::1::::<><><>0<>0<>6cf975ef161e5509ed780524f394ee68<>res://.godot/imported/terrain_materials_11.png-c0a2ca5034ed20a410470947228eb3df.ctex::
+terrain_materials_12.png::CompressedTexture2D/CompressedTexture2D::987816204982286177::1786382490::1786382491::1::::<><><>0<>0<>8c71ab2309e15f0ad7aca060d6abecff<>res://.godot/imported/terrain_materials_12.png-75023788cdaeaf17ef14949f085aa96f.ctex::
+terrain_materials_13.png::CompressedTexture2D/CompressedTexture2D::6211116588935545788::1786382491::1786382492::1::::<><><>0<>0<>de13bd446232e78cdc6074eda64579c0<>res://.godot/imported/terrain_materials_13.png-12a55c1797bf5aa8ad1ce72f30674cab.ctex::
+terrain_materials_14.png::CompressedTexture2D/CompressedTexture2D::2444232844264997759::1786382492::1786382493::1::::<><><>0<>0<>868677c8a24862443428d41d0eea5b17<>res://.godot/imported/terrain_materials_14.png-b9da662fc0ebc973fdc2f54785050818.ctex::
+terrain_materials_15.png::CompressedTexture2D/CompressedTexture2D::6002867348634877692::1786382493::1786382493::1::::<><><>0<>0<>4e2d26329c7c604da73461df1dfdd696<>res://.godot/imported/terrain_materials_15.png-7505df7424e104d49e8ae1962f6cf144.ctex::
+terrain_materials_16.png::CompressedTexture2D/CompressedTexture2D::6582670207439329306::1786382493::1786382495::1::::<><><>0<>0<>2697c9fa7ec2ddfe403fca0d082d2e10<>res://.godot/imported/terrain_materials_16.png-112e79d8acde857908bc7fb3622ac698.ctex::
+terrain_materials_17.png::CompressedTexture2D/CompressedTexture2D::3350582254343915982::1786382495::1786382495::1::::<><><>0<>0<>13462864a515f2c571ac75f222299ce5<>res://.godot/imported/terrain_materials_17.png-2c5e5596768514d96c3c977d53c1c773.ctex::
+terrain_materials_18.png::CompressedTexture2D/CompressedTexture2D::474893705679816464::1786382495::1786382496::1::::<><><>0<>0<>db4d9cff4084173c985def437b337848<>res://.godot/imported/terrain_materials_18.png-a552b40a9e35e0c6f17d4c23a08579ae.ctex::
+terrain_materials_19.png::CompressedTexture2D/CompressedTexture2D::1609332932120052704::1786382496::1786382497::1::::<><><>0<>0<>1aa0dc2c3d7bbe01b7adec617c53cbf4<>res://.godot/imported/terrain_materials_19.png-62f72a8c69cb1db5ef4e04121a133389.ctex::
+terrain_materials_20.png::CompressedTexture2D/CompressedTexture2D::1719203773013996604::1786382497::1786382497::1::::<><><>0<>0<>51d7b476f451182db1266cfffef28617<>res://.godot/imported/terrain_materials_20.png-8af22edd770bf590d0a4b5b498a8b502.ctex::
+terrain_materials_21.png::CompressedTexture2D/CompressedTexture2D::5282430233417216252::1786382498::1786382498::1::::<><><>0<>0<>0d5208ac118010b1c5ec66943539074a<>res://.godot/imported/terrain_materials_21.png-9b24b682ea59e98696707cdb42c949bb.ctex::
+terrain_materials_22.png::CompressedTexture2D/CompressedTexture2D::2241118431262433136::1786382498::1786382499::1::::<><><>0<>0<>1395dcfdc40c5090e453e33a8cd9c93a<>res://.godot/imported/terrain_materials_22.png-5592b6dca16a464b1d8d1bf408298412.ctex::
+terrain_materials_23.png::CompressedTexture2D/CompressedTexture2D::3882405091548598876::1786382499::1786382500::1::::<><><>0<>0<>4d48726f2144e4849839f09cfb24ec53<>res://.godot/imported/terrain_materials_23.png-f749f464a408fa4eb7cf8380bef6adcf.ctex::
+terrain_materials_24.png::CompressedTexture2D/CompressedTexture2D::1965263329340628346::1786382500::1786382501::1::::<><><>0<>0<>9a1d0e0ec328c74395c43db294dffe9b<>res://.godot/imported/terrain_materials_24.png-e19e7cdeb4a1b09226d5edb65cda8815.ctex::
+terrain_materials_25.png::CompressedTexture2D/CompressedTexture2D::8191259690589827000::1786382501::1786382501::1::::<><><>0<>0<>36ff21c6063b4a1d69870ba936f6c075<>res://.godot/imported/terrain_materials_25.png-81e19d5cfb3904fed999f49092dc94c6.ctex::
+terrain_materials_26.png::CompressedTexture2D/CompressedTexture2D::2138089258855253687::1786382501::1786382502::1::::<><><>0<>0<>88ae9ecf9420d9db521091a63840962d<>res://.godot/imported/terrain_materials_26.png-6c48718d66ec87398a1659b20c72f61c.ctex::
+terrain_materials_27.png::CompressedTexture2D/CompressedTexture2D::6707938729624256530::1786382502::1786382503::1::::<><><>0<>0<>a8a0699e73160e86473a61eff22c61c6<>res://.godot/imported/terrain_materials_27.png-37882a259be95a23554142d6dc641c45.ctex::
+terrain_materials_28.png::CompressedTexture2D/CompressedTexture2D::291303353982185604::1786382503::1786382504::1::::<><><>0<>0<>fad5842f8e09da26384b3a4aaf2dc875<>res://.godot/imported/terrain_materials_28.png-6ca7699eedce642483b04ee975ecbabf.ctex::
+terrain_materials_29.png::CompressedTexture2D/CompressedTexture2D::564463238578059161::1786382504::1786382505::1::::<><><>0<>0<>87714b0e3ada4091b08092a98a180f12<>res://.godot/imported/terrain_materials_29.png-0caf67d9f3d9fe7e8359a979a25c1d8f.ctex::
+terrain_materials_30.png::CompressedTexture2D/CompressedTexture2D::442197005159928479::1786382505::1786382506::1::::<><><>0<>0<>8a35b97c4efda1cc085fb278978df9c2<>res://.godot/imported/terrain_materials_30.png-ccc42a59b532ef4c0aff4c82324bb10d.ctex::
+terrain_materials_31.png::CompressedTexture2D/CompressedTexture2D::4884474047254295014::1786382506::1786382506::1::::<><><>0<>0<>76a2a2fc94e7d60287d4ed698456d5f2<>res://.godot/imported/terrain_materials_31.png-ea838986caabb7c6ab65e36a652464f5.ctex::
+terrain_materials_32.png::CompressedTexture2D/CompressedTexture2D::8215383359923383329::1786382506::1786382507::1::::<><><>0<>0<>459437bc6ff09f350c064244d0c5b849<>res://.godot/imported/terrain_materials_32.png-9cef5bcab88f8df6221d12a157f03069.ctex::
+terrain_materials_33.png::CompressedTexture2D/CompressedTexture2D::1028565157250527832::1786382508::1786382508::1::::<><><>0<>0<>2f7b1a18a25a21d911c1f03b04c4eb66<>res://.godot/imported/terrain_materials_33.png-4ec39c8f45df4eb0361e41e9e452d6bd.ctex::
+terrain_materials_34.png::CompressedTexture2D/CompressedTexture2D::2807064841316851239::1786382509::1786382509::1::::<><><>0<>0<>6cbadc293363a739d90055072ac30ed6<>res://.godot/imported/terrain_materials_34.png-df8b6bf15e4f1004f3cce5ac590991e2.ctex::
+terrain_materials_35.png::CompressedTexture2D/CompressedTexture2D::1767308082316644286::1786382509::1786382509::1::::<><><>0<>0<>231bc5b4743a6f7efda990e5a8f252f5<>res://.godot/imported/terrain_materials_35.png-f6ec11cb4dc6452ed68aa18bf474cbad.ctex::
+terrain_materials_36.png::CompressedTexture2D/CompressedTexture2D::164104763643191526::1786382510::1786382510::1::::<><><>0<>0<>631fbfc43d0322fd36bd947f1e374ac8<>res://.godot/imported/terrain_materials_36.png-c35f9984670e9adfc7d761435df51cbd.ctex::
+terrain_materials_37.png::CompressedTexture2D/CompressedTexture2D::7117774246335895282::1786382510::1786382511::1::::<><><>0<>0<>f8c359fc9cb96cc1de7e10da434cb6f1<>res://.godot/imported/terrain_materials_37.png-3071815d60fb152651e6766a0b1ddd66.ctex::
+terrain_materials_38.png::CompressedTexture2D/CompressedTexture2D::3435224252073000479::1786382511::1786382512::1::::<><><>0<>0<>bcb6e2bf196d5f7ca0fdbcc305b3d317<>res://.godot/imported/terrain_materials_38.png-bbee0555a2b8f1d422205f58e6d7dd16.ctex::
+terrain_materials_39.png::CompressedTexture2D/CompressedTexture2D::7270467453544592443::1786382512::1786382513::1::::<><><>0<>0<>00a938ee8eed8586e1bf176f3fe20e2a<>res://.godot/imported/terrain_materials_39.png-2884d62495f575b4692a1e3fec950b3c.ctex::
+terrain_materials_40.png::CompressedTexture2D/CompressedTexture2D::1708424850712298658::1786382513::1786382513::1::::<><><>0<>0<>189248dd978c11eafcf5dba14ae8459f<>res://.godot/imported/terrain_materials_40.png-47c2a9a5cdb9e9b235c6d65ee8185afb.ctex::
+terrain_materials_41.png::CompressedTexture2D/CompressedTexture2D::4870684681321146586::1786382513::1786382514::1::::<><><>0<>0<>7ca5fd695a20ef066399851e4e838277<>res://.godot/imported/terrain_materials_41.png-5a1e1e7f510b2618539e042d2e5421a3.ctex::
+terrain_materials_42.png::CompressedTexture2D/CompressedTexture2D::2051848614734381528::1786382514::1786382515::1::::<><><>0<>0<>c1e1e9ada49b205acf698d050baf862b<>res://.godot/imported/terrain_materials_42.png-caf32bb9afbccf1245584d5ebd0416d1.ctex::
+terrain_materials_43.png::CompressedTexture2D/CompressedTexture2D::6132482300041432758::1786382515::1786382516::1::::<><><>0<>0<>a97d3789d54dfcb7e93dba0e18b7fa51<>res://.godot/imported/terrain_materials_43.png-770a3a98377941f7f8556a37f34e711f.ctex::
+terrain_materials_44.png::CompressedTexture2D/CompressedTexture2D::5703767984572708186::1786382516::1786382517::1::::<><><>0<>0<>e26962af242bba84c62374111c219e34<>res://.godot/imported/terrain_materials_44.png-6d214599ddebf2430b5f53ea3549c9ee.ctex::
+terrain_valley.obj::Mesh/Mesh::3357972955381970977::1786022206::1786371180::1::::<><><>0<>0<>1152dc687839376e457fc8234825ffc8<>res://.godot/imported/terrain_valley.obj-93f9c766b54acce961c4b47258aef8ef.mesh<*>res://.godot/imported/terrain_valley.obj-93f9c766b54acce961c4b47258aef8ef.mesh::uid://dc42einntur2j::::res://assets/environments/terrain_valley_albedo.png
+terrain_valley_albedo.png::CompressedTexture2D/CompressedTexture2D::7361153636089531667::1786022207::1786371178::1::::<><><>0<>0<>88c703bcfd5efbd7118a88f71444abf0<>res://.godot/imported/terrain_valley_albedo.png-d9959e6672de114286123d4f788419a8.s3tc.ctex::
+::res://assets/sword_shield/::1786371195
+draw sword 1.fbx::PackedScene/PackedScene::628343659356797313::1785877470::1786371193::1::::<><><>0<>0<>d589b13afa5219aaba38e5b747d000a4<>res://.godot/imported/draw sword 1.fbx-e27c78514e19745ea034f88ebd3405e5.scn::
+draw sword 2.fbx::PackedScene/PackedScene::3805309259597451597::1785877470::1786371193::1::::<><><>0<>0<>48c0e78382cf92031d255fda9d7eb93c<>res://.godot/imported/draw sword 2.fbx-50c49a3d002b2b2bce9a4bf1a4fe9ed3.scn::
+Paladin WProp J Nordstrom.fbx::PackedScene/PackedScene::839644663426970305::1785877470::1786371194::1::::<><><>0<>0<>8083eb089dc4450731b8eb2a45e0a2a0<>res://.godot/imported/Paladin WProp J Nordstrom.fbx-4c2b74b1991795a250c638b8bf2f4dfc.scn::uid://dn3mfluhbxaou::::res://assets/sword_shield/Paladin WProp J Nordstrom_0.png<>uid://cek6uuvie8txl::::res://assets/sword_shield/Paladin WProp J Nordstrom_2.png
+Paladin WProp J Nordstrom_0.png::CompressedTexture2D/CompressedTexture2D::8130257737343348632::1785877492::1786371178::1::::<><><>0<>0<>0d028fe2feb7ba6c4ff5a518d2d225e3<>res://.godot/imported/Paladin WProp J Nordstrom_0.png-1c01c99e7be5e5c21c4b113f13edb6c6.s3tc.ctex::
+Paladin WProp J Nordstrom_1.png::CompressedTexture2D/CompressedTexture2D::1555929156550918740::1785877496::1786371180::1::::<><><>0<>0<>1dd88cc7fe00206f267056a44ad48369<>res://.godot/imported/Paladin WProp J Nordstrom_1.png-1e7fbf72a4eee1ad98cbc562f85be6d2.ctex::
+Paladin WProp J Nordstrom_2.png::CompressedTexture2D/CompressedTexture2D::5076159545410831853::1785877500::1786371178::1::::<><><>0<>0<>cea4679b5bfc9d97deda33f0137b9b51<>res://.godot/imported/Paladin WProp J Nordstrom_2.png-206ec999b2a08c236f54edc0488482e6.s3tc.ctex::
+sheath sword 1.fbx::PackedScene/PackedScene::7323268162833240418::1785877470::1786371194::1::::<><><>0<>0<>6f5e06bf241e816c451bd6db8daa1052<>res://.godot/imported/sheath sword 1.fbx-8fdc58ebeaef04f2ec93436369f2151a.scn::
+sheath sword 2.fbx::PackedScene/PackedScene::3143472056683020285::1785877470::1786371194::1::::<><><>0<>0<>e8f6681c2df73d9b46961bdd95d2ebc8<>res://.godot/imported/sheath sword 2.fbx-7f6c119e290c3741dcc7bff2589b871c.scn::
+sword and shield 180 turn (2).fbx::PackedScene/PackedScene::4927119689219180880::1785877470::1786371194::1::::<><><>0<>0<>ab6595ede54aea6ee1acc6ba761ebe05<>res://.godot/imported/sword and shield 180 turn (2).fbx-3de09dc56f839690be97058dd440df62.scn::
+sword and shield 180 turn.fbx::PackedScene/PackedScene::1465493589672777411::1785877470::1786371194::1::::<><><>0<>0<>6eee0e1a77370c8d0e6f5c4faaabc1ee<>res://.godot/imported/sword and shield 180 turn.fbx-799f74ce625329ddd7e531467f9c0294.scn::
+sword and shield attack (2).fbx::PackedScene/PackedScene::3450456049272324374::1785877470::1786371194::1::::<><><>0<>0<>6c188401f25a1b8b77d58c71963c289f<>res://.godot/imported/sword and shield attack (2).fbx-5430a875625790d4ae3b3dae92da3562.scn::
+sword and shield attack (3).fbx::PackedScene/PackedScene::3061692409661502273::1785877470::1786371194::1::::<><><>0<>0<>f82e0dcd3207046924bf5e1ab60de9a7<>res://.godot/imported/sword and shield attack (3).fbx-55302a2cec506acc36f77e1b3bdc3cc2.scn::
+sword and shield attack (4).fbx::PackedScene/PackedScene::5951432947510631694::1785877470::1786371194::1::::<><><>0<>0<>d589dce2d5d705b2dd61abe313cb5d37<>res://.godot/imported/sword and shield attack (4).fbx-978ee2423c10a6ac94fb63b39a7d1357.scn::
+sword and shield attack.fbx::PackedScene/PackedScene::2782669061133545266::1785877470::1786371194::1::::<><><>0<>0<>34bde9a5824ecfcb56b91f8ce59f17a9<>res://.godot/imported/sword and shield attack.fbx-fe79c699b74fb311284dda6b4bed886d.scn::
+sword and shield block (2).fbx::PackedScene/PackedScene::6809413862753229035::1785877470::1786371194::1::::<><><>0<>0<>d5e3da8403a9b82a25ef28f2346986a0<>res://.godot/imported/sword and shield block (2).fbx-666222c3c9c738506567feae98d05142.scn::
+sword and shield block idle.fbx::PackedScene/PackedScene::6933832347949228407::1785877470::1786371194::1::::<><><>0<>0<>bae79b42061360a2584e894fca629ccc<>res://.godot/imported/sword and shield block idle.fbx-a8400b10079876873da926c0358ff1d2.scn::
+sword and shield block.fbx::PackedScene/PackedScene::1694104243697687300::1785877470::1786371194::1::::<><><>0<>0<>40ef153abb16e744e24b17572ee32e2b<>res://.godot/imported/sword and shield block.fbx-e0e54e5bd9a241134780536f131333ec.scn::
+sword and shield casting (2).fbx::PackedScene/PackedScene::3985738950343091426::1785877470::1786371194::1::::<><><>0<>0<>7bb2e67eeff8c9cd17408f426de5d678<>res://.godot/imported/sword and shield casting (2).fbx-15dc4d38ce7900182f90e9a7a517b5af.scn::
+sword and shield casting.fbx::PackedScene/PackedScene::7514370537491569996::1785877470::1786371194::1::::<><><>0<>0<>a9e720e69a9ad107041f0faaec79b6a1<>res://.godot/imported/sword and shield casting.fbx-bb20eaf71978a51d4eb748eeacce88db.scn::
+sword and shield crouch block (2).fbx::PackedScene/PackedScene::444996279187409433::1785877470::1786371195::1::::<><><>0<>0<>ec62b5895604a000d23339b96af8a882<>res://.godot/imported/sword and shield crouch block (2).fbx-f30761a00dd466c21cbe3befb4b0156c.scn::
+sword and shield crouch block idle.fbx::PackedScene/PackedScene::8008663323382722037::1785877470::1786371195::1::::<><><>0<>0<>47944cee88acf844dfc8c4e81db5c953<>res://.godot/imported/sword and shield crouch block idle.fbx-2042c31ef4a437e50c9005c365d5eac3.scn::
+sword and shield crouch block.fbx::PackedScene/PackedScene::7783579269019721163::1785877470::1786371195::1::::<><><>0<>0<>445d80632d6942e557af76452b0dbf32<>res://.godot/imported/sword and shield crouch block.fbx-7414f2644dd91d9e1fb07058eb61e337.scn::
+sword and shield crouch idle.fbx::PackedScene/PackedScene::1061580902738649040::1785877470::1786371195::1::::<><><>0<>0<>4b37556ed6b729b651a7216eafedc049<>res://.godot/imported/sword and shield crouch idle.fbx-db638b7a02c9b2dfa3749ba90fd97384.scn::
+sword and shield crouch.fbx::PackedScene/PackedScene::9045659433994376203::1785877470::1786371195::1::::<><><>0<>0<>87df2c2c4ee98cce82d18e10d9269778<>res://.godot/imported/sword and shield crouch.fbx-69b24b4cf68a3691e8fa78bfd60918d4.scn::
+sword and shield crouching (2).fbx::PackedScene/PackedScene::7751439363037700723::1785877470::1786371195::1::::<><><>0<>0<>a4d7dbe90f09336035a2830f2d063acb<>res://.godot/imported/sword and shield crouching (2).fbx-ab687bbeae7768a4b1e475ab1bb4840d.scn::
+sword and shield crouching (3).fbx::PackedScene/PackedScene::6770486968865053679::1785877470::1786371195::1::::<><><>0<>0<>7ddcc5518125190cd65ee221228d9430<>res://.godot/imported/sword and shield crouching (3).fbx-d9b0801ba86de8545d5024a649a0b86f.scn::
+sword and shield crouching.fbx::PackedScene/PackedScene::4933371071033594121::1785877470::1786371195::1::::<><><>0<>0<>95ceea3bd49b0b528716b97da83dd798<>res://.godot/imported/sword and shield crouching.fbx-0bd79b55e3f9d94988e8905a843912fc.scn::
+sword and shield death (2).fbx::PackedScene/PackedScene::2522469647531804689::1785877470::1786371195::1::::<><><>0<>0<>65f42fa2876a1bf3e78ccfe3622b1f31<>res://.godot/imported/sword and shield death (2).fbx-a8ff18725fd6a63197ccfe78d0a6b097.scn::
+sword and shield death.fbx::PackedScene/PackedScene::301209682459199344::1785877470::1786371195::1::::<><><>0<>0<>7aba45de790a54b5e1b980fe4e6aaee0<>res://.godot/imported/sword and shield death.fbx-5930d99a6111e7aec9c5276e4beb3e31.scn::
+sword and shield idle (2).fbx::PackedScene/PackedScene::2733865185563913047::1785877470::1786371195::1::::<><><>0<>0<>26722370780977ebaf98041b32633242<>res://.godot/imported/sword and shield idle (2).fbx-28f30e627a594d4c314ffec1edb3db6a.scn::
+sword and shield idle (3).fbx::PackedScene/PackedScene::2226079958726400766::1785877470::1786371181::1::::<><><>0<>0<>b7f19288e056e187565ef12569545c88<>res://.godot/imported/sword and shield idle (3).fbx-44af27d884b7313a61eda4d74a3304d3.scn::
+sword and shield idle (4).fbx::PackedScene/PackedScene::1676923414476238518::1785877470::1786371181::1::::<><><>0<>0<>5596fe8ac7f1eb746872ef1f9a047ede<>res://.godot/imported/sword and shield idle (4).fbx-57e311a752d6fc9e299d42d8d492aca2.scn::
+sword and shield idle.fbx::PackedScene/PackedScene::858038965359881158::1785877470::1786371181::1::::<><><>0<>0<>01cec3f4b8309b483051d7639bb0129e<>res://.godot/imported/sword and shield idle.fbx-0dd194ff5356735edce6a71722bcd6e7.scn::
+sword and shield impact (2).fbx::PackedScene/PackedScene::5659980469423500384::1785877470::1786371181::1::::<><><>0<>0<>8b5049ebd2de929423b2631ae4159757<>res://.godot/imported/sword and shield impact (2).fbx-b7b38c187970015ff0a379aef27855a9.scn::
+sword and shield impact (3).fbx::PackedScene/PackedScene::8949180105538673929::1785877470::1786371181::1::::<><><>0<>0<>432aaddbf80a0fb9bca2453379fe16c3<>res://.godot/imported/sword and shield impact (3).fbx-6adbc7c74279d37134d5e30944e4bbda.scn::
+sword and shield impact.fbx::PackedScene/PackedScene::679154732939836964::1785877470::1786371181::1::::<><><>0<>0<>6e4d0020db63fce226cd6f0fbf78f241<>res://.godot/imported/sword and shield impact.fbx-4a0e6321b84472b6f4738e4f6f434390.scn::
+sword and shield jump (2).fbx::PackedScene/PackedScene::8976505752351146734::1785877470::1786371181::1::::<><><>0<>0<>7b7af2c07989d74443e686fa4fb24b11<>res://.godot/imported/sword and shield jump (2).fbx-cada58107c192c5f2142ff35812fd7e5.scn::
+sword and shield jump.fbx::PackedScene/PackedScene::2208443441825112529::1785877470::1786371181::1::::<><><>0<>0<>0460f8867d082903218aebcca0c2a485<>res://.godot/imported/sword and shield jump.fbx-f6cba25fa7c75543bfb77f428dbd321e.scn::
+sword and shield kick.fbx::PackedScene/PackedScene::2616024594007075173::1785877470::1786371181::1::::<><><>0<>0<>1e46ed03a2915a448007bc54c1122e88<>res://.godot/imported/sword and shield kick.fbx-08925c3fa54a934ffce5b7a04573e4f1.scn::
+sword and shield power up.fbx::PackedScene/PackedScene::4686307907800789838::1785877470::1786371181::1::::<><><>0<>0<>8834246ea3202f4051987a51046e547b<>res://.godot/imported/sword and shield power up.fbx-7376adbbc546506f6ab260e2ac465c7e.scn::
+sword and shield run (2).fbx::PackedScene/PackedScene::8353104348306222850::1785877470::1786371181::1::::<><><>0<>0<>99bbda4294faae0d153d899fa88353e1<>res://.godot/imported/sword and shield run (2).fbx-e16206e7a11861b27369deccd97ec26c.scn::
+sword and shield run.fbx::PackedScene/PackedScene::3932781337108069901::1785877470::1786371180::1::::<><><>0<>0<>b3fc00919c6e79fa1fc49dbf8ae2dfea<>res://.godot/imported/sword and shield run.fbx-a7fa67d17117d6522082894513dfc767.scn::
+sword and shield slash (2).fbx::PackedScene/PackedScene::5459640307276207825::1785877470::1786371180::1::::<><><>0<>0<>4906b5cb8a029c718559b7d4c56a957e<>res://.godot/imported/sword and shield slash (2).fbx-c041f3dc816609d1df95961084d83e51.scn::
+sword and shield slash (3).fbx::PackedScene/PackedScene::5757062708338255630::1785877470::1786371181::1::::<><><>0<>0<>1e499f3958334f8f244f6eff4b832de9<>res://.godot/imported/sword and shield slash (3).fbx-6a93bdb6359df6d421e9a97ec038e68a.scn::
+sword and shield slash (4).fbx::PackedScene/PackedScene::6812670500932761140::1785877470::1786371181::1::::<><><>0<>0<>a680c3f0ba87c5171d79ea86e64044d4<>res://.godot/imported/sword and shield slash (4).fbx-4ed5683c132a6072261774cce89ae66b.scn::
+sword and shield slash (5).fbx::PackedScene/PackedScene::8293669828762241334::1785877470::1786371181::1::::<><><>0<>0<>eebc396c162272a6baddfa7ea1bc75c4<>res://.godot/imported/sword and shield slash (5).fbx-1a8e8c1225c5ff9930dd2ab68dc26b7d.scn::
+sword and shield slash.fbx::PackedScene/PackedScene::2321287351561451056::1785877470::1786371181::1::::<><><>0<>0<>fe9fe3d5d876a4a2306e239b045f6c41<>res://.godot/imported/sword and shield slash.fbx-0b87fd4b9927cc44781a3cf61a4f27b4.scn::
+sword and shield strafe (2).fbx::PackedScene/PackedScene::252743049687342120::1785877470::1786371181::1::::<><><>0<>0<>168dd3b2842907dc3a8f47344c49045d<>res://.godot/imported/sword and shield strafe (2).fbx-aaac389ed3ae23da707c7a93351f5ce6.scn::
+sword and shield strafe (3).fbx::PackedScene/PackedScene::139126275161323096::1785877470::1786371181::1::::<><><>0<>0<>e04d3e3c4b15e812785cf2cbe455ca3f<>res://.godot/imported/sword and shield strafe (3).fbx-ef8725472be806305d666133e8034240.scn::
+sword and shield strafe (4).fbx::PackedScene/PackedScene::1041998480008433832::1785877470::1786371181::1::::<><><>0<>0<>e089b11a3348593095afe4cdd88d512b<>res://.godot/imported/sword and shield strafe (4).fbx-0f8817d791f3ae0232f31375db0140d4.scn::
+sword and shield strafe.fbx::PackedScene/PackedScene::8331550207775048696::1785877470::1786371181::1::::<><><>0<>0<>9cd280e2dcec72f179dd2253b5264a31<>res://.godot/imported/sword and shield strafe.fbx-d7b784b0590c7cf2ab245e68258cdee5.scn::
+sword and shield turn (2).fbx::PackedScene/PackedScene::502734131685827359::1785877470::1786371181::1::::<><><>0<>0<>54780eceda9be30018ff84e057ab8656<>res://.godot/imported/sword and shield turn (2).fbx-e7f4b6f698c7f52be858dcc59899a14a.scn::
+sword and shield turn.fbx::PackedScene/PackedScene::4604594257614620101::1785877470::1786371181::1::::<><><>0<>0<>0fe4967a10c5703a1947f4165941261c<>res://.godot/imported/sword and shield turn.fbx-16f22f1eec09f1a40234d9ceb775726e.scn::
+sword and shield walk (2).fbx::PackedScene/PackedScene::2044103557983208188::1785877470::1786371181::1::::<><><>0<>0<>506545632b966e075acc7117ed822e38<>res://.godot/imported/sword and shield walk (2).fbx-c73f7c8ecb2013c4d7d080ac1b9807bb.scn::
+sword and shield walk.fbx::PackedScene/PackedScene::2485020304476598296::1785877470::1786371181::1::::<><><>0<>0<>828a049e249139e6d4f3a17cf412bd22<>res://.godot/imported/sword and shield walk.fbx-3a23628ecfd5bfb66b47b6ddaf98c24e.scn::
+::res://assets/ui/::1785852576
+::res://assets/weapons/::1786029504
+::res://assets/weapons/tank/::1786371181
+license.txt::TextFile/TextFile::-1::1786029504::0::1::::<><><>0<>0<><>::
+scene.gltf::PackedScene/PackedScene::6715041491507994652::1786029504::1786371181::1::::<><><>0<>0<>70c394ef618d4459274dd74493167d29<>res://.godot/imported/scene.gltf-d4c252340081f16893a2d2a015d2b612.scn::uid://dcn4lhg7n5ymo::::res://assets/weapons/tank/textures/Material_baseColor.png
+tank.tscn::PackedScene/PackedScene::-1::1786029851::0::1::::<><><>0<>0<><>::uid://c2w20tv26ogs7::::res://assets/weapons/tank/scene.gltf<>res://assets/weapons/tank/tank_color.gd
+tank_color.gd::GDScript/GDScript::4047282550083640568::1786120495::0::1::::<>Node3D<><>0<>0<><>::
+::res://assets/weapons/tank/textures/::1786371179
+Material_baseColor.png::CompressedTexture2D/CompressedTexture2D::7328257464086117062::1786029504::1786371179::1::::<><><>0<>0<>4c2501b781092e4387f34533dc3e0295<>res://.godot/imported/Material_baseColor.png-5ea2e090af5fa1fad11f2e37733f17cb.s3tc.ctex::
+::res://audio/::1786390616
+footstep_fx.gd::GDScript::6980746304021107510::1786390616::0::1::::FootstepFX<>Node<><>0<>0<><>::
+procedural_footsteps.gd::GDScript::928710675480851617::1786390590::0::1::::ProceduralFootsteps<>RefCounted<><>0<>0<><>::
+procedural_horn.gd::GDScript/GDScript::1969639805071826405::1786194796::0::1::::ProceduralHorn<>RefCounted<><>0<>0<><>::
+::res://battle/::1786371176
+battle_manager.gd::GDScript/GDScript::3233214940748704409::1786194403::0::1::::<>Node<><>0<>0<><>::
+battle_registry.gd::GDScript/GDScript::5232124998058928489::1786193401::0::1::::<>Node<><>0<>0<><>::
+commander_manager.gd::GDScript/GDScript::8587595031164843989::1786221174::0::1::::<>Node<><>0<>0<><>::
+engagement_tracker.gd::GDScript/GDScript::1673275975898987311::1786221868::0::1::::<>Node<><>0<>0<><>::
+faction_blue.tres::Resource/Resource::1287812943019958790::1785867615::0::1::::<><><>0<>0<><>::res://battle/faction_resource.gd
+faction_manager.gd::GDScript/GDScript::4692224140871230534::1786221194::0::1::::<>Node3D<><>0<>0<><>::
+faction_red.tres::Resource/Resource::6778645202551641818::1785867615::0::1::::<><><>0<>0<><>::res://battle/faction_resource.gd
+faction_resource.gd::GDScript/GDScript::9166902145308754591::1785859017::0::1::::<>Resource<><>0<>0<><>::
+registry_access.gd::GDScript/GDScript::6706730274549456762::1786221129::0::1::::RegistryAccess<>Node<><>0<>0<><>::
+spawn_manager.gd::GDScript/GDScript::3662014046415197436::1786040794::0::1::::<>Node<><>0<>0<><>::
+team_manager.gd::GDScript/GDScript::6264246771752632324::1785876550::0::1::::<>Node<><>0<>0<><>::
+::res://camera/::1786371176
+rts_camera.gd::GDScript/GDScript::4768213042783774195::1786110245::0::1::::<>Camera3D<><>0<>0<><>::
+spectator_cam.gd::GDScript/GDScript::3025860316711917896::1786200967::0::1::::<>Node<><>0<>0<><>::
+::res://effects/::1786371176
+muzzle_flash.gd::GDScript/GDScript::7885973187812212942::1786112065::0::1::::<>Node3D<><>0<>0<><>::
+muzzle_flash.gdshader::Shader/Shader::2850563064326784389::1786111951::0::1::::<><><>0<>0<><>::
+muzzle_flash.tscn::PackedScene/PackedScene::-1::1786111969::0::1::::<><><>0<>0<><>::res://effects/muzzle_flash.gd<>res://effects/muzzle_flash.gdshader
+::res://env/::1786384618
+battlefield_dressing.gd::GDScript::6448709402611540814::1786390001::0::1::::<>Node3D<><>0<>0<><>::
+billboard_soldier.gdshader::Shader/Shader::677636552313040385::1786110380::0::1::::<><><>0<>0<><>::
+crowd_spawner.gd::GDScript/GDScript::5613429315168344417::1786120613::0::1::::<>MultiMeshInstance3D<><>0<>0<><>::
+ground_surface.gd::GDScript/GDScript::2745634439820478414::1786382956::0::1::::<>StaticBody3D<><>0<>0<><>::
+rolling_terrain.gdshader::Shader/Shader::4793086948685831954::1786124418::0::1::::<><><>0<>0<><>::
+soldier_sheet.png::CompressedTexture2D/CompressedTexture2D::3495970574539563373::1786110128::1786371179::1::::<><><>0<>0<>27de6ab2c6abfa4e486f552b8fc4ea48<>res://.godot/imported/soldier_sheet.png-41cfc27a612f94ef4f00ea388d35cf23.ctex::
+terrain_floor.gd::GDScript::64722646317510594::1786384596::0::1::::<>Node3D<><>0<>0<><>::
+terrain_noise.png::CompressedTexture2D/CompressedTexture2D::2472640690279648248::1786110129::1786371179::1::::<><><>0<>0<>fa87c64250e8c77521f1c4621aadf61d<>res://.godot/imported/terrain_noise.png-d82b897ffd7fc10237e8527ca9782661.s3tc.ctex::
+::res://gift/::1786371176
+gift_manager.gd::GDScript/GDScript::352892711767766519::1786221148::0::1::::<>Node<><>0<>0<><>::
+gift_mapping.json::JSON/JSON::-1::1786221099::0::1::::<><><>0<>0<><>::
+websocket_client.gd::GDScript/GDScript::3051728395459699080::1785873973::0::1::::<>Node<><>0<>0<><>::
+::res://logs/::1786382089
+::res://maps/::1786382957
+battlefield_ground.tscn::PackedScene::6768061622542892656::1786384643::0::1::::<><><>0<>0<><>::res://env/terrain_floor.gd<>res://env/battlefield_dressing.gd
+battlefield_scale.tscn::PackedScene::-1::1786384669::0::1::::<><><>0<>0<><>::res://env/soldier_sheet.png<>res://env/rolling_terrain.gdshader<>res://env/terrain_noise.png<>res://assets/environments/rocky_ground_0.png<>res://env/crowd_spawner.gd
+main_battlefield.gd::GDScript/GDScript::6278056082917144778::1786221513::0::1::::<>Node3D<><>0<>0<><>::
+main_battlefield.tscn::PackedScene::6622273046075958005::1786387865::0::1::::<><><>0<>0<><>::res://maps/main_battlefield.gd<>res://battle/battle_manager.gd<>res://battle/spawn_manager.gd<>res://battle/faction_manager.gd<>res://gift/websocket_client.gd<>res://gift/gift_manager.gd<>res://camera/rts_camera.gd<>uid://ddbg3dmuhfm4v::::res://ui/hud/battle_hud.tscn<>res://ui/menus/main_menu.tscn<>uid://c3tvkckphp3mk::::res://battle/faction_red.tres<>uid://sl3ddho6ivhu::::res://battle/faction_blue.tres<>res://battle/team_manager.gd<>res://maps/battlefield_scale.tscn<>uid://c3oq8r6tb8wvw::::res://maps/battlefield_ground.tscn
+world_env.tscn::PackedScene/PackedScene::7923007034909565388::1786209387::0::1::::<><><>0<>0<><>::uid://bn3vlarjv2gpd::::res://assets/environments/terrain_valley.obj<>uid://dwv4heu8kukp::::res://assets/environments/mountain_low_poly.glb
+::res://maps/castle/::1785852576
+::res://maps/desert/::1785852576
+::res://maps/grasslands/::1785852576
+::res://tests/::1786390688
+bench_light.gd::GDScript::2053231158591845084::1786388002::0::1::::<>SceneTree<><>0<>0<><>::
+checkpoint0.gd::GDScript/GDScript::6111714165752772102::1786295242::0::1::::<>SceneTree<><>0<>0<><>::
+checkpoint1.gd::GDScript/GDScript::8539722132924957978::1786295258::0::1::::<>SceneTree<><>0<>0<><>::
+checkpoint2.gd::GDScript/GDScript::4912000612880811215::1786295274::0::1::::<>SceneTree<><>0<>0<><>::
+checkpoint3.gd::GDScript/GDScript::2696438113195725042::1786295290::0::1::::<>SceneTree<><>0<>0<><>::
+checkpoint4.gd::GDScript/GDScript::5915072736264718736::1786295300::0::1::::<>SceneTree<><>0<>0<><>::
+checkpoint5.gd::GDScript/GDScript::4019336772907640635::1786295530::0::1::::<>SceneTree<><>0<>0<><>::
+checkpoint6.gd::GDScript/GDScript::5385480937050313978::1786295331::0::1::::<>SceneTree<><>0<>0<><>::
+checkpoint7.gd::GDScript/GDScript::7341779208128101409::1786295348::0::1::::<>SceneTree<><>0<>0<><>::
+checkpoint9.gd::GDScript/GDScript::7835189316477765532::1786295363::0::1::::<>SceneTree<><>0<>0<><>::
+checkpoint10.gd::GDScript/GDScript::6295844836664938956::1786295737::0::1::::<>SceneTree<><>0<>0<><>::
+checkpoint_ground.gd::GDScript::8765222142791972022::1786384699::0::1::::<>SceneTree<><>0<>0<><>::
+checkpoint_surface.gd::GDScript::5892092236624720841::1786390688::0::1::::<>SceneTree<><>0<>0<><>::
+render_braziers.gd::GDScript::4543441360797266719::1786389743::0::1::::<>SceneTree<><>0<>0<><>::
+repro_crash.gd::GDScript/GDScript::5360315956222708893::1786369138::0::1::::<>SceneTree<><>0<>0<><>::
+stress_live.gd::GDScript/GDScript::4901195151731227939::1786367677::0::1::::<>SceneTree<><>0<>0<><>::
+::res://tools/::1785864771
+::res://tools/bridge/::1785874649
+package-lock.json::JSON/JSON::-1::1785864790::0::1::::<><><>0<>0<><>::
+package.json::JSON/JSON::-1::1785864771::0::1::::<><><>0<>0<><>::
+::res://tools/bridge/node_modules/::1785864790
+::res://tools/bridge/node_modules/ws/::1785864790
+package.json::JSON/JSON::-1::1785864790::0::1::::<><><>0<>0<><>::
+README.md::TextFile/TextFile::-1::1785864790::0::1::::<><><>0<>0<><>::
+::res://tools/bridge/node_modules/ws/lib/::1785864790
+::res://tools/bridge/public/::1785873963
+::res://tools/bridge/src/::1785876591
+::res://ui/::1785852576
+::res://ui/hud/::1786371176
+battle_hud.gd::GDScript/GDScript::2141459467471416584::1786223954::0::1::::<>CanvasLayer<><>0<>0<><>::
+battle_hud.tscn::PackedScene/PackedScene::7372307440959373623::1786221371::0::1::::<><><>0<>0<><>::res://ui/hud/battle_hud.gd
+::res://ui/menus/::1786371176
+main_menu.gd::GDScript/GDScript::7953805070678024281::1785866904::0::1::::<>CanvasLayer<><>0<>0<><>::
+main_menu.tscn::PackedScene/PackedScene::-1::1785866909::0::1::::<><><>0<>0<><>::res://ui/menus/main_menu.gd
+::res://ui/widgets/::1785852576
+::res://units/::1785878140
+::res://units/models/::1786371176
+paladin_rig.tscn::PackedScene/PackedScene::8602870955029958536::1786209386::0::1::::<><><>0<>0<><>::uid://dn3mfluhbxaou::::res://assets/sword_shield/Paladin WProp J Nordstrom_0.png<>uid://cek6uuvie8txl::::res://assets/sword_shield/Paladin WProp J Nordstrom_2.png<>res://units/models/rig_scale.gd
+rig_scale.gd::GDScript/GDScript::6332527185415776148::1785931192::0::1::::<>Node3D<><>0<>0<><>::
+titan_rig.tscn::PackedScene/PackedScene::6253520418092188144::1786209386::0::1::::<><><>0<>0<><>::uid://bto1oej15m4ve::::res://assets/characters/godzilla_rigged_animated_0.jpg<>uid://cvl5i1i3qq273::::res://assets/characters/godzilla_rigged_animated_1.jpg<>uid://da2ae16d6uv34::::res://assets/characters/godzilla_rigged_animated_2.jpg<>res://units/models/rig_scale.gd
+::res://units/resources/::1786371176
+ability_resource.gd::GDScript/GDScript::1208130836177855345::1785859013::0::1::::<>Resource<><>0<>0<><>::
+commander.tres::Resource/Resource::-1::1786194189::0::1::::<><><>0<>0<><>::res://units/resources/unit_resource.gd
+knight.tres::Resource/Resource::-1::1785950649::0::1::::<><><>0<>0<><>::res://units/resources/unit_resource.gd
+militia.tres::Resource/Resource::-1::1785950617::0::1::::<><><>0<>0<><>::res://units/resources/unit_resource.gd
+spearman.tres::Resource/Resource::-1::1785950633::0::1::::<><><>0<>0<><>::res://units/resources/unit_resource.gd
+tank.tres::Resource/Resource::-1::1786115109::0::1::::<><><>0<>0<><>::res://units/resources/unit_resource.gd
+titan.tres::Resource/Resource::-1::1785957060::0::1::::<><><>0<>0<><>::res://units/resources/unit_resource.gd
+unit_resource.gd::GDScript/GDScript::6644665224823978619::1785859016::0::1::::<>Resource<><>0<>0<><>::
+::res://units/scenes/::1785939372
+unit_base.tscn::PackedScene/PackedScene::5688164852285053880::1786020175::0::1::::<><><>0<>0<><>::res://units/scripts/unit_base.gd
+::res://units/scripts/::1786371176
+unit_base.gd::GDScript::863957809660629662::1786390665::0::1::::<>CharacterBody3D<><>0<>0<><>::

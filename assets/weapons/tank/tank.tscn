@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" uid="uid://c2w20tv26ogs7" path="res://assets/weapons/tank/scene.gltf" id="1_tank"]
+[ext_resource type="Script" path="res://assets/weapons/tank/tank_color.gd" id="2_script"]
+
+[node name="Tank" type="Node3D"]
+script = ExtResource("2_script")
+
+[node name="TankModel" parent="." instance=ExtResource("1_tank")]
+position = Vector3(0, 0.994, 0)

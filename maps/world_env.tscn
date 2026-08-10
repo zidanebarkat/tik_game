@@ -1,0 +1,78 @@
+[gd_scene load_steps=5 format=3 uid="uid://dk471efh2pigy"]
+
+[ext_resource type="ArrayMesh" uid="uid://bn3vlarjv2gpd" path="res://assets/environments/terrain_valley.obj" id="1_valley"]
+[ext_resource type="PackedScene" uid="uid://dwv4heu8kukp" path="res://assets/environments/mountain_low_poly.glb" id="2_mtn"]
+
+[sub_resource type="StandardMaterial3D" id="mat_floor"]
+albedo_color = Color(0.15, 0.17, 0.12, 1)
+
+[sub_resource type="PlaneMesh" id="plane_floor"]
+material = SubResource("mat_floor")
+size = Vector2(6000, 4000)
+
+[node name="WorldEnv" type="Node3D"]
+
+[node name="WorldFloor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+mesh = SubResource("plane_floor")
+
+[node name="ValleyTerrain" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+mesh = ExtResource("1_valley")
+
+[node name="Mount0" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 700, 0, 0)
+
+[node name="Mountain" parent="Mount0" instance=ExtResource("2_mtn")]
+transform = Transform3D(1.2, 3.62448e-07, -3.89965e-07, -3.89965e-07, 1.19679, -0.087656, 3.62448e-07, 0.087656, 1.19679, -270.634, -62.5052, -8.81839e-05)
+
+[node name="Mount2" type="Node3D" parent="."]
+transform = Transform3D(-3.37914e-07, 5.99954, -0.0740275, -7.15369e-08, 0.0740275, 5.99954, 6, 3.38771e-07, 6.73623e-08, -648.636, -49.6492, 828.371)
+
+[node name="Mountain" parent="Mount2" instance=ExtResource("2_mtn")]
+transform = Transform3D(0.2, 0, 0, 0, 1.50996e-08, -0.2, 0, 0.2, 1.50996e-08, 0, 141, 0)
+
+[node name="Mount4" type="Node3D" parent="."]
+transform = Transform3D(1, 0, -3.01992e-07, 0, 1, 0, 3.01992e-07, 0, 1, -700, 0, 0)
+
+[node name="Mountain" parent="Mount4" instance=ExtResource("2_mtn")]
+transform = Transform3D(1.2, -3.63876e-07, 3.62387e-07, 3.62387e-07, 1.19999, 0.00492171, -3.63876e-07, -0.00492171, 1.19999, -411.777, -33.7249, 0.000124353)
+
+[node name="Mountain" parent="Mount4/Mountain" instance=ExtResource("2_mtn")]
+transform = Transform3D(1.2, -3.63876e-07, 3.62387e-07, 3.62387e-07, 1.19999, 0.00492171, -3.63876e-07, -0.00492171, 1.19999, -11.6566, -31.2172, -611.438)
+
+[node name="Mountain" parent="Mount4/Mountain/Mountain" instance=ExtResource("2_mtn")]
+transform = Transform3D(-0.898386, -0.00978693, 0.795492, 0.00652736, 1.19978, 0.0221325, -0.795525, 0.0208967, -0.898167, 1294.02, -43.2143, 850.983)
+
+[node name="Mountain" parent="Mount4/Mountain/Mountain/Mountain" instance=ExtResource("2_mtn")]
+transform = Transform3D(-0.374925, -0.0115439, 1.13987, 0.0107641, 1.19985, 0.0156919, -1.13988, 0.0151274, -0.374774, 525.163, -39.363, 538.046)
+
+[node name="Mount4" type="Node3D" parent="Mount4"]
+transform = Transform3D(0.147223, 0, 0.989103, 0, 1, 0, -0.989103, 0, 0.147223, -116.322, 0, 322.464)
+
+[node name="Mountain" parent="Mount4/Mount4" instance=ExtResource("2_mtn")]
+transform = Transform3D(1.2, -3.63876e-07, 3.62387e-07, 3.62387e-07, 1.19999, 0.00492171, -3.63876e-07, -0.00492171, 1.19999, -411.777, -33.7249, 0.000124353)
+
+[node name="Mount0" type="Node3D" parent="Mount4"]
+transform = Transform3D(0.996922, 0, 0.0784072, 0, 1, 0, -0.0784072, 0, 0.996922, -266.397, 0, 27.3806)
+
+[node name="Mountain" parent="Mount4/Mount0" instance=ExtResource("2_mtn")]
+transform = Transform3D(1.2, 3.62448e-07, -3.89965e-07, -3.89965e-07, 1.19679, -0.087656, 3.62448e-07, 0.087656, 1.19679, -270.634, -62.5052, -8.81839e-05)
+
+[node name="Mount2" type="Node3D" parent="Mount4"]
+transform = Transform3D(-0.470441, -5.98107, 0.0737996, -7.29286e-08, 0.0740275, 5.99954, -5.98153, 0.470406, -0.00580435, 1013.14, -49.6492, -904.183)
+
+[node name="Mountain" parent="Mount4/Mount2" instance=ExtResource("2_mtn")]
+transform = Transform3D(0.2, 0, 0, 0, 1.50996e-08, -0.2, 0, 0.2, 1.50996e-08, 0, 141, 0)
+
+[node name="Mount5" type="Node3D" parent="Mount4"]
+transform = Transform3D(-0.996922, 0, -0.0784066, 0, 1, 0, 0.0784066, 0, -0.996922, 1129.29, 0, -82.3892)
+
+[node name="Mountain" parent="Mount4/Mount5" instance=ExtResource("2_mtn")]
+transform = Transform3D(1.2, -3.63876e-07, 3.62387e-07, 3.62387e-07, 1.19999, 0.00492171, -3.63876e-07, -0.00492171, 1.19999, -411.777, -33.7249, 0.000124353)
+
+[node name="Mount4" type="Node3D" parent="Mount4/Mount5"]
+transform = Transform3D(0.147223, 0, 0.989103, 0, 1, 0, -0.989103, 0, 0.147223, -116.322, 0, 322.464)
+
+[node name="Mountain" parent="Mount4/Mount5/Mount4" instance=ExtResource("2_mtn")]
+transform = Transform3D(1.2, -3.63876e-07, 3.62387e-07, 3.62387e-07, 1.19999, 0.00492171, -3.63876e-07, -0.00492171, 1.19999, -411.777, -33.7249, 0.000124353)

@@ -1,0 +1,242 @@
+extends CanvasLayer
+
+@onready var fps_label: Label = $MarginContainer/VBoxContainer/FPSLabel
+@onready var population_label: Label = $MarginContainer/VBoxContainer/PopulationLabel
+@onready var kills_label: Label = $MarginContainer/VBoxContainer/KillsLabel
+@onready var time_label: Label = $MarginContainer/VBoxContainer/TimeLabel
+@onready var gift_feed: VBoxContainer = $MarginContainer/VBoxContainer/GiftFeed
+@onready var kill_feed: VBoxContainer = $MarginContainer/VBoxContainer/KillFeed
+@onready var status_label: Label = $StatusLabel
+@onready var hints_label: Label = $HintsLabel
+@onready var countdown_label: Label = $CountdownLabel
+@onready var start_fight_button: Button = $StartFightButton
+@onready var spectate_panel: PanelContainer = $SpectatePanel
+@onready var spectate_name: Label = $SpectatePanel/SpectateBox/SpectateInfo/SpectateName
+@onready var spectate_tag: Label = $SpectatePanel/SpectateBox/SpectateInfo/SpectateTag
+@onready var spectate_hp: ProgressBar = $SpectatePanel/SpectateBox/SpectateInfo/SpectateHP
+@onready var spectate_portrait: TextureRect = $SpectatePanel/SpectateBox/SpectatePortrait
+@onready var leaderboard_panel: PanelContainer = $LeaderboardPanel
+@onready var leaderboard_box: VBoxContainer = $LeaderboardPanel/LeaderboardBox
+@onready var arrival_panel: PanelContainer = $ArrivalPanel
+@onready var arrival_portrait: TextureRect = $ArrivalPanel/ArrivalBox/ArrivalPortrait
+@onready var arrival_label: Label = $ArrivalPanel/ArrivalBox/ArrivalInfo/ArrivalLabel
+@onready var arrival_tier: Label = $ArrivalPanel/ArrivalBox/ArrivalInfo/ArrivalTier
+
+signal arrival_began(viewer_name: String)
+
+var battle_manager = null
+var main_scene = null
+var commander_manager = null
+var max_feed_items: int = 10
+var max_kill_feed_items: int = 5
+var _leaderboard_labels: Array = []
+
+const ARRIVAL_HOLD := 2.6
+var _arrival_queue: Array = []
+var _arrival_active := false
+var _arrival_timer := 0.0
+
+func _process(_delta: float) -> void:
+	if fps_label:
+		fps_label.text = "FPS: %d" % Engine.get_frames_per_second()
+	if battle_manager:
+		if time_label:
+			time_label.text = "Time: %.1f" % battle_manager.battle_time
+		if kills_label:
+			var total_kills = 0
+			for f in battle_manager.factions:
+				total_kills += f.kills
+			kills_label.text = "Kills: %d" % total_kills
+		if population_label:
+			var total_pop = 0
+			for f in battle_manager.factions:
+				total_pop += f.population
+			population_label.text = "Population: %d" % total_pop
+	_update_spectate_panel()
+	_update_arrival()
+
+func queue_arrival(viewer_name: String, viewer_id: String, tier: String, portrait: Texture2D) -> void:
+	_arrival_queue.append({
+		"name": viewer_name,
+		"id": viewer_id,
+		"tier": tier,
+		"portrait": portrait,
+	})
+	if not _arrival_active:
+		_show_next_arrival()
+
+func _show_next_arrival() -> void:
+	if _arrival_queue.is_empty():
+		_arrival_active = false
+		if arrival_panel:
+			arrival_panel.visible = false
+		return
+	_arrival_active = true
+	var ev = _arrival_queue.pop_front()
+	if arrival_panel:
+		arrival_panel.visible = true
+	var eng = RegistryAccess.get_engagement()
+	var title := ""
+	if eng:
+		title = eng.get_title(ev.id)
+	if arrival_label:
+		var prefix := "%s " % title if not title.is_empty() else ""
+		arrival_label.text = "%s%s's warband has arrived!" % [prefix, ev.name]
+	if arrival_tier:
+		arrival_tier.text = "%s Commander warband" % ev.tier.capitalize()
+	if arrival_portrait:
+		arrival_portrait.texture = ev.portrait if ev.portrait else null
+	if commander_manager and commander_manager.has_method("play_horn"):
+		commander_manager.play_horn()
+	arrival_began.emit(ev.name)
+	_arrival_timer = ARRIVAL_HOLD
+
+func _update_arrival() -> void:
+	if not _arrival_active:
+		return
+	_arrival_timer -= get_process_delta_time()
+	if _arrival_timer <= 0.0:
+		if arrival_panel:
+			arrival_panel.visible = false
+		_arrival_active = false
+		_show_next_arrival()
+
+func _update_spectate_panel() -> void:
+	if not spectate_panel:
+		return
+	var sc = RegistryAccess.get_spectator()
+	if sc == null or not sc.is_spectating():
+		spectate_panel.visible = false
+		return
+	var t = sc.get_current_target()
+	if t == null or not is_instance_valid(t):
+		spectate_panel.visible = false
+		return
+	spectate_panel.visible = true
+	spectate_name.text = t.get_display_name()
+	spectate_hp.max_value = t.stats.max_health
+	spectate_hp.value = t.current_health
+	var is_cmd = t.get_unit_type() == "commander"
+	if is_cmd:
+		spectate_tag.text = "COMMANDER"
+		spectate_portrait.visible = t.portrait_texture != null
+		if t.portrait_texture:
+			spectate_portrait.texture = t.portrait_texture
+	elif not t.commander_id.is_empty():
+		spectate_tag.text = "fighting for %s" % t.commander_name
+		spectate_portrait.visible = false
+	else:
+		spectate_tag.text = ""
+		spectate_portrait.visible = false
+
+func setup(bm, ms = null) -> void:
+	battle_manager = bm
+	main_scene = ms
+	battle_manager.state_changed.connect(_on_state_changed)
+	battle_manager.countdown_tick.connect(_on_countdown_tick)
+	start_fight_button.pressed.connect(_on_start_fight_pressed)
+	var eng = RegistryAccess.get_engagement()
+	if eng:
+		eng.kill_feed_entry.connect(_on_kill_feed_entry)
+		eng.leaderboard_changed.connect(_refresh_leaderboard)
+	_on_state_changed(battle_manager.current_state)
+
+func _on_state_changed(new_state) -> void:
+	countdown_label.visible = false
+	hints_label.visible = false
+	match new_state:
+		battle_manager.BattleState.MENU:
+			status_label.text = "MENU"
+			start_fight_button.visible = false
+		battle_manager.BattleState.IDLE:
+			status_label.text = "WAITING FOR VIEWERS - press SPACE or Start Fight when ready."
+			hints_label.visible = true
+			hints_label.text = "TEST SPAWNS | RED: Q=Knight W=Militia A=Spearman D=Titan | BLUE: E=Knight S=Militia F=Spearman G=Titan"
+			start_fight_button.visible = true
+		battle_manager.BattleState.COUNTDOWN:
+			status_label.text = "GET READY!"
+			start_fight_button.visible = false
+			countdown_label.visible = true
+		battle_manager.BattleState.BATTLE:
+			status_label.text = "FIGHT!"
+			start_fight_button.visible = false
+		battle_manager.BattleState.VICTORY:
+			status_label.text = "BATTLE OVER - press R for a new round, ESC for menu"
+			start_fight_button.visible = false
+		battle_manager.BattleState.RESET:
+			status_label.text = "RESET"
+			start_fight_button.visible = false
+	_refresh_leaderboard()
+
+func _on_countdown_tick(seconds_left: float) -> void:
+	if seconds_left <= 0.0:
+		countdown_label.visible = false
+	else:
+		countdown_label.text = str(ceili(seconds_left))
+
+func _on_start_fight_pressed() -> void:
+	if main_scene and main_scene.has_method("request_countdown"):
+		main_scene.request_countdown()
+
+func add_gift_feed_item(sender: String, gift: String, count: int, team: int = -1) -> void:
+	if not gift_feed:
+		return
+	var label = Label.new()
+	var tag := ""
+	match team:
+		0:
+			tag = "[RED] "
+		1:
+			tag = "[BLUE] "
+	label.text = "%s%s sent %d x %s" % [tag, sender, count, gift]
+	label.add_theme_font_size_override("font_size", 14)
+	gift_feed.add_child(label)
+	if gift_feed.get_child_count() > max_feed_items:
+		gift_feed.get_child(0).queue_free()
+
+func _on_kill_feed_entry(entry: Dictionary) -> void:
+	if not kill_feed:
+		return
+	var label = Label.new()
+	label.text = "%s's %s slew a %s" % [entry.commander_name, entry.killer_label, entry.victim_label]
+	label.add_theme_font_size_override("font_size", 13)
+	label.add_theme_color_override("font_color", entry.color)
+	kill_feed.add_child(label)
+	while kill_feed.get_child_count() > max_kill_feed_items + 1:
+		var first = kill_feed.get_child(1)
+		if not first:
+			break
+		kill_feed.remove_child(first)
+		first.queue_free()
+
+func _get_leaderboard_label(index: int) -> Label:
+	while _leaderboard_labels.size() <= index:
+		var label = Label.new()
+		label.add_theme_font_size_override("font_size", 13)
+		leaderboard_box.add_child(label)
+		_leaderboard_labels.append(label)
+	return _leaderboard_labels[index]
+
+func _refresh_leaderboard() -> void:
+	var eng = RegistryAccess.get_engagement()
+	if not eng or not leaderboard_panel:
+		return
+	var entries = eng.get_leaderboard(3)
+	if entries.is_empty() or not battle_manager \
+			or battle_manager.current_state == battle_manager.BattleState.MENU \
+			or battle_manager.current_state == battle_manager.BattleState.RESET:
+		leaderboard_panel.visible = false
+		return
+	leaderboard_panel.visible = true
+	for i in range(3):
+		var label: Label = _get_leaderboard_label(i)
+		if i < entries.size():
+			var e = entries[i]
+			var title: String = str(e.title)
+			if str(e.title).is_empty():
+				title = "-"
+			label.text = "%d. %s   %s   (%d)" % [i + 1, e.name, title, int(e.spend)]
+			label.add_theme_color_override("font_color", e.color)
+			label.visible = true
+		else:
+			label.visible = false

@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://xt2hebm6i2mt"
+path.s3tc="res://.godot/imported/mountain_low_poly_1.png-2457a3a91212688c1ccbc75ab532a250.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "d85b2e8f04cab6b1b9323d3229c0cd0d"
+}
+
+[deps]
+
+source_file="res://assets/environments/mountain_low_poly_1.png"
+dest_files=["res://.godot/imported/mountain_low_poly_1.png-2457a3a91212688c1ccbc75ab532a250.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

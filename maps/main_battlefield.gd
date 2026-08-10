@@ -1,0 +1,299 @@
+extends Node3D
+
+const TEST_SPAWN_KEYS := {
+	KEY_Q: {"faction": 0, "unit": "knight"},
+	KEY_W: {"faction": 0, "unit": "militia"},
+	KEY_A: {"faction": 0, "unit": "spearman"},
+	KEY_D: {"faction": 0, "unit": "titan"},
+	KEY_T: {"faction": 0, "unit": "tank"},
+	KEY_E: {"faction": 1, "unit": "knight"},
+	KEY_S: {"faction": 1, "unit": "militia"},
+	KEY_F: {"faction": 1, "unit": "spearman"},
+	KEY_G: {"faction": 1, "unit": "titan"},
+	KEY_Y: {"faction": 1, "unit": "tank"},
+}
+
+@onready var battle_manager = $BattleManager
+@onready var spawn_manager = $SpawnManager
+@onready var gift_manager = $GiftManager
+@onready var team_manager = $TeamManager
+@onready var websocket_client = $WebSocketClient
+@onready var hud = $HUD
+@onready var main_menu = $MainMenu
+@onready var camera: Camera3D = $RTSCamera
+
+var arrival_cut_enabled := true
+var _pending_cut_cmd = null
+var _arrival_cam: Camera3D = null
+var _arrival_cut_timer := 0.0
+
+var overview_cut_enabled := true
+var overview_cut_interval := 45.0
+var overview_cut_duration := 4.0
+var _overview_cam: Camera3D = null
+var _overview_timer := 0.0
+var _overview_active := false
+var _overview_elapsed := 0.0
+var _overview_mid: Vector3 = Vector3.ZERO
+var _overview_span: Vector3 = Vector3.RIGHT
+
+func _process(delta: float) -> void:
+	if _arrival_cut_timer > 0.0:
+		_arrival_cut_timer -= delta
+		var sc = RegistryAccess.get_spectator()
+		if sc and sc.is_spectating():
+			_arrival_cut_timer = 0.0
+		if _arrival_cut_timer <= 0.0:
+			_restore_broadcast_camera()
+	if _overview_active:
+		_update_overview_cut(delta)
+	elif overview_cut_enabled and _arrival_cut_timer <= 0.0:
+		var sc = RegistryAccess.get_spectator()
+		if battle_manager and battle_manager.current_state == battle_manager.BattleState.BATTLE \
+				and sc and sc.is_spectating():
+			_overview_timer += delta
+			if _overview_timer >= overview_cut_interval:
+				_overview_timer = 0.0
+				_start_overview_cut()
+
+func _restore_broadcast_camera() -> void:
+	if _arrival_cam and _arrival_cam.is_current() and camera:
+		camera.make_current()
+
+## Part 10: a periodic wide strategic pan across the whole field, interleaved
+## with the spectator cuts, so the broadcast alternates between "look how many
+## people are helping" and "that's you, right there".
+func _start_overview_cut() -> void:
+	if _overview_active or battle_manager == null:
+		return
+	var c0 := _faction_spawn_center(0)
+	var c1 := _faction_spawn_center(1)
+	var mid := (c0 + c1) * 0.5
+	var axis := c1 - c0
+	axis.y = 0.0
+	if axis.length() < 1.0:
+		axis = Vector3(1.0, 0.0, 0.0)
+	axis = axis.normalized()
+	_overview_mid = mid
+	_overview_span = axis
+	if _overview_cam == null:
+		_overview_cam = Camera3D.new()
+		_overview_cam.name = "OverviewCam"
+		_overview_cam.fov = 65.0
+		add_child(_overview_cam)
+	_overview_cam.make_current()
+	_overview_active = true
+	_overview_elapsed = 0.0
+
+func _update_overview_cut(delta: float) -> void:
+	_overview_elapsed += delta
+	var t := clampf(_overview_elapsed / overview_cut_duration, 0.0, 1.0)
+	var pan := 1.0 - 2.0 * t
+	var height := 55.0
+	var cam_pos := _overview_mid + _overview_span * (pan * 60.0) + Vector3(0, height, 0)
+	_overview_cam.global_position = cam_pos
+	_overview_cam.look_at(_overview_mid + _overview_span * (pan * 8.0) + Vector3(0, 2.0, 0), Vector3.UP)
+	if _overview_elapsed >= overview_cut_duration:
+		_end_overview_cut()
+
+func _end_overview_cut() -> void:
+	_overview_active = false
+	var sc = RegistryAccess.get_spectator()
+	if sc and sc.is_spectating() and sc.get_current_target() != null:
+		sc.camera.current = true
+	elif camera:
+		camera.make_current()
+
+func _faction_spawn_center(fid: int) -> Vector3:
+	var f = battle_manager.get_faction(fid)
+	var acc := Vector3.ZERO
+	if f and f.faction_data and f.faction_data.spawn_areas.size() > 0:
+		for a in f.faction_data.spawn_areas:
+			acc += a
+		acc /= f.faction_data.spawn_areas.size()
+	return acc
+
+func _ready() -> void:
+	battle_manager.register_faction($FactionRed)
+	battle_manager.register_faction($FactionBlue)
+	spawn_manager.battle_manager = battle_manager
+	gift_manager.battle_manager = battle_manager
+	gift_manager.spawn_manager = spawn_manager
+	gift_manager.team_manager = team_manager
+	team_manager.battle_manager = battle_manager
+	var cm = RegistryAccess.get_commander_manager()
+	if cm:
+		cm.battle_manager = battle_manager
+		cm.default_faction_id = 0
+		gift_manager.commander_manager = cm
+		cm.warband_spawned.connect(_on_warband_spawned)
+	if hud:
+		hud.setup(battle_manager, self)
+		hud.commander_manager = cm
+		hud.arrival_began.connect(_on_arrival_began)
+	websocket_client.gift_received.connect(_on_gift_received)
+	websocket_client.comment_received.connect(_on_comment_received)
+	websocket_client.command_received.connect(_on_command_received)
+	var sc = RegistryAccess.get_spectator()
+	if sc:
+		sc.setup(camera)
+	if main_menu:
+		main_menu.setup(self)
+	battle_manager.battle_ended.connect(_on_battle_ended)
+
+func start_game() -> void:
+	battle_manager.start_game()
+
+func request_countdown() -> bool:
+	return battle_manager.request_countdown()
+
+func _on_gift_received(gift_name: String, sender: String, count: int, user_id: String = "") -> void:
+	var team: int = team_manager.get_team(user_id if not user_id.is_empty() else sender)
+	gift_manager.process_gift(gift_name, sender, count, user_id)
+	if hud:
+		hud.add_gift_feed_item(sender, gift_name, count, team)
+
+func _on_comment_received(sender: String, user_id: String, text: String) -> void:
+	var uid := user_id if not user_id.is_empty() else sender
+	var team: int = team_manager.parse_team_comment(text)
+	if team != -1:
+		team_manager.assign_team(uid, team)
+		if hud:
+			hud.add_gift_feed_item("JOIN", "%s joined %s" % [sender, team_manager.get_team_name(uid)], 0)
+
+func _on_command_received(cmd: String) -> void:
+	match cmd:
+		"start_game":
+			start_game()
+		"countdown":
+			if battle_manager.current_state == battle_manager.BattleState.IDLE:
+				request_countdown()
+		"new_round":
+			if battle_manager.current_state != battle_manager.BattleState.MENU:
+				battle_manager.start_game()
+		"menu":
+			battle_manager.change_state(battle_manager.BattleState.MENU)
+			if main_menu:
+				main_menu.visible = true
+		"pause":
+			battle_manager.toggle_pause()
+		"speed1x":
+			battle_manager.set_game_speed(1.0)
+		"speed2x":
+			battle_manager.set_game_speed(2.0)
+		"clear_teams":
+			team_manager.clear()
+		_:
+			if cmd.begins_with("spawn_commander "):
+				var tier := cmd.trim_prefix("spawn_commander ").strip_edges()
+				_fire_commander_gift(tier)
+			elif cmd == "arrival_cut on":
+				arrival_cut_enabled = true
+			elif cmd == "arrival_cut off":
+				arrival_cut_enabled = false
+
+func _fire_commander_gift(tier: String) -> void:
+	var cm = RegistryAccess.get_commander_manager()
+	if cm:
+		cm.debug_spawn(tier)
+		if hud:
+			hud.add_gift_feed_item("CMD", "spawning %s warband" % tier, 1)
+
+func _on_warband_spawned(viewer_name: String, viewer_id: String, tier: String, commander_unit) -> void:
+	_pending_cut_cmd = commander_unit
+	if hud:
+		var cm = RegistryAccess.get_commander_manager()
+		var portrait = cm.get_viewer_portrait(viewer_id) if cm else null
+		hud.queue_arrival(viewer_name, viewer_id, tier, portrait)
+
+func _on_arrival_began(_viewer_name: String) -> void:
+	if not arrival_cut_enabled:
+		return
+	if _pending_cut_cmd == null or not is_instance_valid(_pending_cut_cmd):
+		return
+	var sc = RegistryAccess.get_spectator()
+	if sc and sc.is_spectating():
+		return
+	if _arrival_cam == null:
+		_arrival_cam = Camera3D.new()
+		_arrival_cam.name = "ArrivalCam"
+		_arrival_cam.fov = 60.0
+		add_child(_arrival_cam)
+	var cmd_pos = _pending_cut_cmd.global_position
+	var dir = _pending_cut_cmd.global_basis.z
+	dir.y = 0.0
+	dir = dir.normalized() if dir.length() > 0.01 else Vector3(0, 0, 1)
+	_arrival_cam.global_position = cmd_pos - dir * 26.0 + Vector3(0, 13.0, 0)
+	_arrival_cam.look_at(cmd_pos + Vector3(0, 2.0, 0), Vector3.UP)
+	_arrival_cam.make_current()
+	_arrival_cut_timer = 3.2
+
+func _on_battle_ended(winning_faction) -> void:
+	_end_overview_cut()
+	_restore_broadcast_camera()
+	if hud:
+		var msg = "Draw!" if winning_faction == -1 else "Victory!"
+		if winning_faction >= 0:
+			var f = battle_manager.get_faction(winning_faction)
+			if f and f.faction_data:
+				msg = "%s wins!" % f.faction_data.faction_name
+		hud.add_gift_feed_item("SYSTEM", msg, 0)
+
+func _get_spawn_pos(faction_id: int) -> Vector3:
+	var faction = battle_manager.get_faction(faction_id)
+	if faction and faction.faction_data and faction.faction_data.spawn_areas.size() > 0:
+		var base = faction.faction_data.spawn_areas[0]
+		return base + Vector3(randf_range(-5, 5), 0, randf_range(-5, 5))
+	return Vector3(randf_range(-15, 15), 0, randf_range(-10, 10))
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed:
+		if TEST_SPAWN_KEYS.has(event.keycode):
+			var cfg = TEST_SPAWN_KEYS[event.keycode]
+			_spawn_test_unit(cfg.faction, cfg.unit)
+			return
+		match event.keycode:
+			KEY_SPACE:
+				if battle_manager.current_state == battle_manager.BattleState.IDLE:
+					request_countdown()
+			KEY_1:
+				_fire_commander_gift("bronze")
+			KEY_2:
+				_fire_commander_gift("silver")
+			KEY_3:
+				_fire_commander_gift("gold")
+			KEY_R:
+				if battle_manager.current_state != battle_manager.BattleState.MENU:
+					battle_manager.start_game()
+			KEY_ESCAPE:
+				battle_manager.change_state(battle_manager.BattleState.MENU)
+				if main_menu:
+					main_menu.visible = true
+			KEY_F5:
+				battle_manager.toggle_pause()
+			KEY_F6:
+				_start_debug_battle()
+			KEY_B:
+				var reg = RegistryAccess.get_registry()
+				if reg:
+					print("[BattleRegistry] tracked=%d alive=%d" % [reg.alive_units.size(), reg.get_alive_count()])
+
+func _spawn_test_unit(faction_id: int, unit_name: String) -> void:
+	var state = battle_manager.current_state
+	if state == battle_manager.BattleState.MENU or state == battle_manager.BattleState.RESET:
+		return
+	var res = load("res://units/resources/%s.tres" % unit_name)
+	if res == null:
+		return
+	battle_manager.spawn_unit(res, faction_id, _get_spawn_pos(faction_id))
+	if hud:
+		hud.add_gift_feed_item("TEST", unit_name, 1)
+
+func _start_debug_battle() -> void:
+	battle_manager.start_game()
+	var militia = load("res://units/resources/militia.tres")
+	var knight = load("res://units/resources/knight.tres")
+	for i in range(10):
+		battle_manager.spawn_unit(militia, 0, _get_spawn_pos(0))
+		battle_manager.spawn_unit(knight, 1, _get_spawn_pos(1))
+	request_countdown()

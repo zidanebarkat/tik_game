@@ -1,0 +1,98 @@
+[gd_scene load_steps=21 format=3 uid="uid://c1l44tgrf6ewr"]
+
+[ext_resource type="Script" path="res://maps/main_battlefield.gd" id="0_main"]
+[ext_resource type="Script" path="res://battle/battle_manager.gd" id="1_bm"]
+[ext_resource type="Script" path="res://battle/spawn_manager.gd" id="2_sm"]
+[ext_resource type="Script" path="res://battle/faction_manager.gd" id="3_fm"]
+[ext_resource type="Script" path="res://gift/websocket_client.gd" id="4_ws"]
+[ext_resource type="Script" path="res://gift/gift_manager.gd" id="5_gm"]
+[ext_resource type="Script" path="res://camera/rts_camera.gd" id="6_cam"]
+[ext_resource type="PackedScene" uid="uid://ddbg3dmuhfm4v" path="res://ui/hud/battle_hud.tscn" id="7_hud"]
+[ext_resource type="PackedScene" path="res://ui/menus/main_menu.tscn" id="8_menu"]
+[ext_resource type="Resource" uid="uid://c3tvkckphp3mk" path="res://battle/faction_red.tres" id="9_red"]
+[ext_resource type="Resource" uid="uid://sl3ddho6ivhu" path="res://battle/faction_blue.tres" id="10_blue"]
+[ext_resource type="Script" path="res://battle/team_manager.gd" id="11_tm"]
+[ext_resource type="PackedScene" path="res://maps/battlefield_scale.tscn" id="14_scale"]
+[ext_resource type="PackedScene" uid="uid://wfp362r25aboq" path="res://maps/battlefield_ground.tscn" id="15_ground"]
+[ext_resource type="Script" path="res://env/mountain_ring.gd" id="16_ring"]
+
+[sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
+sky_top_color = Color(0.52, 0.48, 0.42, 1)
+sky_horizon_color = Color(0.78, 0.74, 0.64, 1)
+ground_bottom_color = Color(0.22, 0.2, 0.17, 1)
+ground_horizon_color = Color(0.55, 0.52, 0.44, 1)
+
+[sub_resource type="Sky" id="sky"]
+sky_material = SubResource("sky_mat")
+
+[sub_resource type="Environment" id="env"]
+background_mode = 2
+sky = SubResource("sky")
+ambient_light_source = 2
+ambient_light_energy = 1.4
+ambient_light_color = Color(0.62, 0.55, 0.45, 1)
+ambient_light_sky_contribution = 0.5
+tonemap_mode = 2
+fog_enabled = true
+fog_light_color = Color(0.75, 0.7, 0.58, 1)
+fog_light_energy = 1.0
+fog_density = 0.0025
+fog_sky_affect = 1.0
+
+[node name="MainBattlefield" type="Node3D"]
+script = ExtResource("0_main")
+
+[node name="BattleManager" type="Node" parent="."]
+script = ExtResource("1_bm")
+
+[node name="SpawnManager" type="Node" parent="."]
+script = ExtResource("2_sm")
+
+[node name="TeamManager" type="Node" parent="."]
+script = ExtResource("11_tm")
+
+[node name="FactionRed" type="Node3D" parent="."]
+script = ExtResource("3_fm")
+faction_data = ExtResource("9_red")
+
+[node name="FactionBlue" type="Node3D" parent="."]
+script = ExtResource("3_fm")
+faction_id = 1
+faction_data = ExtResource("10_blue")
+
+[node name="WebSocketClient" type="Node" parent="."]
+script = ExtResource("4_ws")
+
+[node name="GiftManager" type="Node" parent="."]
+script = ExtResource("5_gm")
+
+[node name="RTSCamera" type="Camera3D" parent="."]
+transform = Transform3D(0.777146, -0.228601, 0.586332, -0.31466, 0.665719, 0.676615, -0.545007, -0.710324, 0.445429, 0, 226.395, 40)
+fov = 93.7
+script = ExtResource("6_cam")
+rotate_speed = 5.003
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.5283, 0, -0.84906, -0.72047, 0.5291, 0.4483, 0.44924, 0.84856, -0.27953, 0, 20, 0)
+light_color = Color(1, 0.96, 0.88, 1)
+light_energy = 1.25
+shadow_enabled = true
+shadow_map_size = 1024
+directional_shadow_mode = 0
+directional_shadow_max_distance = 200.0
+directional_shadow_fade_start = 0.85
+shadow_bias = 0.12
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("env")
+
+[node name="BattlefieldScale" parent="." instance=ExtResource("14_scale")]
+
+[node name="Ground" parent="." instance=ExtResource("15_ground")]
+
+[node name="MountainRing" type="Node3D" parent="."]
+script = ExtResource("16_ring")
+
+[node name="HUD" parent="." instance=ExtResource("7_hud")]
+
+[node name="MainMenu" parent="." instance=ExtResource("8_menu")]

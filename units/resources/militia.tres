@@ -1,0 +1,17 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://units/resources/unit_resource.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+unit_name = "Militia"
+description = "Basic infantry unit"
+max_health = 80.0
+armor = 0.0
+move_speed = 4.0
+attack_damage = 8.0
+attack_speed = 1.0
+attack_range = 1.5
+vision_radius = 30.0
+cost = 1
+population_value = 1

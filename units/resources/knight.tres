@@ -1,0 +1,17 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://units/resources/unit_resource.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+unit_name = "Knight"
+description = "Heavy cavalry: fast, charges the flanks"
+max_health = 150.0
+armor = 5.0
+move_speed = 6.5
+attack_damage = 20.0
+attack_speed = 0.7
+attack_range = 1.8
+vision_radius = 45.0
+cost = 5
+population_value = 2

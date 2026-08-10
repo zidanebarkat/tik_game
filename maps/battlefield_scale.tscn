@@ -1,0 +1,49 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Texture2D" path="res://env/soldier_sheet.png" id="1_sheet"]
+[ext_resource type="Shader" path="res://env/rolling_terrain.gdshader" id="2_shader"]
+[ext_resource type="Texture2D" path="res://env/terrain_noise.png" id="3_noise"]
+[ext_resource type="Texture2D" path="res://assets/environments/rocky_ground_0.png" id="4_ground"]
+[ext_resource type="Script" path="res://env/crowd_spawner.gd" id="5_crowd"]
+
+[sub_resource type="ShaderMaterial" id="mat_terrain"]
+shader = ExtResource("2_shader")
+shader_parameter/noise_tex = ExtResource("3_noise")
+shader_parameter/ground_tex = ExtResource("4_ground")
+shader_parameter/base_y = -0.6
+shader_parameter/hill_height = 20.0
+shader_parameter/noise_scale = 0.18
+shader_parameter/texture_tiling = 12.0
+shader_parameter/arena_radius = 450.0
+shader_parameter/hill_fade = 700.0
+
+[sub_resource type="PlaneMesh" id="plane_terrain"]
+size = Vector2(3600, 3600)
+subdivide_width = 45
+subdivide_depth = 45
+material = SubResource("mat_terrain")
+
+[node name="BattlefieldScale" type="Node3D"]
+
+[node name="RollingShell" type="MeshInstance3D" parent="."]
+mesh = SubResource("plane_terrain")
+
+[node name="CrowdRed" type="MultiMeshInstance3D" parent="."]
+script = ExtResource("5_crowd")
+soldier_spritesheet = ExtResource("1_sheet")
+rows = 12
+cols = 30
+spacing = 1.4
+jitter = 0.45
+quad_size = Vector2(1.0, 1.8)
+origin_offset = Vector3(-70, 0, 0)
+
+[node name="CrowdBlue" type="MultiMeshInstance3D" parent="."]
+script = ExtResource("5_crowd")
+soldier_spritesheet = ExtResource("1_sheet")
+rows = 12
+cols = 30
+spacing = 1.4
+jitter = 0.45
+quad_size = Vector2(1.0, 1.8)
+origin_offset = Vector3(70, 0, 0)

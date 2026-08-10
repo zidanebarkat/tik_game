@@ -1,0 +1,17 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://units/resources/unit_resource.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+unit_name = "Tank"
+description = "Armored heavy unit: slow, tough, heavy punch"
+max_health = 800.0
+armor = 15.0
+move_speed = 2.0
+attack_damage = 60.0
+attack_speed = 0.5
+attack_range = 28.0
+vision_radius = 30.0
+cost = 40
+population_value = 10

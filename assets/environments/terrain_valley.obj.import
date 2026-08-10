@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bn3vlarjv2gpd"
+path="res://.godot/imported/terrain_valley.obj-93f9c766b54acce961c4b47258aef8ef.mesh"
+
+[deps]
+
+files=["res://.godot/imported/terrain_valley.obj-93f9c766b54acce961c4b47258aef8ef.mesh"]
+
+source_file="res://assets/environments/terrain_valley.obj"
+dest_files=["res://.godot/imported/terrain_valley.obj-93f9c766b54acce961c4b47258aef8ef.mesh", "res://.godot/imported/terrain_valley.obj-93f9c766b54acce961c4b47258aef8ef.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

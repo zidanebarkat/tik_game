@@ -1,0 +1,17 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://units/resources/unit_resource.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+unit_name = "Titan"
+description = "Massive powerful unit"
+max_health = 500.0
+armor = 10.0
+move_speed = 2.5
+attack_damage = 50.0
+attack_speed = 0.4
+attack_range = 1.5
+vision_radius = 30.0
+cost = 20
+population_value = 5

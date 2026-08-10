@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://c3tvkckphp3mk"]
+
+[ext_resource type="Script" path="res://battle/faction_resource.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+faction_name = "Red Army"
+color = Color(0.9, 0.2, 0.2, 1)
+spawn_areas = Array[Vector3]([Vector3(-12, 0, -10), Vector3(-12, 0, 0), Vector3(-12, 0, 10)])

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gift Siege - TikTok LIVE Test Panel</title>
+<style>
+  :root {
+    --bg: #0f0f14;
+    --panel: #1a1a24;
+    --panel2: #232334;
+    --border: #33334a;
+    --text: #e8e8f0;
+    --muted: #9a9ab0;
+    --red: #fe2c55;
+    --cyan: #25f4ee;
+    --green: #39d98a;
+    --amber: #ffd166;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    padding: 20px;
+  }
+  header { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; flex-wrap: wrap; }
+  h1 { font-size: 20px; letter-spacing: .5px; }
+  h1 b { color: var(--red); }
+  .badge {
+    font-size: 12px; padding: 4px 12px; border-radius: 20px; font-weight: 600;
+    background: var(--panel2); border: 1px solid var(--border);
+  }
+  .badge.on { background: #123d2a; border-color: var(--green); color: var(--green); }
+  .badge.off { background: #3d1219; border-color: var(--red); color: var(--red); }
+  .badge .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; background: currentColor; }
+  .grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  }
+  .card {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 16px;
+  }
+  .card h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 12px; }
+  .buttons { display: flex; flex-wrap: wrap; gap: 8px; }
+  button {
+    background: var(--panel2); color: var(--text); border: 1px solid var(--border);
+    padding: 8px 14px; border-radius: 8px; font-size: 13px; cursor: pointer; font-weight: 600;
+    transition: transform .05s, background .15s;
+  }
+  button:hover { background: #2c2c42; }
+  button:active { transform: scale(.97); }
+  button.red { border-color: var(--red); color: var(--red); }
+  button.red:hover { background: #3d1219; }
+  button.blue { border-color: var(--cyan); color: var(--cyan); }
+  button.blue:hover { background: #0d2a2b; }
+  button.green { border-color: var(--green); color: var(--green); }
+  button.green:hover { background: #123d2a; }
+  button.ghost { background: transparent; }
+  select, input {
+    background: var(--panel2); color: var(--text); border: 1px solid var(--border);
+    padding: 8px; border-radius: 8px; font-size: 13px;
+  }
+  select:focus, input:focus { outline: 1px solid var(--cyan); }
+  .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 10px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--border); }
+  th { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .5px; }
+  .team-tag { font-weight: 700; font-size: 12px; }
+  .team-red { color: var(--red); }
+  .team-blue { color: var(--cyan); }
+  .team-none { color: var(--muted); }
+  #log {
+    grid-column: 1 / -1; max-height: 260px; overflow-y: auto;
+    background: var(--panel2); border: 1px solid var(--border); border-radius: 8px;
+    padding: 10px; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px;
+  }
+  #log div { padding: 2px 0; border-bottom: 1px dashed #2a2a3c; }
+  #log .c-gift { color: var(--green); }
+  #log .c-comment { color: var(--cyan); }
+  #log .c-cmd { color: var(--amber); }
+  #log .c-sys { color: var(--muted); }
+  #log .c-err { color: var(--red); }
+  .gift-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; margin-top: 10px; }
+  .gift-grid button { text-align: left; }
+  .small { font-size: 11px; color: var(--muted); }
+  .footer { margin-top: 16px; font-size: 12px; color: var(--muted); }
+</style>
+</head>
+<body>
+<header>
+  <h1><b>Gift Siege</b> · TikTok LIVE Test Panel</h1>
+  <span id="status" class="badge off"><span class="dot"></span>connecting</span>
+  <span id="clients" class="badge">clients: 0</span>
+</header>
+
+<div class="grid">
+
+  <div class="card">
+    <h2>Game Control</h2>
+    <div class="buttons">
+      <button class="green" onclick="cmd('start_game')">▶ Start Game</button>
+      <button class="red" onclick="cmd('countdown')">⚔ Start Battle</button>
+      <button onclick="cmd('new_round')">↻ New Round</button>
+      <button onclick="cmd('menu')">⌂ Menu</button>
+      <button onclick="cmd('pause')">⏸ Pause</button>
+      <button onclick="cmd('speed1x')">Speed x1</button>
+      <button onclick="cmd('speed2x')">Speed x2</button>
+      <button class="ghost" onclick="cmd('clear_teams')">Clear Teams</button>
+    </div>
+    <div class="small" style="margin-top:10px">
+      Sends <code>cmd</code> messages to the game (start / battle / new round / menu / pause / speed / clear teams). No countdown - battle starts instantly.
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Viewers</h2>
+    <div class="row">
+      <input id="newName" placeholder="viewer name" style="flex:1">
+      <button class="green" onclick="addViewer()">+ Add viewer</button>
+    </div>
+    <table>
+      <thead><tr><th>Viewer</th><th>Team</th><th>Join</th></tr></thead>
+      <tbody id="viewers"></tbody>
+    </table>
+    <div class="small">Join buttons broadcast the viewer's real comment ("red team" / "blue team").</div>
+  </div>
+
+  <div class="card">
+    <h2>Send Gift</h2>
+    <div class="row">
+      <select id="giftSel"></select>
+      <select id="userSel"></select>
+      <input id="giftCount" type="number" min="1" max="99" value="1" style="width:70px">
+      <button class="red" onclick="sendGiftComposer()">Send gift</button>
+    </div>
+    <div class="gift-grid" id="giftGrid"></div>
+  </div>
+
+  <div class="card">
+    <h2>Auto Simulate</h2>
+    <div class="row">
+      <button id="autoBtn" onclick="toggleAuto()">▶ Start auto-sim</button>
+      <span class="small">Random viewers join teams &amp; send gifts every 2s.</span>
+    </div>
+  </div>
+
+  <div class="card" style="grid-column:1/-1">
+    <h2>Event Log (bridge traffic)</h2>
+    <div id="log"></div>
+  </div>
+</div>
+
+<div class="footer">Connect the Godot game, then use this panel to simulate TikTok LIVE comments + gifts.</div>
+
+<script>
+const GIFTS = [
+  { id: "Share", label: "Share · Knight" },
+  { id: "Dragon", label: "Dragon · Titan" },
+  { id: "Castle", label: "Castle · Knight" },
+  { id: "Heart", label: "Heart · Spearman" },
+  { id: "Rose", label: "Rose · Knight" },
+  { id: "Skull", label: "Skull · Titan" },
+  { id: "Phoenix", label: "Phoenix · Knight" },
+  { id: "Lion", label: "Lion · Militia" },
+  { id: "Tiger", label: "Tiger · Spearman" },
+  { id: "Galaxy", label: "Galaxy · Bronze warband", commander: true },
+  { id: "Rocket", label: "Rocket · Silver warband", commander: true },
+  { id: "Universe", label: "Universe · Gold warband", commander: true },
+];
+const COMMANDER_GIFTS = GIFTS.filter((g) => g.commander);
+
+let viewers = [
+  { id: "u_1001", name: "streamfan" },
+  { id: "u_1002", name: "tiff" },
+  { id: "u_1003", name: "noodle" },
+  { id: "u_1004", name: "grimace" },
+  { id: "u_1005", name: "owo" },
+  { id: "u_1006", name: "kitten42" },
+  { id: "u_1007", name: "alex" },
+  { id: "u_1008", name: "bibi" },
+];
+let teamOf = {}; // userId -> 'red' | 'blue'
+let autoTimer = null;
+let ws = null;
+
+const $ = (id) => document.getElementById(id);
+const statusEl = $("status");
+const clientsEl = $("clients");
+
+function connect() {
+  const proto = location.protocol === "https:" ? "wss" : "ws";
+  ws = new WebSocket(`${proto}://${location.host}`);
+  ws.onopen = () => {
+    statusEl.className = "badge on";
+    statusEl.innerHTML = '<span class="dot"></span>connected';
+    log("sys", "panel connected to bridge");
+  };
+  ws.onclose = () => {
+    statusEl.className = "badge off";
+    statusEl.innerHTML = '<span class="dot"></span>disconnected';
+    log("err", "connection lost - retrying in 2s");
+    setTimeout(connect, 2000);
+  };
+  ws.onerror = () => ws.close();
+  ws.onmessage = (e) => {
+    let m;
+    try { m = JSON.parse(e.data); } catch { return; }
+    if (m.type === "status") log("sys", "bridge: " + m.message);
+    else if (m.type === "clients") clientsEl.textContent = "clients: " + m.count;
+    else if (m.type === "comment") {
+      log("comment", `${m.sender} (${m.userId}): ${m.text}`);
+      const t = teamFromText(m.text);
+      if (t) teamOf[m.userId] = t;
+    } else if (m.type === "gift") {
+      log("gift", `${m.sender} sent ${m.gift} x${m.count} [team: ${(teamOf[m.userId] || "auto").toUpperCase()}]`);
+    } else if (m.type === "cmd") log("cmd", "cmd: " + m.cmd);
+  };
+}
+
+function teamFromText(text) {
+  const t = (text || "").toLowerCase();
+  if (!t.includes("team")) return null;
+  if (t.includes("red") && !t.includes("blue")) return "red";
+  if (t.includes("blue") && !t.includes("red")) return "blue";
+  return null;
+}
+
+function send(m) { if (ws && ws.readyState === 1) ws.send(JSON.stringify(m)); }
+
+function cmd(name) { send({ type: "cmd", cmd: name }); }
+
+function log(cls, msg) {
+  const d = document.createElement("div");
+  d.className = "c-" + cls;
+  const t = new Date().toTimeString().slice(0, 8);
+  d.textContent = `[${t}] ${msg}`;
+  const box = $("log");
+  box.appendChild(d);
+  while (box.childNodes.length > 300) box.removeChild(box.firstChild);
+  box.scrollTop = box.scrollHeight;
+}
+
+function joinTeam(user, team) {
+  send({ type: "comment", sender: user.name, userId: user.id, text: team + " team" });
+  teamOf[user.id] = team;
+  renderViewers();
+}
+
+function renderViewers() {
+  const tb = $("viewers");
+  tb.innerHTML = "";
+  for (const v of viewers) {
+    const tr = document.createElement("tr");
+    const t = teamOf[v.id];
+    const tag = t ? `<span class="team-tag team-${t}">${t.toUpperCase()}</span>` : '<span class="team-tag team-none">—</span>';
+    tr.innerHTML = `
+      <td>${v.name} <span class="small">(${v.id})</span></td>
+      <td>${tag}</td>
+      <td>
+        <button class="red" onclick="joinTeam(findViewer('${v.id}'),'red')">RED</button>
+        <button class="blue" onclick="joinTeam(findViewer('${v.id}'),'blue')">BLUE</button>
+      </td>`;
+    tb.appendChild(tr);
+  }
+  // refresh gift target select without losing selection
+  const sel = $("userSel");
+  const prev = sel.value;
+  sel.innerHTML = "";
+  for (const v of viewers) {
+    const o = document.createElement("option");
+    o.value = v.id; o.textContent = v.name;
+    sel.appendChild(o);
+  }
+  if (prev) sel.value = prev;
+}
+
+function findViewer(id) { return viewers.find((v) => v.id === id) || viewers[0]; }
+
+function addViewer() {
+  const name = $("newName").value.trim();
+  if (!name) return;
+  const id = "u_" + Math.floor(1000 + Math.random() * 9000);
+  viewers.push({ id, name });
+  $("newName").value = "";
+  renderViewers();
+  log("sys", `viewer added: ${name} (${id})`);
+}
+
+function sendGiftComposer() {
+  const id = $("userSel").value;
+  const v = findViewer(id);
+  const gift = $("giftSel").value;
+  const count = Math.max(1, Math.min(99, Number($("giftCount").value) || 1));
+  send({ type: "gift", gift, sender: v.name, userId: v.id, count });
+}
+
+function sendGiftQuick(gift) {
+  const v = viewers[Math.floor(Math.random() * viewers.length)];
+  send({ type: "gift", gift, sender: v.name, userId: v.id, count: 1 });
+}
+
+function toggleAuto() {
+  if (autoTimer) {
+    clearInterval(autoTimer);
+    autoTimer = null;
+    $("autoBtn").textContent = "▶ Start auto-sim";
+    log("sys", "auto-sim stopped");
+    return;
+  }
+  $("autoBtn").textContent = "⏸ Stop auto-sim";
+  log("sys", "auto-sim started");
+  const tick = () => {
+    // a random viewer sometimes joins a team
+    if (Math.random() < 0.5) {
+      const v = viewers[Math.floor(Math.random() * viewers.length)];
+      const team = Math.random() < 0.5 ? "red" : "blue";
+      joinTeam(v, team);
+    }
+    const v = viewers[Math.floor(Math.random() * viewers.length)];
+    // rarely, a viewer drops a commander-tier gift -> whole warband arrives
+    if (Math.random() < 0.35) {
+      const gift = COMMANDER_GIFTS[Math.floor(Math.random() * COMMANDER_GIFTS.length)].id;
+      send({ type: "gift", gift, sender: v.name, userId: v.id, count: 1 });
+      log("sys", "⚔ commander warband gift: " + gift);
+      return;
+    }
+    const gift = GIFTS[Math.floor(Math.random() * GIFTS.length)].id;
+    const count = 1 + Math.floor(Math.random() * 5);
+    send({ type: "gift", gift, sender: v.name, userId: v.id, count });
+  };
+  tick();
+  autoTimer = setInterval(tick, 2000);
+}
+
+// build gift UI
+const gs = $("giftSel");
+for (const g of GIFTS) {
+  const o = document.createElement("option");
+  o.value = g.id; o.textContent = g.label;
+  gs.appendChild(o);
+  const b = document.createElement("button");
+  b.textContent = g.label;
+  b.onclick = () => sendGiftQuick(g.id);
+  $("giftGrid").appendChild(b);
+}
+
+renderViewers();
+connect();
+</script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+	"name": "gift-siege-bridge",
+	"version": "0.1.0",
+	"private": true,
+	"description": "Localhost bridge between livestream gift events (TikTok/Kick) and the Godot Gift Siege client.",
+	"type": "module",
+	"main": "src/server.js",
+	"scripts": {
+		"start": "node src/server.js",
+		"simulate": "node src/simulator.js"
+	},
+	"dependencies": {
+		"ws": "^8.18.0"
+	}
+}

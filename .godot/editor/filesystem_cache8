@@ -1,0 +1,240 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1786397683
+titan_rig.tscn::PackedScene::5746890588784853699::1785931472::0::1::::<><>::uid://bto1oej15m4ve::::res://assets/characters/godzilla_rigged_animated_0.jpg<>uid://cvl5i1i3qq273::::res://assets/characters/godzilla_rigged_animated_1.jpg<>uid://da2ae16d6uv34::::res://assets/characters/godzilla_rigged_animated_2.jpg
+::res://addons/::1785852576
+::res://ai/::1786371176
+state_machine.gd::GDScript::-1::1786195464::0::1::::<>RefCounted<>::
+::res://assets/::1786029504
+::res://assets/audio/::1785852576
+::res://assets/characters/::1786397729
+godzilla_rigged_animated.glb::PackedScene::9061674965807018566::1785877628::1786397729::1::::<><>::uid://bto1oej15m4ve::::res://assets/characters/godzilla_rigged_animated_0.jpg<>uid://cvl5i1i3qq273::::res://assets/characters/godzilla_rigged_animated_1.jpg<>uid://da2ae16d6uv34::::res://assets/characters/godzilla_rigged_animated_2.jpg
+godzilla_rigged_animated_0.jpg::CompressedTexture2D::3750513869517707138::1785856588::1786397712::1::::<><>::
+godzilla_rigged_animated_1.jpg::CompressedTexture2D::6271352414473546312::1785856588::1786397712::1::::<><>::
+godzilla_rigged_animated_2.jpg::CompressedTexture2D::7215008807289121369::1785856589::1786397712::1::::<><>::
+::res://assets/characters/environments/::1785852576
+::res://assets/environments/::1786397747
+mountain_low_poly.glb::PackedScene::257310061170642707::1786022215::1786397747::1::::<><>::uid://c01ox58vypj40::::res://assets/environments/mountain_low_poly_0.png<>uid://xt2hebm6i2mt::::res://assets/environments/mountain_low_poly_1.png<>uid://crolghi0jhtmi::::res://assets/environments/mountain_low_poly_2.png
+mountain_low_poly_0.png::CompressedTexture2D::6582129018766975983::1786022225::1786397712::1::::<><>::
+mountain_low_poly_1.png::CompressedTexture2D::1655218652589111943::1786022226::1786397712::1::::<><>::
+mountain_low_poly_2.png::CompressedTexture2D::5995631980643546452::1786022227::1786397712::1::::<><>::
+rocky_ground.glb::PackedScene::4309371485174189143::1786021376::1786397745::1::::<><>::uid://ct3h8pgqxcfgb::::res://assets/environments/rocky_ground_0.png<>uid://8dkkhgxoqwja::::res://assets/environments/rocky_ground_1.png<>uid://ku6tuh4ducx5::::res://assets/environments/rocky_ground_2.png
+rocky_ground_0.png::CompressedTexture2D::6164716721647583713::1786021394::1786397712::1::::<><>::
+rocky_ground_1.png::CompressedTexture2D::2323050379180617162::1786021396::1786397712::1::::<><>::
+rocky_ground_2.png::CompressedTexture2D::745093210924532068::1786021397::1786397711::1::::<><>::
+terrain_materials.glb::PackedScene::2177525491732849917::1786382446::1786397735::1::::<><>::uid://n5ub0txutilr::::res://assets/environments/terrain_materials_0.png<>uid://cm6wi6ooh3dmg::::res://assets/environments/terrain_materials_1.png<>uid://dngiqemd66e1d::::res://assets/environments/terrain_materials_2.png<>uid://bjile0aeiapv6::::res://assets/environments/terrain_materials_3.png<>uid://do43xsvwj0bf::::res://assets/environments/terrain_materials_4.png<>uid://1kk8jru2kb3m::::res://assets/environments/terrain_materials_5.png<>uid://busfiv62ejpcn::::res://assets/environments/terrain_materials_6.png<>uid://c5hkdx01tpwmf::::res://assets/environments/terrain_materials_7.png<>uid://fc3fpyh2o7w4::::res://assets/environments/terrain_materials_8.png<>uid://byfg0u6de0eo3::::res://assets/environments/terrain_materials_9.png<>uid://bgcladiqrfw1m::::res://assets/environments/terrain_materials_10.png<>uid://boyxbu15fq2ux::::res://assets/environments/terrain_materials_11.png<>uid://ocrgn8yvqmmj::::res://assets/environments/terrain_materials_12.png<>uid://cuqyghjmqpyqe::::res://assets/environments/terrain_materials_13.png<>uid://ba3afmpw2tug2::::res://assets/environments/terrain_materials_14.png<>uid://crr3l3r0a826k::::res://assets/environments/terrain_materials_15.png<>uid://c01xu706g5w7s::::res://assets/environments/terrain_materials_16.png<>uid://bn0bun3mw878e::::res://assets/environments/terrain_materials_17.png<>uid://g1bova0jjl01::::res://assets/environments/terrain_materials_18.png<>uid://w6tqi40pj3cu::::res://assets/environments/terrain_materials_19.png<>uid://yq2bgof7jgjk::::res://assets/environments/terrain_materials_20.png<>uid://chi34boml2hgm::::res://assets/environments/terrain_materials_21.png<>uid://66u5mpvvp5y7::::res://assets/environments/terrain_materials_22.png<>uid://bvkwv6gubqaj1::::res://assets/environments/terrain_materials_23.png<>uid://288unqxsw4ru::::res://assets/environments/terrain_materials_24.png<>uid://dox5358875dgq::::res://assets/environments/terrain_materials_25.png<>uid://5pyauqiwf7qp::::res://assets/environments/terrain_materials_26.png<>uid://c2tm1hc5j408u::::res://assets/environments/terrain_materials_27.png<>uid://efdyutr2yxke::::res://assets/environments/terrain_materials_28.png<>uid://ibovk5mttjmv::::res://assets/environments/terrain_materials_29.png<>uid://gkg6junt5obf::::res://assets/environments/terrain_materials_30.png<>uid://cbuctrpwh5gsk::::res://assets/environments/terrain_materials_31.png<>uid://dpbuftgku3ro8::::res://assets/environments/terrain_materials_32.png<>uid://owik2pl84073::::res://assets/environments/terrain_materials_33.png<>uid://bf807hxc5o4c6::::res://assets/environments/terrain_materials_34.png<>uid://0gdknvo7u8es::::res://assets/environments/terrain_materials_35.png<>uid://clq1tnlpswwc::::res://assets/environments/terrain_materials_36.png<>uid://c8n5x4ofnb6hq::::res://assets/environments/terrain_materials_37.png<>uid://bo7bv2vb16qg2::::res://assets/environments/terrain_materials_38.png<>uid://dbt4sipxl1btr::::res://assets/environments/terrain_materials_39.png<>uid://yltri5ey41rq::::res://assets/environments/terrain_materials_40.png<>uid://cbnnp2vynk5s5::::res://assets/environments/terrain_materials_41.png<>uid://4h6v828tf1yi::::res://assets/environments/terrain_materials_42.png<>uid://ctmvc8fxgj0h3::::res://assets/environments/terrain_materials_43.png<>uid://cni7hwsex2vfu::::res://assets/environments/terrain_materials_44.png
+terrain_materials_0.png::CompressedTexture2D::975603769072983839::1786382480::1786397763::1::::<><>::
+terrain_materials_1.png::CompressedTexture2D::5680454912108216122::1786382481::1786397762::1::::<><>::
+terrain_materials_2.png::CompressedTexture2D::8084617822352703055::1786382482::1786397763::1::::<><>::
+terrain_materials_3.png::CompressedTexture2D::3035311641840125477::1786382482::1786397763::1::::<><>::
+terrain_materials_4.png::CompressedTexture2D::241279851317957331::1786382484::1786397763::1::::<><>::
+terrain_materials_5.png::CompressedTexture2D::1846220313172977032::1786382484::1786397763::1::::<><>::
+terrain_materials_6.png::CompressedTexture2D::3827675379453659061::1786382485::1786397763::1::::<><>::
+terrain_materials_7.png::CompressedTexture2D::6893571095979461917::1786382486::1786397762::1::::<><>::
+terrain_materials_8.png::CompressedTexture2D::356782803745542153::1786382486::1786397763::1::::<><>::
+terrain_materials_9.png::CompressedTexture2D::4081684865078977456::1786382487::1786397762::1::::<><>::
+terrain_materials_10.png::CompressedTexture2D::2812350558628239120::1786382488::1786397762::1::::<><>::
+terrain_materials_11.png::CompressedTexture2D::3420008929352845499::1786382489::1786397762::1::::<><>::
+terrain_materials_12.png::CompressedTexture2D::987816204982286177::1786382490::1786397762::1::::<><>::
+terrain_materials_13.png::CompressedTexture2D::6211116588935545788::1786382491::1786397762::1::::<><>::
+terrain_materials_14.png::CompressedTexture2D::2444232844264997759::1786382492::1786397762::1::::<><>::
+terrain_materials_15.png::CompressedTexture2D::6002867348634877692::1786382493::1786397764::1::::<><>::
+terrain_materials_16.png::CompressedTexture2D::6582670207439329306::1786382493::1786397762::1::::<><>::
+terrain_materials_17.png::CompressedTexture2D::3350582254343915982::1786382495::1786397762::1::::<><>::
+terrain_materials_18.png::CompressedTexture2D::474893705679816464::1786382495::1786397762::1::::<><>::
+terrain_materials_19.png::CompressedTexture2D::1609332932120052704::1786382496::1786397762::1::::<><>::
+terrain_materials_20.png::CompressedTexture2D::1719203773013996604::1786382497::1786397762::1::::<><>::
+terrain_materials_21.png::CompressedTexture2D::5282430233417216252::1786382498::1786397762::1::::<><>::
+terrain_materials_22.png::CompressedTexture2D::2241118431262433136::1786382498::1786397762::1::::<><>::
+terrain_materials_23.png::CompressedTexture2D::3882405091548598876::1786382499::1786397764::1::::<><>::
+terrain_materials_24.png::CompressedTexture2D::1965263329340628346::1786382500::1786397764::1::::<><>::
+terrain_materials_25.png::CompressedTexture2D::8191259690589827000::1786382501::1786397764::1::::<><>::
+terrain_materials_26.png::CompressedTexture2D::2138089258855253687::1786382501::1786397764::1::::<><>::
+terrain_materials_27.png::CompressedTexture2D::6707938729624256530::1786382502::1786397764::1::::<><>::
+terrain_materials_28.png::CompressedTexture2D::291303353982185604::1786382503::1786397764::1::::<><>::
+terrain_materials_29.png::CompressedTexture2D::564463238578059161::1786382504::1786397764::1::::<><>::
+terrain_materials_30.png::CompressedTexture2D::442197005159928479::1786382505::1786397764::1::::<><>::
+terrain_materials_31.png::CompressedTexture2D::4884474047254295014::1786382506::1786397764::1::::<><>::
+terrain_materials_32.png::CompressedTexture2D::8215383359923383329::1786382506::1786397764::1::::<><>::
+terrain_materials_33.png::CompressedTexture2D::1028565157250527832::1786382508::1786397763::1::::<><>::
+terrain_materials_34.png::CompressedTexture2D::2807064841316851239::1786382509::1786397763::1::::<><>::
+terrain_materials_35.png::CompressedTexture2D::1767308082316644286::1786382509::1786397764::1::::<><>::
+terrain_materials_36.png::CompressedTexture2D::164104763643191526::1786382510::1786397763::1::::<><>::
+terrain_materials_37.png::CompressedTexture2D::7117774246335895282::1786382510::1786397763::1::::<><>::
+terrain_materials_38.png::CompressedTexture2D::3435224252073000479::1786382511::1786397763::1::::<><>::
+terrain_materials_39.png::CompressedTexture2D::7270467453544592443::1786382512::1786397763::1::::<><>::
+terrain_materials_40.png::CompressedTexture2D::1708424850712298658::1786382513::1786397763::1::::<><>::
+terrain_materials_41.png::CompressedTexture2D::4870684681321146586::1786382513::1786397763::1::::<><>::
+terrain_materials_42.png::CompressedTexture2D::2051848614734381528::1786382514::1786397763::1::::<><>::
+terrain_materials_43.png::CompressedTexture2D::6132482300041432758::1786382515::1786397763::1::::<><>::
+terrain_materials_44.png::CompressedTexture2D::5703767984572708186::1786382516::1786397763::1::::<><>::
+terrain_valley.obj::Mesh::3357972955381970977::1786022206::1786397722::1::::<><>::uid://dc42einntur2j::::res://assets/environments/terrain_valley_albedo.png
+terrain_valley_albedo.png::CompressedTexture2D::7361153636089531667::1786022207::1786397699::1::::<><>::
+::res://assets/sword_shield/::1786397750
+draw sword 1.fbx::PackedScene::628343659356797313::1785877470::1786397745::1::::<><>::
+draw sword 2.fbx::PackedScene::3805309259597451597::1785877470::1786397746::1::::<><>::
+Paladin WProp J Nordstrom.fbx::PackedScene::839644663426970305::1785877470::1786397747::1::::<><>::uid://dn3mfluhbxaou::::res://assets/sword_shield/Paladin WProp J Nordstrom_0.png<>uid://cek6uuvie8txl::::res://assets/sword_shield/Paladin WProp J Nordstrom_2.png
+Paladin WProp J Nordstrom_0.png::CompressedTexture2D::8130257737343348632::1785877492::1786397699::1::::<><>::
+Paladin WProp J Nordstrom_1.png::CompressedTexture2D::1555929156550918740::1785877496::1786397701::1::::<><>::
+Paladin WProp J Nordstrom_2.png::CompressedTexture2D::5076159545410831853::1785877500::1786397699::1::::<><>::
+sheath sword 1.fbx::PackedScene::7323268162833240418::1785877470::1786397748::1::::<><>::
+sheath sword 2.fbx::PackedScene::3143472056683020285::1785877470::1786397748::1::::<><>::
+sword and shield 180 turn (2).fbx::PackedScene::4927119689219180880::1785877470::1786397748::1::::<><>::
+sword and shield 180 turn.fbx::PackedScene::1465493589672777411::1785877470::1786397748::1::::<><>::
+sword and shield attack (2).fbx::PackedScene::3450456049272324374::1785877470::1786397748::1::::<><>::
+sword and shield attack (3).fbx::PackedScene::3061692409661502273::1785877470::1786397748::1::::<><>::
+sword and shield attack (4).fbx::PackedScene::5951432947510631694::1785877470::1786397748::1::::<><>::
+sword and shield attack.fbx::PackedScene::2782669061133545266::1785877470::1786397748::1::::<><>::
+sword and shield block (2).fbx::PackedScene::6809413862753229035::1785877470::1786397749::1::::<><>::
+sword and shield block idle.fbx::PackedScene::6933832347949228407::1785877470::1786397749::1::::<><>::
+sword and shield block.fbx::PackedScene::1694104243697687300::1785877470::1786397749::1::::<><>::
+sword and shield casting (2).fbx::PackedScene::3985738950343091426::1785877470::1786397749::1::::<><>::
+sword and shield casting.fbx::PackedScene::7514370537491569996::1785877470::1786397749::1::::<><>::
+sword and shield crouch block (2).fbx::PackedScene::444996279187409433::1785877470::1786397749::1::::<><>::
+sword and shield crouch block idle.fbx::PackedScene::8008663323382722037::1785877470::1786397749::1::::<><>::
+sword and shield crouch block.fbx::PackedScene::7783579269019721163::1785877470::1786397749::1::::<><>::
+sword and shield crouch idle.fbx::PackedScene::1061580902738649040::1785877470::1786397749::1::::<><>::
+sword and shield crouch.fbx::PackedScene::9045659433994376203::1785877470::1786397750::1::::<><>::
+sword and shield crouching (2).fbx::PackedScene::7751439363037700723::1785877470::1786397750::1::::<><>::
+sword and shield crouching (3).fbx::PackedScene::6770486968865053679::1785877470::1786397750::1::::<><>::
+sword and shield crouching.fbx::PackedScene::4933371071033594121::1785877470::1786397750::1::::<><>::
+sword and shield death (2).fbx::PackedScene::2522469647531804689::1785877470::1786397750::1::::<><>::
+sword and shield death.fbx::PackedScene::301209682459199344::1785877470::1786397750::1::::<><>::
+sword and shield idle (2).fbx::PackedScene::2733865185563913047::1785877470::1786397750::1::::<><>::
+sword and shield idle (3).fbx::PackedScene::2226079958726400766::1785877470::1786397725::1::::<><>::
+sword and shield idle (4).fbx::PackedScene::1676923414476238518::1785877470::1786397725::1::::<><>::
+sword and shield idle.fbx::PackedScene::858038965359881158::1785877470::1786397725::1::::<><>::
+sword and shield impact (2).fbx::PackedScene::5659980469423500384::1785877470::1786397724::1::::<><>::
+sword and shield impact (3).fbx::PackedScene::8949180105538673929::1785877470::1786397724::1::::<><>::
+sword and shield impact.fbx::PackedScene::679154732939836964::1785877470::1786397724::1::::<><>::
+sword and shield jump (2).fbx::PackedScene::8976505752351146734::1785877470::1786397724::1::::<><>::
+sword and shield jump.fbx::PackedScene::2208443441825112529::1785877470::1786397724::1::::<><>::
+sword and shield kick.fbx::PackedScene::2616024594007075173::1785877470::1786397724::1::::<><>::
+sword and shield power up.fbx::PackedScene::4686307907800789838::1785877470::1786397723::1::::<><>::
+sword and shield run (2).fbx::PackedScene::8353104348306222850::1785877470::1786397723::1::::<><>::
+sword and shield run.fbx::PackedScene::3932781337108069901::1785877470::1786397722::1::::<><>::
+sword and shield slash (2).fbx::PackedScene::5459640307276207825::1785877470::1786397723::1::::<><>::
+sword and shield slash (3).fbx::PackedScene::5757062708338255630::1785877470::1786397725::1::::<><>::
+sword and shield slash (4).fbx::PackedScene::6812670500932761140::1785877470::1786397725::1::::<><>::
+sword and shield slash (5).fbx::PackedScene::8293669828762241334::1785877470::1786397726::1::::<><>::
+sword and shield slash.fbx::PackedScene::2321287351561451056::1785877470::1786397726::1::::<><>::
+sword and shield strafe (2).fbx::PackedScene::252743049687342120::1785877470::1786397726::1::::<><>::
+sword and shield strafe (3).fbx::PackedScene::139126275161323096::1785877470::1786397726::1::::<><>::
+sword and shield strafe (4).fbx::PackedScene::1041998480008433832::1785877470::1786397726::1::::<><>::
+sword and shield strafe.fbx::PackedScene::8331550207775048696::1785877470::1786397726::1::::<><>::
+sword and shield turn (2).fbx::PackedScene::502734131685827359::1785877470::1786397727::1::::<><>::
+sword and shield turn.fbx::PackedScene::4604594257614620101::1785877470::1786397727::1::::<><>::
+sword and shield walk (2).fbx::PackedScene::2044103557983208188::1785877470::1786397727::1::::<><>::
+sword and shield walk.fbx::PackedScene::2485020304476598296::1785877470::1786397727::1::::<><>::
+::res://assets/ui/::1785852576
+::res://assets/weapons/::1786029504
+::res://assets/weapons/tank/::1786397728
+license.txt::TextFile::-1::1786029504::0::1::::<><>::
+scene.gltf::PackedScene::6715041491507994652::1786029504::1786397728::1::::<><>::uid://dcn4lhg7n5ymo::::res://assets/weapons/tank/textures/Material_baseColor.png
+tank.tscn::PackedScene::-1::1786029851::0::1::::<><>::uid://c2w20tv26ogs7::::res://assets/weapons/tank/scene.gltf<>res://assets/weapons/tank/tank_color.gd
+tank_color.gd::GDScript::-1::1786120495::0::1::::<>Node3D<>::
+::res://assets/weapons/tank/textures/::1786397697
+Material_baseColor.png::CompressedTexture2D::7328257464086117062::1786029504::1786397697::1::::<><>::
+::res://audio/::1786390745
+footstep_fx.gd::GDScript::-1::1786391074::0::1::::FootstepFX<>Node<>::
+procedural_footsteps.gd::GDScript::-1::1786390960::0::1::::ProceduralFootsteps<>RefCounted<>::
+procedural_horn.gd::GDScript::-1::1786194796::0::1::::ProceduralHorn<>RefCounted<>::
+::res://battle/::1786371176
+battle_manager.gd::GDScript::-1::1786194403::0::1::::<>Node<>::
+battle_registry.gd::GDScript::-1::1786193401::0::1::::<>Node<>::
+commander_manager.gd::GDScript::-1::1786221174::0::1::::<>Node<>::
+engagement_tracker.gd::GDScript::-1::1786221868::0::1::::<>Node<>::
+faction_blue.tres::Resource::1287812943019958790::1785867615::0::1::::<><>::res://battle/faction_resource.gd
+faction_manager.gd::GDScript::-1::1786221194::0::1::::<>Node3D<>::
+faction_red.tres::Resource::6778645202551641818::1785867615::0::1::::<><>::res://battle/faction_resource.gd
+faction_resource.gd::GDScript::-1::1785859017::0::1::::<>Resource<>::
+registry_access.gd::GDScript::-1::1786221129::0::1::::RegistryAccess<>Node<>::
+spawn_manager.gd::GDScript::-1::1786040794::0::1::::<>Node<>::
+team_manager.gd::GDScript::-1::1785876550::0::1::::<>Node<>::
+::res://camera/::1786371176
+rts_camera.gd::GDScript::-1::1786110245::0::1::::<>Camera3D<>::
+spectator_cam.gd::GDScript::-1::1786200967::0::1::::<>Node<>::
+::res://effects/::1786371176
+muzzle_flash.gd::GDScript::-1::1786112065::0::1::::<>Node3D<>::
+muzzle_flash.gdshader::Shader::-1::1786111951::0::1::::<><>::
+muzzle_flash.tscn::PackedScene::-1::1786111969::0::1::::<><>::res://effects/muzzle_flash.gd<>res://effects/muzzle_flash.gdshader
+::res://env/::1786397697
+battlefield_dressing.gd::GDScript::-1::1786390001::0::1::::<>Node3D<>::
+billboard_soldier.gdshader::Shader::-1::1786110380::0::1::::<><>::
+crowd_spawner.gd::GDScript::-1::1786120613::0::1::::<>MultiMeshInstance3D<>::
+ground_surface.gd::GDScript::-1::1786382956::0::1::::<>StaticBody3D<>::
+mountain_ring.gd::GDScript::-1::1786397472::0::1::::<>Node3D<>::
+rolling_terrain.gdshader::Shader::-1::1786124418::0::1::::<><>::
+soldier_sheet.png::CompressedTexture2D::3495970574539563373::1786110128::1786397697::1::::<><>::
+terrain_floor.gd::GDScript::-1::1786395185::0::1::::<>Node3D<>::
+terrain_noise.png::CompressedTexture2D::2472640690279648248::1786110129::1786397697::1::::<><>::
+::res://gift/::1786371176
+gift_manager.gd::GDScript::-1::1786221148::0::1::::<>Node<>::
+gift_mapping.json::JSON::-1::1786221099::0::1::::<><>::
+websocket_client.gd::GDScript::-1::1785873973::0::1::::<>Node<>::
+::res://logs/::1786382089
+::res://maps/::1786382957
+battlefield_ground.tscn::PackedScene::6768061622542892656::1786384643::0::1::::<><>::res://env/terrain_floor.gd<>res://env/battlefield_dressing.gd
+battlefield_scale.tscn::PackedScene::-1::1786384669::0::1::::<><>::res://env/soldier_sheet.png<>res://env/rolling_terrain.gdshader<>res://env/terrain_noise.png<>res://assets/environments/rocky_ground_0.png<>res://env/crowd_spawner.gd
+main_battlefield.gd::GDScript::-1::1786221513::0::1::::<>Node3D<>::
+main_battlefield.tscn::PackedScene::6622273046075958005::1786396095::0::1::::<><>::res://maps/main_battlefield.gd<>res://battle/battle_manager.gd<>res://battle/spawn_manager.gd<>res://battle/faction_manager.gd<>res://gift/websocket_client.gd<>res://gift/gift_manager.gd<>res://camera/rts_camera.gd<>uid://ddbg3dmuhfm4v::::res://ui/hud/battle_hud.tscn<>res://ui/menus/main_menu.tscn<>uid://c3tvkckphp3mk::::res://battle/faction_red.tres<>uid://sl3ddho6ivhu::::res://battle/faction_blue.tres<>res://battle/team_manager.gd<>res://maps/battlefield_scale.tscn<>uid://c3oq8r6tb8wvw::::res://maps/battlefield_ground.tscn<>res://env/mountain_ring.gd
+world_env.tscn::PackedScene::7923007034909565388::1786209387::0::1::::<><>::uid://bn3vlarjv2gpd::::res://assets/environments/terrain_valley.obj<>uid://dwv4heu8kukp::::res://assets/environments/mountain_low_poly.glb
+::res://maps/castle/::1785852576
+::res://maps/desert/::1785852576
+::res://maps/grasslands/::1785852576
+::res://tests/::1786393396
+bench_envcut.gd::GDScript::-1::1786393189::0::1::::<>SceneTree<>::
+bench_final.gd::GDScript::-1::1786393181::0::1::::<>SceneTree<>::
+bench_light.gd::GDScript::-1::1786388002::0::1::::<>SceneTree<>::
+capture_final.gd::GDScript::-1::1786393396::0::1::::<>SceneTree<>::
+checkpoint0.gd::GDScript::-1::1786295242::0::1::::<>SceneTree<>::
+checkpoint1.gd::GDScript::-1::1786295258::0::1::::<>SceneTree<>::
+checkpoint2.gd::GDScript::-1::1786295274::0::1::::<>SceneTree<>::
+checkpoint3.gd::GDScript::-1::1786295290::0::1::::<>SceneTree<>::
+checkpoint4.gd::GDScript::-1::1786295300::0::1::::<>SceneTree<>::
+checkpoint5.gd::GDScript::-1::1786295530::0::1::::<>SceneTree<>::
+checkpoint6.gd::GDScript::-1::1786295331::0::1::::<>SceneTree<>::
+checkpoint7.gd::GDScript::-1::1786295348::0::1::::<>SceneTree<>::
+checkpoint9.gd::GDScript::-1::1786295363::0::1::::<>SceneTree<>::
+checkpoint10.gd::GDScript::-1::1786295737::0::1::::<>SceneTree<>::
+checkpoint_ground.gd::GDScript::-1::1786395192::0::1::::<>SceneTree<>::
+checkpoint_surface.gd::GDScript::-1::1786394476::0::1::::<>SceneTree<>::
+render_braziers.gd::GDScript::-1::1786389743::0::1::::<>SceneTree<>::
+repro_crash.gd::GDScript::-1::1786369138::0::1::::<>SceneTree<>::
+stress_live.gd::GDScript::-1::1786367677::0::1::::<>SceneTree<>::
+::res://tools/::1785864771
+::res://tools/bridge/::1785874649
+package-lock.json::JSON::-1::1785864790::0::1::::<><>::
+package.json::JSON::-1::1785864771::0::1::::<><>::
+::res://tools/bridge/node_modules/::1785864790
+::res://tools/bridge/node_modules/ws/::1785864790
+package.json::JSON::-1::1785864790::0::1::::<><>::
+README.md::TextFile::-1::1785864790::0::1::::<><>::
+::res://tools/bridge/node_modules/ws/lib/::1785864790
+::res://tools/bridge/public/::1785873963
+::res://tools/bridge/src/::1785876591
+::res://ui/::1785852576
+::res://ui/hud/::1786371176
+battle_hud.gd::GDScript::-1::1786223954::0::1::::<>CanvasLayer<>::
+battle_hud.tscn::PackedScene::7372307440959373623::1786221371::0::1::::<><>::res://ui/hud/battle_hud.gd
+::res://ui/menus/::1786371176
+main_menu.gd::GDScript::-1::1785866904::0::1::::<>CanvasLayer<>::
+main_menu.tscn::PackedScene::-1::1785866909::0::1::::<><>::res://ui/menus/main_menu.gd
+::res://ui/widgets/::1785852576
+::res://units/::1785878140
+::res://units/models/::1786371176
+paladin_rig.tscn::PackedScene::8602870955029958536::1786209386::0::1::::<><>::uid://dn3mfluhbxaou::::res://assets/sword_shield/Paladin WProp J Nordstrom_0.png<>uid://cek6uuvie8txl::::res://assets/sword_shield/Paladin WProp J Nordstrom_2.png<>res://units/models/rig_scale.gd
+rig_scale.gd::GDScript::-1::1785931192::0::1::::<>Node3D<>::
+titan_rig.tscn::PackedScene::6253520418092188144::1786209386::0::1::::<><>::uid://bto1oej15m4ve::::res://assets/characters/godzilla_rigged_animated_0.jpg<>uid://cvl5i1i3qq273::::res://assets/characters/godzilla_rigged_animated_1.jpg<>uid://da2ae16d6uv34::::res://assets/characters/godzilla_rigged_animated_2.jpg<>res://units/models/rig_scale.gd
+::res://units/resources/::1786371176
+ability_resource.gd::GDScript::-1::1785859013::0::1::::<>Resource<>::
+commander.tres::Resource::-1::1786194189::0::1::::<><>::res://units/resources/unit_resource.gd
+knight.tres::Resource::-1::1785950649::0::1::::<><>::res://units/resources/unit_resource.gd
+militia.tres::Resource::-1::1785950617::0::1::::<><>::res://units/resources/unit_resource.gd
+spearman.tres::Resource::-1::1785950633::0::1::::<><>::res://units/resources/unit_resource.gd
+tank.tres::Resource::-1::1786115109::0::1::::<><>::res://units/resources/unit_resource.gd
+titan.tres::Resource::-1::1785957060::0::1::::<><>::res://units/resources/unit_resource.gd
+unit_resource.gd::GDScript::-1::1785859016::0::1::::<>Resource<>::
+::res://units/scenes/::1785939372
+unit_base.tscn::PackedScene::5688164852285053880::1786020175::0::1::::<><>::res://units/scripts/unit_base.gd
+::res://units/scripts/::1786371176
+unit_base.gd::GDScript::-1::1786390665::0::1::::<>CharacterBody3D<>::
