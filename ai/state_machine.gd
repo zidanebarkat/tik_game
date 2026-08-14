@@ -370,6 +370,12 @@ func _check_threat(delta: float) -> void:
 		return
 	if is_valid_target() and attacker == target:
 		return
+	# Only snap to a flanker if they are actually closer than what we are already
+	# fighting. Otherwise a crowd of melee units keeps re-targeting whoever last
+	# hit them and everyone darts around mid-fight.
+	if is_valid_target() and attacker.global_position.distance_to(unit.global_position) >= \
+			target.global_position.distance_to(unit.global_position):
+		return
 	target = attacker
 
 func _acquire_target():
@@ -382,26 +388,17 @@ func _acquire_target():
 		return _acquire_commander_target()
 	var closest = null
 	var stats = unit.stats
-	# Everyone (tanks included) hunts the nearest enemy anywhere on the map, so
-	# no unit stops and waits for a target to wander into vision range.
-	var vision := INF
-	var closest_dist: float = vision
-	var infantry: bool = stats.unit_name == "Militia" or stats.unit_name == "Spearman"
-	var closest_lane: float = 9999.0
+	# Everyone hunts the nearest enemy anywhere on the map, so no unit stops and
+	# waits for a target to wander into vision range. Plain distance ranking only:
+	# the old lane matching made infantry cross the whole map to reach a far
+	# same-lane enemy, which read as "running into empty places".
+	var closest_dist := INF
 	var my_pos: Vector3 = unit.global_position
 	for u in unit.faction_manager.get_enemy_units(unit.faction_id):
-		if not is_instance_valid(u):
+		if not is_instance_valid(u) or not u.is_inside_tree():
 			continue
 		var dist: float = my_pos.distance_to(u.global_position)
-		if dist > vision:
-			continue
-		if infantry:
-			var lane: float = absf(my_pos.z - u.global_position.z)
-			if lane < closest_lane or (absf(lane - closest_lane) < 0.001 and dist < closest_dist):
-				closest = u
-				closest_lane = lane
-				closest_dist = dist
-		elif dist < closest_dist:
+		if dist < closest_dist:
 			closest = u
 			closest_dist = dist
 	return closest
