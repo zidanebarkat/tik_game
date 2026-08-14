@@ -1,10 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://dk471efh2pigy"]
+[gd_scene load_steps=6 format=3 uid="uid://dk471efh2pigy"]
 
 [ext_resource type="ArrayMesh" uid="uid://bn3vlarjv2gpd" path="res://assets/environments/terrain_valley.obj" id="1_valley"]
 [ext_resource type="PackedScene" uid="uid://dwv4heu8kukp" path="res://assets/environments/mountain_low_poly.glb" id="2_mtn"]
 
 [sub_resource type="StandardMaterial3D" id="mat_floor"]
 albedo_color = Color(0.15, 0.17, 0.12, 1)
+
+[sub_resource type="StandardMaterial3D" id="mat_valley"]
+albedo_color = Color(0.25, 0.27, 0.22, 1)
 
 [sub_resource type="PlaneMesh" id="plane_floor"]
 material = SubResource("mat_floor")
@@ -13,12 +16,14 @@ size = Vector2(6000, 4000)
 [node name="WorldEnv" type="Node3D"]
 
 [node name="WorldFloor" type="MeshInstance3D" parent="."]
+visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
 mesh = SubResource("plane_floor")
 
 [node name="ValleyTerrain" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
 mesh = ExtResource("1_valley")
+material_override = SubResource("mat_valley")
 
 [node name="Mount0" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 700, 0, 0)

@@ -1,0 +1,25 @@
+[gd_resource type="Environment" load_steps=4 format=3 uid="uid://c0rainenv0x03"]
+
+[ext_resource type="Texture2D" uid="uid://c2775lgmqsfo2" path="res://assets/environments/mountain_panorama.png" id="1_pano"]
+
+[sub_resource type="PanoramaSkyMaterial" id="sky_mat"]
+panorama = ExtResource("1_pano")
+
+[sub_resource type="Sky" id="sky"]
+sky_material = SubResource("sky_mat")
+
+[resource]
+background_mode = 2
+sky = SubResource("sky")
+background_energy_multiplier = 0.55
+ambient_light_source = 2
+ambient_light_color = Color(0.5, 0.53, 0.6, 1)
+ambient_light_sky_contribution = 0.8
+ambient_light_energy = 0.9
+tonemap_mode = 2
+tonemap_exposure = 1.0
+fog_enabled = true
+fog_light_color = Color(0.45, 0.48, 0.55, 1)
+fog_light_energy = 1.0
+fog_density = 0.0012
+fog_sky_affect = 0.25

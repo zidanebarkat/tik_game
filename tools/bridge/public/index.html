@@ -91,6 +91,7 @@
   <h1><b>Gift Siege</b> · TikTok LIVE Test Panel</h1>
   <span id="status" class="badge off"><span class="dot"></span>connecting</span>
   <span id="clients" class="badge">clients: 0</span>
+  <span id="ttk" class="badge off" title="TikTok LIVE connection"><span class="dot"></span>tiktok: off</span>
 </header>
 
 <div class="grid">
@@ -150,7 +151,7 @@
   </div>
 </div>
 
-<div class="footer">Connect the Godot game, then use this panel to simulate TikTok LIVE comments + gifts.</div>
+<div class="footer">Connect the Godot game, then use this panel to simulate TikTok LIVE comments + gifts. To receive <b>real</b> TikTok events, start the bridge with <code>TIKTOK_USERNAME=yourusername npm start</code>.</div>
 
 <script>
 const GIFTS = [
@@ -186,6 +187,7 @@ let ws = null;
 const $ = (id) => document.getElementById(id);
 const statusEl = $("status");
 const clientsEl = $("clients");
+const ttkEl = $("ttk");
 
 function connect() {
   const proto = location.protocol === "https:" ? "wss" : "ws";
@@ -207,12 +209,20 @@ function connect() {
     try { m = JSON.parse(e.data); } catch { return; }
     if (m.type === "status") log("sys", "bridge: " + m.message);
     else if (m.type === "clients") clientsEl.textContent = "clients: " + m.count;
-    else if (m.type === "comment") {
+    else if (m.type === "tiktok") {
+      const on = !!m.connected;
+      ttkEl.className = "badge " + (on ? "on" : "off");
+      ttkEl.innerHTML = `<span class="dot"></span>tiktok: ${on ? "on" : "off"}`;
+      ttkEl.title = m.message || "";
+      log(on ? "sys" : "err", "tiktok: " + (m.message || (on ? "live" : "off")));
+    } else if (m.type === "comment") {
       log("comment", `${m.sender} (${m.userId}): ${m.text}`);
       const t = teamFromText(m.text);
       if (t) teamOf[m.userId] = t;
     } else if (m.type === "gift") {
       log("gift", `${m.sender} sent ${m.gift} x${m.count} [team: ${(teamOf[m.userId] || "auto").toUpperCase()}]`);
+    } else if (m.type === "member") {
+      log("sys", `${m.sender} joined`);
     } else if (m.type === "cmd") log("cmd", "cmd: " + m.cmd);
   };
 }

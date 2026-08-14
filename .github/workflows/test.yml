@@ -1,0 +1,41 @@
+name: test
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: tools/bridge/package-lock.json
+
+      - name: Install bridge deps
+        working-directory: tools/bridge
+        run: npm install --no-audit --no-fund
+
+      - name: Download Godot 4.4.1
+        run: |
+          cd /tmp
+          curl -sL -o godot.zip https://github.com/godotengine/godot/releases/download/4.4.1-stable/Godot_v4.4.1-stable_linux.x86_64.zip
+          unzip -q godot.zip
+          chmod +x Godot_v4.4.1-stable_linux.x86_64
+
+      - name: Run headless checkpoints
+        run: |
+          GODOT=/tmp/Godot_v4.4.1-stable_linux.x86_64 bash tests/run_checkpoints.sh
+
+      - name: Run headless live-sim stress (60s)
+        run: |
+          GODOT=/tmp/Godot_v4.4.1-stable_linux.x86_64 STRESS_HEADLESS=1 STRESS_SECONDS=60 bash tests/stress_live.sh

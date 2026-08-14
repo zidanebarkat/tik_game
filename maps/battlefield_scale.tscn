@@ -1,10 +1,8 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene load_steps=8 format=3]
 
-[ext_resource type="Texture2D" path="res://env/soldier_sheet.png" id="1_sheet"]
 [ext_resource type="Shader" path="res://env/rolling_terrain.gdshader" id="2_shader"]
 [ext_resource type="Texture2D" path="res://env/terrain_noise.png" id="3_noise"]
 [ext_resource type="Texture2D" path="res://assets/environments/rocky_ground_0.png" id="4_ground"]
-[ext_resource type="Script" path="res://env/crowd_spawner.gd" id="5_crowd"]
 
 [sub_resource type="ShaderMaterial" id="mat_terrain"]
 shader = ExtResource("2_shader")
@@ -27,23 +25,3 @@ material = SubResource("mat_terrain")
 
 [node name="RollingShell" type="MeshInstance3D" parent="."]
 mesh = SubResource("plane_terrain")
-
-[node name="CrowdRed" type="MultiMeshInstance3D" parent="."]
-script = ExtResource("5_crowd")
-soldier_spritesheet = ExtResource("1_sheet")
-rows = 12
-cols = 30
-spacing = 1.4
-jitter = 0.45
-quad_size = Vector2(1.0, 1.8)
-origin_offset = Vector3(-70, 0, 0)
-
-[node name="CrowdBlue" type="MultiMeshInstance3D" parent="."]
-script = ExtResource("5_crowd")
-soldier_spritesheet = ExtResource("1_sheet")
-rows = 12
-cols = 30
-spacing = 1.4
-jitter = 0.45
-quad_size = Vector2(1.0, 1.8)
-origin_offset = Vector3(70, 0, 0)

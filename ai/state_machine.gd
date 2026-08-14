@@ -5,6 +5,13 @@ enum State { IDLE, MOVE, SEEK, ATTACK, RETREAT, DEAD }
 const SEP_RADIUS := 1.0
 const SEP_FORCE := 1.5
 const TARGET_REACQUIRE_INTERVAL := 0.25
+# Movement smoothing: units accelerate/decelerate toward a desired velocity and
+# turn toward a heading at a bounded rate instead of snapping both each frame.
+const ACCEL := 8.0
+const TURN_RATE := 10.0
+const CHASE_LEAD := 0.7
+const CHASE_LEAD_MAX := 2.5
+const CHASE_REAIM := 0.6
 
 var unit: CharacterBody3D
 var current_state: State = State.IDLE
@@ -78,10 +85,6 @@ func _update_seek(delta: float) -> void:
 	if not is_valid_target():
 		transition_to(State.IDLE)
 		return
-	if unit.global_position.distance_to(target.global_position) > unit.stats.vision_radius * 1.5:
-		target = null
-		transition_to(State.IDLE)
-		return
 	_pursue(delta)
 	if unit.global_position.distance_to(target.global_position) <= unit.stats.attack_range:
 		transition_to(State.ATTACK)
@@ -97,13 +100,16 @@ func _update_attack(delta: float) -> void:
 	if dist > unit.stats.attack_range * 1.5:
 		transition_to(State.SEEK)
 		return
-	_face_target()
+	_face_target(delta)
 	if dist > unit.stats.attack_range:
 		# Gliding follow: keep moving toward a retreating target instead of
 		# standing still and stop-go stuttering while it backs away.
 		_pursue(delta)
 	else:
-		unit.velocity = _separation()
+		# Hold in place to swing; only a tiny anti-stack shuffle (capped at 12%
+		# of move speed) so a crowd can't shove the unit out of its own reach and
+		# force a stop-go chase loop around the target.
+		unit.velocity = _smoothed_velocity(_separation(0.12), delta)
 		unit.move_and_slide()
 	if state_time >= 1.0 / unit.stats.attack_speed:
 		_deal_damage()
@@ -113,22 +119,22 @@ func _pursue(delta: float) -> void:
 	if not is_valid_target():
 		return
 	# Stable pursuit: aim at the target's predicted position (lead), re-aimed
-	# every 0.6s. Chasers move in straight segments toward where the target will
-	# be instead of steering at its current spot every frame, which made chasing
-	# look like random wandering (especially when the target is retreating).
+	# every 0.6s. The lead is clamped so a knocked-back or sprinting target can't
+	# drag the chaser off to an empty spot — that's what made units "run away"
+	# from the enemy mid-fight and wander back.
 	_chase_timer -= delta
 	if _chase_timer <= 0.0 or unit.global_position.distance_to(_chase_aim) > 4.0:
-		_chase_aim = target.global_position + target.velocity * 0.7
-		_chase_timer = 0.6
-	var to_target: Vector3 = target.global_position - unit.global_position
-	var dir: Vector3 = _chase_aim - unit.global_position
-	dir.y = 0.0
-	if dir.length() < 0.001:
-		dir = to_target if to_target.length() > 0.001 else -unit.global_basis.z
+		var lead: Vector3 = target.velocity * CHASE_LEAD
+		lead.y = 0.0
+		_chase_aim = target.global_position + lead.limit_length(CHASE_LEAD_MAX)
+		_chase_timer = CHASE_REAIM
+	var desired: Vector3 = _chase_aim - unit.global_position
+	desired.y = 0.0
+	if desired.length() < 0.001:
+		desired = -unit.global_basis.z
 	else:
-		dir = dir.normalized()
-	unit.rotation.y = atan2(-dir.x, -dir.z)
-	_apply_motion(dir, unit.stats.move_speed, 0.35)
+		desired = desired.normalized()
+	_apply_motion(desired, unit.stats.move_speed, 0.35, delta)
 
 func _enemy_base_pos() -> Vector3:
 	var fm = unit.faction_manager
@@ -142,10 +148,6 @@ func _enemy_base_pos() -> Vector3:
 	return unit.global_position + -unit.global_basis.z * 10.0
 
 func _advance_forward(delta: float) -> void:
-	if unit.stats.unit_name == "Tank":
-		unit.velocity = _separation()
-		unit.move_and_slide()
-		return
 	if unit.get_unit_type() == "commander":
 		_advance_commander(delta)
 		return
@@ -166,12 +168,37 @@ func _advance_forward(delta: float) -> void:
 			if aimed.length() > 0.001:
 				_advance_dir = aimed.normalized()
 		_aim_timer = 2.0
-	unit.rotation.y = atan2(-_advance_dir.x, -_advance_dir.z)
-	_apply_motion(_advance_dir, unit.stats.move_speed)
+	_apply_motion(_advance_dir, unit.stats.move_speed, 0.6, delta)
 
-func _apply_motion(dir: Vector3, speed: float, sep_scale: float = 0.6) -> void:
-	unit.velocity = dir * speed + _separation(sep_scale)
+func _apply_motion(dir: Vector3, speed: float, sep_scale: float = 0.6, delta: float = -1.0) -> void:
+	if delta < 0.0:
+		delta = unit.get_physics_process_delta_time()
+	_turn_toward(dir, delta)
+	# Move along the smoothed facing rather than the raw input direction so a
+	# heading change produces a natural arc instead of a sideways strafe.
+	var fwd: Vector3 = -unit.global_basis.z
+	fwd.y = 0.0
+	if fwd.length() < 0.001:
+		fwd = dir
+	unit.velocity = _smoothed_velocity(fwd.normalized() * speed + _separation(sep_scale), delta)
 	unit.move_and_slide()
+
+func _smoothed_velocity(desired: Vector3, delta: float) -> Vector3:
+	desired.y = 0.0
+	var cur := unit.velocity
+	cur.y = 0.0
+	var blend := minf(1.0, ACCEL * delta)
+	var v := cur.lerp(desired, blend)
+	v.y = 0.0
+	return v
+
+func _turn_toward(dir: Vector3, delta: float) -> void:
+	if delta < 0.0:
+		delta = unit.get_physics_process_delta_time()
+	dir.y = 0.0
+	if dir.length() < 0.001:
+		return
+	unit.rotation.y = lerp_angle(unit.rotation.y, atan2(-dir.x, -dir.z), minf(1.0, TURN_RATE * delta))
 
 func _squad_centroid() -> Vector3:
 	var fm = unit.faction_manager
@@ -195,24 +222,24 @@ func _advance_commander(delta: float) -> void:
 		to.y = 0.0
 		_advance_dir = to.normalized() if to.length() > 0.001 else -unit.global_basis.z
 		_aim_timer = 2.0
-	unit.rotation.y = atan2(-_advance_dir.x, -_advance_dir.z)
+	_turn_toward(_advance_dir, delta)
 	var centroid := _squad_centroid()
 	var speed = unit.stats.move_speed * 0.72
 	if centroid.is_finite():
 		var ahead := (unit.global_position - centroid).dot(_advance_dir)
 		if ahead > 7.0:
-			unit.velocity = _separation()
+			unit.velocity = _smoothed_velocity(_separation(), delta)
 			unit.move_and_slide()
 			return
-	_apply_motion(_advance_dir, speed)
+	_apply_motion(_advance_dir, speed, 0.6, delta)
 
 func is_valid_target() -> bool:
-	return target != null and is_instance_valid(target) and target.is_inside_tree()
+	return target != null and is_instance_valid(target) and target.is_inside_tree() \
+			and not (target.has_method("is_spectate_eligible") and not target.is_spectate_eligible())
 
-func _face_target() -> void:
+func _face_target(delta: float) -> void:
 	if is_valid_target():
-		var dir = target.global_position - unit.global_position
-		unit.rotation.y = atan2(-dir.x, -dir.z)
+		_turn_toward(target.global_position - unit.global_position, delta)
 
 func _separation(cap_scale: float = 0.6) -> Vector3:
 	var push := Vector3.ZERO
@@ -302,7 +329,6 @@ func _is_target_shared(enemy) -> bool:
 	return false
 
 func _acquire_commander_target():
-	var vision: float = unit.stats.vision_radius
 	var my_pos: Vector3 = unit.global_position
 	var best = null
 	var best_score := -INF
@@ -310,8 +336,6 @@ func _acquire_commander_target():
 		if not is_instance_valid(u) or not u.is_inside_tree():
 			continue
 		var dist: float = my_pos.distance_to(u.global_position)
-		if dist > vision:
-			continue
 		var score := 0.0
 		if _is_target_shared(u):
 			score += 3.0
@@ -358,7 +382,9 @@ func _acquire_target():
 		return _acquire_commander_target()
 	var closest = null
 	var stats = unit.stats
-	var vision: float = stats.vision_radius
+	# Everyone (tanks included) hunts the nearest enemy anywhere on the map, so
+	# no unit stops and waits for a target to wander into vision range.
+	var vision := INF
 	var closest_dist: float = vision
 	var infantry: bool = stats.unit_name == "Militia" or stats.unit_name == "Spearman"
 	var closest_lane: float = 9999.0

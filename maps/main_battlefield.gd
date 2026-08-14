@@ -21,6 +21,14 @@ const TEST_SPAWN_KEYS := {
 @onready var hud = $HUD
 @onready var main_menu = $MainMenu
 @onready var camera: Camera3D = $RTSCamera
+@onready var world_env: WorldEnvironment = $WorldEnvironment
+@onready var dir_light: DirectionalLight3D = $DirectionalLight3D
+
+var _base_env: Environment = null
+var _base_light_transform: Transform3D
+var _base_light_color: Color
+var _base_light_energy: float
+var _base_light_shadow: bool
 
 var arrival_cut_enabled := true
 var _pending_cut_cmd = null
@@ -114,6 +122,11 @@ func _faction_spawn_center(fid: int) -> Vector3:
 	return acc
 
 func _ready() -> void:
+	_base_env = world_env.environment
+	_base_light_transform = dir_light.transform
+	_base_light_color = dir_light.light_color
+	_base_light_energy = dir_light.light_energy
+	_base_light_shadow = dir_light.shadow_enabled
 	battle_manager.register_faction($FactionRed)
 	battle_manager.register_faction($FactionBlue)
 	spawn_manager.battle_manager = battle_manager
@@ -273,10 +286,34 @@ func _unhandled_input(event: InputEvent) -> void:
 				battle_manager.toggle_pause()
 			KEY_F6:
 				_start_debug_battle()
+			KEY_F7:
+				_set_lighting_preset(LightingPresets.Preset.SUNSET)
+			KEY_F8:
+				_set_lighting_preset(LightingPresets.Preset.NIGHT)
+			KEY_F9:
+				_set_lighting_preset(LightingPresets.Preset.RAIN)
+			KEY_F10:
+				_set_lighting_preset(LightingPresets.Preset.DAY)
 			KEY_B:
 				var reg = RegistryAccess.get_registry()
 				if reg:
 					print("[BattleRegistry] tracked=%d alive=%d" % [reg.alive_units.size(), reg.get_alive_count()])
+
+func _set_lighting_preset(preset: int) -> void:
+	if world_env == null or dir_light == null:
+		return
+	if preset == LightingPresets.Preset.DAY:
+		world_env.environment = _base_env
+		dir_light.transform = _base_light_transform
+		dir_light.light_color = _base_light_color
+		dir_light.light_energy = _base_light_energy
+		dir_light.shadow_enabled = _base_light_shadow
+		print("[Lighting] preset DAY")
+		return
+	if LightingPresets.apply(world_env, dir_light, preset):
+		print("[Lighting] preset %s" % LightingPresets.Preset.keys()[preset])
+	else:
+		print("[Lighting] preset %s not ready yet" % LightingPresets.Preset.keys()[preset])
 
 func _spawn_test_unit(faction_id: int, unit_name: String) -> void:
 	var state = battle_manager.current_state

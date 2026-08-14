@@ -1,0 +1,17 @@
+# Godot
+.godot/
+
+# Node
+node_modules/
+
+# Runtime logs
+logs/
+
+# Crash dumps
+core
+core.*
+*.core
+
+# OS / editor junk
+.DS_Store
+*.swp

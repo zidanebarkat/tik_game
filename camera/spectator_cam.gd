@@ -20,6 +20,8 @@ const LOOK_UP := 1.0
 
 const FOLLOW_SPEED := 10.0
 const ROT_SPEED := 6.0
+const VEL_SMOOTH := 8.0
+const VEL_MIN := 0.15
 const CYCLE_HOLD_DELAY := 0.6
 const CYCLE_INTERVAL := 1.2
 const DEATH_HOLD := 1.2
@@ -44,6 +46,8 @@ var _pending_switch := -1.0
 var _return_target = null
 var _arrival_cut_timer := -1.0
 var _arrival_connected := false
+var _last_tpos := Vector3.INF
+var _smooth_vel := Vector3.ZERO
 
 func _ready() -> void:
 	rig = Node3D.new()
@@ -164,6 +168,8 @@ func _cycle() -> void:
 
 func _attach(unit) -> void:
 	target = unit
+	_last_tpos = unit.global_position
+	_smooth_vel = Vector3.ZERO
 	var cfg = CAMERA_CONFIG.get(unit.get_unit_type(), DEFAULT_CFG)
 	spring.spring_length = cfg.distance
 	spring.rotation_degrees = Vector3(-cfg.pitch, 0.0, 0.0)
@@ -178,12 +184,20 @@ func _update_follow(delta: float) -> void:
 	spring.rotation_degrees = Vector3(-cfg.pitch, 0.0, 0.0)
 	var goal_pos = target.global_position + Vector3(0, cfg.height, 0)
 	rig.global_position = rig.global_position.lerp(goal_pos, minf(1.0, FOLLOW_SPEED * delta))
-	rig.rotation.y = lerp_angle(rig.rotation.y, target.rotation.y, minf(1.0, ROT_SPEED * delta))
-	var facing = -target.global_basis.z
-	facing.y = 0.0
-	if facing.length() < 0.001:
-		facing = -target.global_basis.z
-	facing = facing.normalized()
+	# Heading comes from the unit's real travel direction, smoothed over time,
+	# never its raw rotation.y: units spin frame-to-frame while fighting and
+	# tracking that yaw is what made the view shake. When the unit stops to
+	# attack, the camera keeps the last heading instead of jittering.
+	var tpos: Vector3 = target.global_position
+	if _last_tpos.is_finite():
+		var inst_vel: Vector3 = (tpos - _last_tpos) / maxf(delta, 0.0001)
+		_smooth_vel = _smooth_vel.lerp(inst_vel, minf(1.0, VEL_SMOOTH * delta))
+	_last_tpos = tpos
+	var vel := _smooth_vel
+	vel.y = 0.0
+	if vel.length() > VEL_MIN:
+		rig.rotation.y = lerp_angle(rig.rotation.y, atan2(-vel.x, -vel.z), minf(1.0, ROT_SPEED * delta))
+	var facing := Vector3(-sin(rig.rotation.y), 0.0, -cos(rig.rotation.y))
 	var ahead = target.global_position + facing * LOOK_AHEAD + Vector3(0, LOOK_UP, 0)
 	if camera.global_position.distance_to(ahead) > 0.01:
 		camera.look_at(ahead, Vector3.UP)

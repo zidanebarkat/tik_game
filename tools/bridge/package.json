@@ -10,6 +10,7 @@
 		"simulate": "node src/simulator.js"
 	},
 	"dependencies": {
+		"tiktok-live-connector": "^2.4.3",
 		"ws": "^8.18.0"
 	}
 }

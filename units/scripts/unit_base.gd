@@ -55,6 +55,8 @@ var _last_damage_time: float = -100.0
 var _surface_type: String = "stone"
 var _step_accum: float = 0.0
 const STEP_INTERVAL := 2.2
+var _ground_y: float = 0.0
+var _ground_valid := false
 
 var _anim_player = null
 var _current_anim: String = ""
@@ -177,6 +179,8 @@ func _play_anim(name: String) -> void:
 
 func _enter_idle_pose() -> void:
 	if not _anim_player or _current_anim == _idle_anim:
+		return
+	if not _anim_player.has_animation(_idle_anim):
 		return
 	_anim_player.play(_idle_anim)
 	_anim_player.pause()
@@ -391,16 +395,20 @@ func _stick_to_ground() -> void:
 	if not is_inside_tree():
 		return
 	_ground_tick += 1
-	if _ground_tick % 12 != 0:
-		return
-	var space := get_world_3d().direct_space_state
-	var from := global_position + Vector3(0, 30, 0)
-	var to := global_position + Vector3(0, -50, 0)
-	var query := PhysicsRayQueryParameters3D.create(from, to, 2, [get_rid()])
-	var hit := space.intersect_ray(query)
-	if hit:
-		global_position.y = hit.position.y
-		_refresh_surface(hit)
+	if _ground_tick % 12 == 0:
+		var space := get_world_3d().direct_space_state
+		var from := global_position + Vector3(0, 30, 0)
+		var to := global_position + Vector3(0, -50, 0)
+		var query := PhysicsRayQueryParameters3D.create(from, to, 2, [get_rid()])
+		var hit := space.intersect_ray(query)
+		if hit:
+			_ground_y = hit.position.y
+			_ground_valid = true
+			_refresh_surface(hit)
+	# Ease onto the sampled ground height every frame instead of snapping on the
+	# 12-frame cadence, so units don't visibly hop on uneven terrain.
+	if _ground_valid:
+		global_position.y = lerpf(global_position.y, _ground_y, minf(1.0, 20.0 * get_physics_process_delta_time()))
 
 ## Reads the tagged ground surface under the unit (Part 4 footstep feedback).
 func _refresh_surface(hit: Dictionary) -> void:
