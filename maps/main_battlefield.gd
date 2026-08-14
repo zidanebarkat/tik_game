@@ -21,6 +21,7 @@ const TEST_SPAWN_KEYS := {
 @onready var hud = $HUD
 @onready var main_menu = $MainMenu
 @onready var camera: Camera3D = $RTSCamera
+@onready var battle_camera: Camera3D = $BattleCamera
 @onready var world_env: WorldEnvironment = $WorldEnvironment
 @onready var dir_light: DirectionalLight3D = $DirectionalLight3D
 
@@ -65,7 +66,18 @@ func _process(delta: float) -> void:
 				_start_overview_cut()
 
 func _restore_broadcast_camera() -> void:
-	if _arrival_cam and _arrival_cam.is_current() and camera:
+	if _arrival_cam and _arrival_cam.is_current():
+		_restore_to_current_mode()
+
+## Hands control back to whatever camera mode the user had selected before a
+## broadcast cut (RTS, battle overview, or spectator) grabbed the view.
+func _restore_to_current_mode() -> void:
+	var sc = RegistryAccess.get_spectator()
+	if sc and sc.is_spectating() and sc.get_current_target() != null:
+		sc.camera.current = true
+	elif sc and sc.is_battle_mode() and sc.battle_camera and is_instance_valid(sc.battle_camera):
+		sc.battle_camera.make_current()
+	elif camera:
 		camera.make_current()
 
 ## Part 10: a periodic wide strategic pan across the whole field, interleaved
@@ -106,11 +118,7 @@ func _update_overview_cut(delta: float) -> void:
 
 func _end_overview_cut() -> void:
 	_overview_active = false
-	var sc = RegistryAccess.get_spectator()
-	if sc and sc.is_spectating() and sc.get_current_target() != null:
-		sc.camera.current = true
-	elif camera:
-		camera.make_current()
+	_restore_to_current_mode()
 
 func _faction_spawn_center(fid: int) -> Vector3:
 	var f = battle_manager.get_faction(fid)
@@ -149,7 +157,7 @@ func _ready() -> void:
 	websocket_client.command_received.connect(_on_command_received)
 	var sc = RegistryAccess.get_spectator()
 	if sc:
-		sc.setup(camera)
+		sc.setup(camera, battle_camera)
 	if main_menu:
 		main_menu.setup(self)
 	battle_manager.battle_ended.connect(_on_battle_ended)

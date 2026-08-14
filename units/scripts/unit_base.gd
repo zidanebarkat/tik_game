@@ -107,6 +107,10 @@ func _ready() -> void:
 	_setup_visual()
 	_last_position = global_position
 	_register_with_registry()
+	add_to_group("battle_units")
+
+func is_alive() -> bool:
+	return current_health > 0.0
 
 func _register_with_registry() -> void:
 	var reg = RegistryAccess.get_registry()

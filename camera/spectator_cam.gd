@@ -30,6 +30,13 @@ const ARRIVAL_CUT_TIME := 3.0
 var active := false
 var target = null
 var main_camera: Camera3D = null
+var battle_camera: Camera3D = null
+
+## Camera cycle: RTS free cam -> UEBS battle overview -> attached spectator.
+## M steps through the cycle; each mode hands control back cleanly to the
+## previous one via the main camera's `current` flags.
+enum CamMode { RTS, BATTLE, SPECTATE }
+var mode: CamMode = CamMode.RTS
 
 ## Part 7: when a commander squad's arrival march finishes while we are already
 ## spectating, snap to that commander for a few seconds, then hand control back
@@ -68,8 +75,9 @@ func _ready() -> void:
 	if reg:
 		reg.unit_died.connect(_on_unit_died)
 
-func setup(main_cam: Camera3D) -> void:
+func setup(main_cam: Camera3D, battle_cam: Camera3D = null) -> void:
 	main_camera = main_cam
+	battle_camera = battle_cam
 
 func is_spectating() -> bool:
 	return active
@@ -84,10 +92,7 @@ func _process(delta: float) -> void:
 			cm.arrival_finished.connect(_on_arrival_finished)
 			_arrival_connected = true
 	if Input.is_action_just_pressed("spectate_toggle"):
-		if active:
-			_toggle_off()
-		else:
-			_toggle_on()
+		_cycle_mode()
 		return
 	if not active:
 		return
@@ -119,15 +124,55 @@ func _process(delta: float) -> void:
 			_end_arrival_cut()
 	_update_follow(delta)
 
-func _toggle_on() -> void:
-	if main_camera == null:
+func is_battle_mode() -> bool:
+	return mode == CamMode.BATTLE
+
+func _cycle_mode() -> void:
+	match mode:
+		CamMode.RTS:
+			_enter_battle_mode()
+		CamMode.BATTLE:
+			_enter_spectate_mode()
+		CamMode.SPECTATE:
+			_enter_rts_mode()
+
+func _enter_rts_mode() -> void:
+	mode = CamMode.RTS
+	if active:
+		_toggle_off()
+	if battle_camera and is_instance_valid(battle_camera):
+		battle_camera.current = false
+	if main_camera and is_instance_valid(main_camera):
+		main_camera.make_current()
+
+func _enter_battle_mode() -> void:
+	if battle_camera == null or not is_instance_valid(battle_camera):
+		mode = CamMode.RTS
 		return
+	if active:
+		_toggle_off()
+	mode = CamMode.BATTLE
+	battle_camera.make_current()
+
+func _enter_spectate_mode() -> void:
+	if battle_camera and is_instance_valid(battle_camera):
+		battle_camera.current = false
+	if _toggle_on():
+		mode = CamMode.SPECTATE
+	else:
+		mode = CamMode.RTS
+		if main_camera and is_instance_valid(main_camera):
+			main_camera.make_current()
+
+func _toggle_on() -> bool:
+	if main_camera == null:
+		return false
 	var reg = RegistryAccess.get_registry()
 	if reg == null:
-		return
+		return false
 	var pick = reg.pick_spectate_target()
 	if pick == null:
-		return
+		return false
 	active = true
 	_hold_time = 0.0
 	_cycle_timer = 0.0
@@ -139,9 +184,11 @@ func _toggle_on() -> void:
 	camera.current = true
 	if main_camera and is_instance_valid(main_camera):
 		main_camera.current = false
+	return true
 
 func _toggle_off() -> void:
 	active = false
+	mode = CamMode.RTS
 	target = null
 	_pending_switch = -1.0
 	_return_target = null

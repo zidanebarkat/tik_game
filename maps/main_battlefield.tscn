@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c1l44tgrf6ewr"]
+[gd_scene load_steps=21 format=3 uid="uid://c1l44tgrf6ewr"]
 
 [ext_resource type="Script" path="res://maps/main_battlefield.gd" id="0_main"]
 [ext_resource type="Script" path="res://battle/battle_manager.gd" id="1_bm"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://c3oq8r6tb8wvw" path="res://maps/battlefield_ground.tscn" id="15_ground"]
 [ext_resource type="PackedScene" uid="uid://dk471efh2pigy" path="res://maps/world_env.tscn" id="16_yf5pa"]
 [ext_resource type="Texture2D" uid="uid://c2775lgmqsfo2" path="res://assets/environments/mountain_panorama.png" id="17_pano"]
+[ext_resource type="Script" path="res://camera/battle_camera.gd" id="18_bc"]
 
 [sub_resource type="PanoramaSkyMaterial" id="sky_mat"]
 panorama = ExtResource("17_pano")
@@ -68,6 +69,11 @@ transform = Transform3D(0.777146, -0.228601, 0.586332, -0.31466, 0.665719, 0.676
 fov = 93.7
 script = ExtResource("6_cam")
 rotate_speed = 5.003
+
+[node name="BattleCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.766044, 0.642788, 0, -0.642788, 0.766044, 0, 30, 15)
+fov = 65.0
+script = ExtResource("18_bc")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.5283, 0, -0.84906, -0.72047, 0.5291, 0.4483, 0.44924, 0.84856, -0.27953, 0, 20, 0)
