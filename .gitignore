@@ -4,6 +4,9 @@
 # Node
 node_modules/
 
+# Release build output
+dist/
+
 # Runtime logs
 logs/
 
