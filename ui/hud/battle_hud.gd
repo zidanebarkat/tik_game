@@ -21,6 +21,9 @@ extends CanvasLayer
 @onready var arrival_portrait: TextureRect = $ArrivalPanel/ArrivalBox/ArrivalPortrait
 @onready var arrival_label: Label = $ArrivalPanel/ArrivalBox/ArrivalInfo/ArrivalLabel
 @onready var arrival_tier: Label = $ArrivalPanel/ArrivalBox/ArrivalInfo/ArrivalTier
+@onready var result_panel: PanelContainer = $ResultPanel
+@onready var result_title: Label = $ResultPanel/ResultBox/ResultTitle
+@onready var result_stats: Label = $ResultPanel/ResultBox/ResultStats
 
 signal arrival_began(viewer_name: String)
 
@@ -134,6 +137,7 @@ func setup(bm, ms = null) -> void:
 	main_scene = ms
 	battle_manager.state_changed.connect(_on_state_changed)
 	battle_manager.countdown_tick.connect(_on_countdown_tick)
+	battle_manager.battle_ended.connect(_on_battle_ended)
 	start_fight_button.pressed.connect(_on_start_fight_pressed)
 	var eng = RegistryAccess.get_engagement()
 	if eng:
@@ -144,6 +148,8 @@ func setup(bm, ms = null) -> void:
 func _on_state_changed(new_state) -> void:
 	countdown_label.visible = false
 	hints_label.visible = false
+	if result_panel:
+		result_panel.visible = (new_state == battle_manager.BattleState.VICTORY)
 	match new_state:
 		battle_manager.BattleState.MENU:
 			status_label.text = "MENU"
@@ -173,6 +179,28 @@ func _on_countdown_tick(seconds_left: float) -> void:
 		countdown_label.visible = false
 	else:
 		countdown_label.text = str(ceili(seconds_left))
+
+func _on_battle_ended(winning_faction: int) -> void:
+	_show_result(winning_faction)
+
+func _show_result(winning_faction: int) -> void:
+	if result_panel == null or battle_manager == null:
+		return
+	var title := "DRAW!"
+	if winning_faction >= 0:
+		var f = battle_manager.get_faction(winning_faction)
+		var name: String = f.faction_data.faction_name if f and f.faction_data else "Unknown"
+		title = "%s WINS!" % name
+	result_title.text = title
+	var stats: Dictionary = battle_manager.get_battle_stats()
+	var lines: PackedStringArray = []
+	for f in stats.get("factions", []):
+		lines.append("%s   |   kills: %d   |   survivors: %d" % [
+			f.get("name", "Unknown"), f.get("kills", 0), f.get("alive", 0)])
+	lines.append("Battle time: %.1fs   |   total kills: %d" % [
+		stats.get("battle_time", 0.0), stats.get("total_kills", 0)])
+	result_stats.text = "\n".join(lines)
+	result_panel.visible = true
 
 func _on_start_fight_pressed() -> void:
 	if main_scene and main_scene.has_method("request_countdown"):

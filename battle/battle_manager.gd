@@ -33,8 +33,19 @@ func change_state(new_state: BattleState) -> void:
 	match new_state:
 		BattleState.BATTLE:
 			battle_started.emit()
+		BattleState.VICTORY:
+			_stop_all_units()
 		BattleState.MENU, BattleState.IDLE:
 			_reset_battle()
+
+## Halts every surviving unit the moment the fight is decided: marching
+## warbands otherwise keep walking to their waypoint (their march bypasses the
+## combat state machine) and knockback keeps corpses sliding around a dead field.
+func _stop_all_units() -> void:
+	for f in factions:
+		for u in f.units:
+			if is_instance_valid(u) and u.has_method("stop_motion"):
+				u.stop_motion()
 
 func start_game() -> void:
 	change_state(BattleState.IDLE)

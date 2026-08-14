@@ -529,6 +529,14 @@ func _release_from_march() -> void:
 	reinforce_waypoint = Vector3.INF
 	_march_leader_ref = null
 
+## Full halt: cancels any march and kills all motion (including knockback), so
+## a unit that won its battle stands perfectly still instead of gliding on.
+func stop_motion() -> void:
+	_release_from_march()
+	velocity = Vector3.ZERO
+	_knockback = Vector3.ZERO
+	_knockback_time = 0.0
+
 func is_marching() -> bool:
 	return _marching
 

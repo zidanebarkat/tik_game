@@ -4,15 +4,15 @@
 
 [sub_resource type="StyleBoxFlat" id="ArrivalStyle"]
 bg_color = Color(0.05, 0.06, 0.09, 0.85)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color(1, 0.85, 0.4, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="BattleHUD" type="CanvasLayer"]
 layer = 10
@@ -137,8 +137,8 @@ theme_override_styles/panel = SubResource("ArrivalStyle")
 
 [node name="ArrivalBox" type="HBoxContainer" parent="ArrivalPanel"]
 layout_mode = 2
-alignment = 1
 theme_override_constants/separation = 12
+alignment = 1
 
 [node name="ArrivalPortrait" type="TextureRect" parent="ArrivalPanel/ArrivalBox"]
 custom_minimum_size = Vector2(56, 56)
@@ -160,10 +160,9 @@ text = "'s warband has arrived!"
 
 [node name="ArrivalTier" type="Label" parent="ArrivalPanel/ArrivalBox/ArrivalInfo"]
 layout_mode = 2
-horizontal_alignment = 1
 theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_font_sizes/font_size = 14
-text = ""
+horizontal_alignment = 1
 
 [node name="SpectatePanel" type="PanelContainer" parent="."]
 visible = false
@@ -184,9 +183,9 @@ layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="SpectatePortrait" type="TextureRect" parent="SpectatePanel/SpectateBox"]
+visible = false
 custom_minimum_size = Vector2(56, 56)
 layout_mode = 2
-visible = false
 expand_mode = 1
 stretch_mode = 5
 
@@ -200,8 +199,8 @@ theme_override_font_sizes/font_size = 18
 
 [node name="SpectateTag" type="Label" parent="SpectatePanel/SpectateBox/SpectateInfo"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 13
 theme_override_colors/font_color = Color(1, 0.85, 0.4, 1)
+theme_override_font_sizes/font_size = 13
 
 [node name="SpectateHP" type="ProgressBar" parent="SpectatePanel/SpectateBox/SpectateInfo"]
 custom_minimum_size = Vector2(200, 16)
@@ -228,3 +227,45 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.85, 0.4, 1)
 theme_override_font_sizes/font_size = 15
 text = "WAR LEADERS"
+
+[node name="ResultPanel" type="PanelContainer" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -340.0
+offset_top = -140.0
+offset_right = 340.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("ArrivalStyle")
+
+[node name="ResultBox" type="VBoxContainer" parent="ResultPanel"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="ResultTitle" type="Label" parent="ResultPanel/ResultBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.4, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
+
+[node name="ResultStats" type="Label" parent="ResultPanel/ResultBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+
+[node name="ResultFooter" type="Label" parent="ResultPanel/ResultBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+text = "Press R for a new round, ESC for the menu"
