@@ -7,6 +7,7 @@ var spawn_manager = null
 var battle_manager = null
 var team_manager = null
 var commander_manager = null
+var super_power = null
 
 func _ready() -> void:
 	_load_gift_map()
@@ -36,6 +37,14 @@ func process_gift(gift_name: String, sender: String, count: int, user_id: String
 		var eng = RegistryAccess.get_engagement()
 		if eng:
 			eng.record_gift(uid, sender, value * count, not str(tier).is_empty())
+	if mapping.get("super_power", false):
+		# Super strike: destroy the densest cluster on the OPPOSING side of the
+		# gifter's team. Lockout inside the power stops stacking detonations.
+		if super_power and super_power.has_method("trigger_super"):
+			var team := _resolve_team(user_id, sender)
+			for i in range(count):
+				super_power.trigger_super(1 - team)
+		return
 	if not str(tier).is_empty() and commander_manager:
 		for i in range(count):
 			commander_manager.process_commander_gift(gift_name, str(tier), user_id, sender)

@@ -10,5 +10,6 @@
 	"Tiger": { "unit": "spearman", "value": 1 },
 	"Galaxy": { "commander_tier": "bronze", "value": 20 },
 	"Rocket": { "commander_tier": "silver", "value": 100 },
-	"Universe": { "commander_tier": "gold", "value": 500 }
+	"Universe": { "commander_tier": "gold", "value": 500 },
+	"Meteor": { "super_power": true, "value": 1000 }
 }

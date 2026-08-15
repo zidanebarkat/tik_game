@@ -22,6 +22,7 @@ const TEST_SPAWN_KEYS := {
 @onready var main_menu = $MainMenu
 @onready var camera: Camera3D = $RTSCamera
 @onready var battle_camera: Camera3D = $BattleCamera
+@onready var super_power = $SuperPower
 @onready var world_env: WorldEnvironment = $WorldEnvironment
 @onready var dir_light: DirectionalLight3D = $DirectionalLight3D
 
@@ -141,6 +142,9 @@ func _ready() -> void:
 	gift_manager.battle_manager = battle_manager
 	gift_manager.spawn_manager = spawn_manager
 	gift_manager.team_manager = team_manager
+	gift_manager.super_power = super_power
+	if super_power and super_power.has_method("setup"):
+		super_power.setup(battle_manager)
 	team_manager.battle_manager = battle_manager
 	var cm = RegistryAccess.get_commander_manager()
 	if cm:
@@ -220,6 +224,12 @@ func _fire_commander_gift(tier: String) -> void:
 		if hud:
 			hud.add_gift_feed_item("CMD", "spawning %s warband" % tier, 1)
 
+func _fire_super_power() -> void:
+	# Debug/test hook: hits the densest cluster of the blue (faction 1) side.
+	if super_power and super_power.trigger_super(1):
+		if hud:
+			hud.add_gift_feed_item("POWER", "Meteor strike incoming", 1)
+
 func _on_warband_spawned(viewer_name: String, viewer_id: String, tier: String, commander_unit) -> void:
 	_pending_cut_cmd = commander_unit
 	if hud:
@@ -283,6 +293,8 @@ func _unhandled_input(event: InputEvent) -> void:
 				_fire_commander_gift("silver")
 			KEY_3:
 				_fire_commander_gift("gold")
+			KEY_4:
+				_fire_super_power()
 			KEY_R:
 				if battle_manager.current_state != battle_manager.BattleState.MENU:
 					battle_manager.start_game()

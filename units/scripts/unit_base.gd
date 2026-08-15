@@ -67,6 +67,7 @@ var _move_anim: String = "walk"
 var _attack_anim: String = "attack"
 var _death_anim: String = "death"
 var _dying: bool = false
+var is_executed: bool = false
 var _dying_timer: float = 0.0
 var _knockback: Vector3 = Vector3.ZERO
 var _knockback_time: float = 0.0
@@ -470,6 +471,17 @@ func get_last_attacker():
 
 func heal(amount: float) -> void:
 	current_health = min(current_health + amount, stats.max_health)
+
+## Execute kill: an instant destroy that skips the damage pipeline entirely.
+## Used by the gift-triggered super strike so it reads as "the ground itself
+## killed them" rather than a very strong hit — HP and armor are ignored, and
+## even Titans die to it.
+func execute_kill() -> void:
+	if _dying or current_health <= 0.0:
+		return
+	current_health = 0.0
+	is_executed = true
+	die()
 
 func die() -> void:
 	if _dying:

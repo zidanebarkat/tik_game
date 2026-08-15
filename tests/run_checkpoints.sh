@@ -3,7 +3,7 @@ set -u
 cd "$(dirname "$0")/.."
 GODOT="${GODOT:-/home/dev/godot441/Godot_v4.4.1-stable_linux.x86_64}"
 PASS_ALL=1
-for n in 0 1 2 3 4 5 6 7 9 10 11 ground surface; do
+for n in 0 1 2 3 4 5 6 7 9 10 11 12 ground surface; do
     echo "===== checkpoint$n ====="
     case "$n" in
         ground) script="tests/checkpoint_ground.gd"; marker="PART1 GROUND RESULT fail=" ;;
