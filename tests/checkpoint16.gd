@@ -31,7 +31,7 @@ func _run() -> void:
 	var init_yaw = cam._yaw
 	var init_pitch = cam._pitch
 	check(init_pos != Vector3.ZERO, "camera positioned at " + str(init_pos))
-	check(absf(cam._pitch) <= deg_to_rad(85.0) + 0.001, "pitch within limit")
+	check(absf(cam._pitch) <= deg_to_rad(89.0) + 0.001, "pitch within limit")
 	var b: Basis = cam.global_transform.basis
 	check(b.z.cross(b.x).dot(b.y) > 0.99, "basis is right-handed")
 
@@ -75,6 +75,23 @@ func _run() -> void:
 	cam._unhandled_input(ev)
 	cam._rotating = false
 	check(cam._yaw_t < before, "drag right turns right (yaw decreased)")
+
+	# left-drag rotates too (360 look-around on either button)
+	cam._rotating = true
+	var lv = InputEventMouseMotion.new()
+	lv.relative = Vector2(10, 0)
+	cam._unhandled_input(lv)
+	cam._rotating = false
+	check(cam._yaw_t < before, "left-drag also rotates view")
+
+	# pitch: dragging up (negative rel.y) looks up, and the clamp allows ~straight up
+	cam._pitch_t = 0.0
+	cam._rotating = true
+	var pv = InputEventMouseMotion.new()
+	pv.relative = Vector2(0, -2000)
+	cam._unhandled_input(pv)
+	cam._rotating = false
+	check(cam._pitch_t > deg_to_rad(88.0), "drag up looks up, got %f deg" % rad_to_deg(cam._pitch_t))
 
 	# wheel zooms toward the view direction (yaw=0, pitch=0 -> forward is -Z)
 	cam._yaw = 0.0

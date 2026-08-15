@@ -4,13 +4,14 @@ extends Camera3D
 ##
 ##   WASD / arrows : move forward / back / strafe relative to where you look
 ##   Q / E         : descend / ascend (PageDown / PageUp also work)
-##   Right-drag    : look around (free yaw + pitch, not orbit-locked)
+##   Left or right mouse-drag : look around — free yaw (360 deg) + pitch
 ##   Middle-drag   : pan (translate without turning)
 ##   Mouse wheel   : zoom in / out along your view direction
 ##   Shift / Ctrl  : fly 2.5x faster / 0.4x slower
 ##
 ## Movement glides toward its targets (exponential smoothing), and the camera
-## can never sink below the arena floor or drift off the play field.
+## can never sink below the arena floor or drift off the play field. Controls
+## stay live even when another camera (battle overview / spectator) is showing.
 
 @export var move_speed: float = 60.0     # travel speed at 1x (units / s)
 @export var rotate_speed: float = 0.22   # look-around sensitivity (degrees / px)
@@ -22,7 +23,7 @@ extends Camera3D
 const POS_SMOOTH := 9.0
 const ROT_SMOOTH := 14.0
 const SPEED_SMOOTH := 5.0
-const PITCH_LIMIT_DEG := 85.0
+const PITCH_LIMIT_DEG := 89.0
 const ZOOM_STEP := 0.12
 const PAN_SCALE := 0.12
 const FAST_MULT := 2.5
@@ -64,18 +65,15 @@ func _sync_from_transform() -> void:
 	_yaw_t = _yaw
 	_pitch_t = _pitch
 
-## Swallow the movement keys while the free cam is active so the debug
-## test-spawn hotkeys (WASD/Q/E in main_battlefield) don't fire at the same
-## time. Accepted here in _input because that phase runs before _unhandled_input.
+## Swallow the movement keys so the debug test-spawn hotkeys (WASD/Q/E in
+## main_battlefield) can't fire at the same time. Accepted here in _input
+## because that phase runs before _unhandled_input. Always on, so the cam
+## stays responsive in any camera mode.
 func _input(event: InputEvent) -> void:
-	if not is_current() or not (event is InputEventKey and event.pressed):
-		return
-	if MOVE_KEYS.has(event.keycode):
+	if event is InputEventKey and event.pressed and MOVE_KEYS.has(event.keycode):
 		get_viewport().set_input_as_handled()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not is_current():
-		return
 	if event is InputEventMouseButton:
 		match event.button_index:
 			MOUSE_BUTTON_WHEEL_UP:
@@ -88,6 +86,8 @@ func _unhandled_input(event: InputEvent) -> void:
 					_clamp_target()
 			MOUSE_BUTTON_RIGHT:
 				_rotating = event.pressed
+			MOUSE_BUTTON_LEFT:
+				_rotating = event.pressed
 			MOUSE_BUTTON_MIDDLE:
 				_panning = event.pressed
 	if event is InputEventMouseMotion:
@@ -95,7 +95,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if _rotating:
 			_yaw_t -= event.relative.x * rad
 			_pitch_t = clampf(
-				_pitch_t + event.relative.y * rad,
+				_pitch_t - event.relative.y * rad,
 				-deg_to_rad(PITCH_LIMIT_DEG),
 				deg_to_rad(PITCH_LIMIT_DEG)
 			)

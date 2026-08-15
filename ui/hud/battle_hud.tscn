@@ -134,6 +134,7 @@ offset_top = 90.0
 offset_bottom = 150.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("ArrivalStyle")
+mouse_filter = 2
 
 [node name="ArrivalBox" type="HBoxContainer" parent="ArrivalPanel"]
 layout_mode = 2
@@ -177,6 +178,7 @@ offset_right = -16.0
 offset_bottom = -16.0
 grow_horizontal = 0
 grow_vertical = 0
+mouse_filter = 2
 
 [node name="SpectateBox" type="HBoxContainer" parent="SpectatePanel"]
 layout_mode = 2
@@ -217,6 +219,7 @@ offset_right = -16.0
 offset_bottom = 210.0
 grow_horizontal = 0
 theme_override_styles/panel = SubResource("ArrivalStyle")
+mouse_filter = 2
 
 [node name="LeaderboardBox" type="VBoxContainer" parent="LeaderboardPanel"]
 layout_mode = 2
@@ -244,6 +247,7 @@ offset_bottom = 150.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("ArrivalStyle")
+mouse_filter = 2
 
 [node name="ResultBox" type="VBoxContainer" parent="ResultPanel"]
 layout_mode = 2
