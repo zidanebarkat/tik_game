@@ -46,8 +46,9 @@ func process_gift(gift_name: String, sender: String, count: int, user_id: String
 				super_power.trigger_super(1 - team)
 		return
 	if not str(tier).is_empty() and commander_manager:
+		var team := _resolve_team(user_id, sender)
 		for i in range(count):
-			commander_manager.process_commander_gift(gift_name, str(tier), user_id, sender)
+			commander_manager.process_commander_gift(gift_name, str(tier), user_id, sender, "", team)
 		return
 	var unit_name = mapping.get("unit", "")
 	var faction = battle_manager.get_faction(_resolve_team(user_id, sender))

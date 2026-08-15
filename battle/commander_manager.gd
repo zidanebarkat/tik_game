@@ -81,8 +81,10 @@ func active_commander_count() -> int:
 
 ## Entry point from the gift pipeline. `avatar_url` is optional: when empty a
 ## cached placeholder is used (real avatar fetching is wired externally).
+## `team` (0=red, 1=blue) comes from the viewer's team comment; -1 means the
+## viewer never picked a side and falls back to the default faction.
 func process_commander_gift(gift_name: String, tier: String, viewer_id: String,
-		viewer_name: String, avatar_url: String = "") -> void:
+		viewer_name: String, avatar_url: String = "", team: int = -1) -> void:
 	if not TIERS.has(tier):
 		return
 	var safe_id := viewer_id if not viewer_id.is_empty() else viewer_name
@@ -93,6 +95,7 @@ func process_commander_gift(gift_name: String, tier: String, viewer_id: String,
 		"viewer_id": safe_id,
 		"viewer_name": safe_name,
 		"avatar_url": avatar_url,
+		"team": team,
 	}
 	if not _can_spawn(event):
 		pending_events.append(event)
@@ -125,15 +128,17 @@ func _can_spawn(event: Dictionary) -> bool:
 	if active_commander_count() >= MAX_ACTIVE_COMMANDERS:
 		return false
 	var pop_cost: int = TIERS[event.tier].pop
-	var faction = _target_faction()
+	var faction = _target_faction(int(event.get("team", -1)))
 	if faction and faction.population + pop_cost > faction.max_population:
 		return false
 	return true
 
-func _target_faction():
-	if battle_manager:
-		return battle_manager.get_faction(default_faction_id)
-	return null
+func _target_faction(team: int = -1):
+	if not battle_manager:
+		return null
+	if team == 0 or team == 1:
+		return battle_manager.get_faction(team)
+	return battle_manager.get_faction(default_faction_id)
 
 func _try_issue_next() -> void:
 	if not is_battle_live():
@@ -150,7 +155,7 @@ func _try_issue_next() -> void:
 		_spawn_squad(ev)
 
 func _spawn_squad(event: Dictionary) -> void:
-	var faction = _target_faction()
+	var faction = _target_faction(int(event.get("team", -1)))
 	if not faction:
 		return
 	var tier: String = event.tier
