@@ -1,12 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://wfp362r25aboq"]
+[gd_scene load_steps=2 format=3 uid="uid://wfp362r25aboq"]
 
 [ext_resource type="Script" path="res://env/terrain_floor.gd" id="1_floor"]
-[ext_resource type="Script" path="res://env/battlefield_dressing.gd" id="2_dress"]
 
 [node name="BattlefieldGround" type="Node3D"]
 
 [node name="Floor" type="Node3D" parent="."]
 script = ExtResource("1_floor")
-
-[node name="Dressing" type="Node3D" parent="."]
-script = ExtResource("2_dress")

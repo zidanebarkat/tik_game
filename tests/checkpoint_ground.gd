@@ -84,11 +84,7 @@ func _run() -> void:
 			tagged_ok += 1
 	check(tagged_ok == expected.size(), "surface tags match classified map (%d/%d)" % [tagged_ok, expected.size()])
 
-	var dressing = ground.get_node_or_null("Dressing")
-	var mm_count := 0
-	if dressing:
-		mm_count = dressing.find_children("*", "MultiMeshInstance3D", true, false).size()
-	check(mm_count >= 3, "dressing MultiMeshes present (%d types)" % mm_count)
+	check(ground.get_node_or_null("Dressing") == null, "no battlefield dressing on the ground")
 
 	var militia = load("res://units/resources/militia.tres")
 	var bm = inst.get_node("BattleManager")
