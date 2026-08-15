@@ -72,7 +72,7 @@ script = ExtResource("19_sp")
 transform = Transform3D(0.777146, -0.228601, 0.586332, -0.31466, 0.665719, 0.676615, -0.545007, -0.710324, 0.445429, 0, 226.395, 40)
 fov = 93.7
 script = ExtResource("6_cam")
-rotate_speed = 5.003
+rotate_speed = 0.22
 
 [node name="BattleCamera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.766044, 0.642788, 0, -0.642788, 0.766044, 0, 30, 15)
