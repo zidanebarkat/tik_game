@@ -19,8 +19,13 @@ const COMMANDER_POOL = [
   { type: "gift", gift: "Universe", count: 1 }, // gold
 ];
 const COMMANDER_CHANCE = Number(process.env.COMMANDER_CHANCE || 0.35);
-const MAX_ACTIVE_COMMANDER_BURST = 4;
-let commanderBursts = 0;
+// Bursts recur after this cooldown instead of a one-time cap, so a long
+// session keeps raising fresh warbands (the game FIFO-queues over its cap).
+const COMMANDER_COOLDOWN_MS = Number(process.env.COMMANDER_COOLDOWN_MS || 6000);
+// Chat repeats team chatter periodically, so viewers that connect late still
+// get assigned to a team.
+const TEAM_RECOMMENT_CHANCE = Number(process.env.TEAM_RECOMMENT_CHANCE || 0.15);
+let lastCommanderBurst = 0;
 const USERS = [
   { id: "u_1001", name: "streamfan", team: "red" },
   { id: "u_1002", name: "tiff", team: "blue" },
@@ -55,15 +60,34 @@ ws.on("open", () => {
     const user = USERS[Math.floor(Math.random() * USERS.length)];
     let payload;
     // Occasionally a viewer drops a big commander-tier gift -> whole warband.
-    if (commanderBursts < MAX_ACTIVE_COMMANDER_BURST && Math.random() < COMMANDER_CHANCE) {
+    if (Date.now() - lastCommanderBurst >= COMMANDER_COOLDOWN_MS && Math.random() < COMMANDER_CHANCE) {
+      lastCommanderBurst = Date.now();
       const entry = COMMANDER_POOL[Math.floor(Math.random() * COMMANDER_POOL.length)];
-      commanderBursts++;
+      if (user.team) {
+        // A viewer announces their team right before the big gift, so the game
+        // assigns the team before the warband is spawned (messages stay in order).
+        ws.send(JSON.stringify({
+          type: "comment",
+          sender: user.name,
+          userId: user.id,
+          text: `${user.team} team`,
+        }));
+      }
       payload = JSON.stringify({
         type: entry.type,
         gift: entry.gift,
         sender: user.name,
         userId: user.id,
         count: entry.count,
+      });
+    } else if (user.team && Math.random() < TEAM_RECOMMENT_CHANCE) {
+      // Viewers keep talking about their team, so late-joining clients (and
+      // the game, which takes a moment to boot) still learn who is on which side.
+      payload = JSON.stringify({
+        type: "comment",
+        sender: user.name,
+        userId: user.id,
+        text: `${user.team} team`,
       });
     } else {
       const entry = GIFT_POOL[Math.floor(Math.random() * GIFT_POOL.length)];
