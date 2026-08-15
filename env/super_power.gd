@@ -113,7 +113,7 @@ func _glow_material(color: Color, alpha: float) -> StandardMaterial3D:
 	mat.emission_energy = 2.0
 	return mat
 
-func _set_glow_alpha(mat: StandardMaterial3D, color: Color, a: float) -> void:
+func _set_glow_alpha(a: float, mat: StandardMaterial3D, color: Color) -> void:
 	mat.albedo_color = Color(color, a)
 
 func _detonate(pos: Vector3, faction_id: int) -> void:
