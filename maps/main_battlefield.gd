@@ -153,7 +153,7 @@ func _ready() -> void:
 		gift_manager.commander_manager = cm
 		cm.warband_spawned.connect(_on_warband_spawned)
 	if hud:
-		hud.setup(battle_manager, self)
+		hud.setup(battle_manager, self, team_manager)
 		hud.commander_manager = cm
 		hud.arrival_began.connect(_on_arrival_began)
 	websocket_client.gift_received.connect(_on_gift_received)

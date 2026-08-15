@@ -36,7 +36,7 @@ func process_gift(gift_name: String, sender: String, count: int, user_id: String
 	if value > 0.0:
 		var eng = RegistryAccess.get_engagement()
 		if eng:
-			eng.record_gift(uid, sender, value * count, not str(tier).is_empty())
+			eng.record_gift(uid, sender, value * count, not str(tier).is_empty(), count)
 	if mapping.get("super_power", false):
 		# Super strike: destroy the densest cluster on the OPPOSING side of the
 		# gifter's team. Lockout inside the power stops stacking detonations.

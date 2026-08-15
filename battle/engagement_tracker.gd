@@ -39,13 +39,14 @@ func _ready() -> void:
 	if reg:
 		reg.unit_died.connect(_on_unit_died)
 
-func record_gift(viewer_id: String, viewer_name: String, value: float, is_commander: bool = false) -> void:
+func record_gift(viewer_id: String, viewer_name: String, value: float, is_commander: bool = false, gift_count: int = 1) -> void:
 	if viewer_id.is_empty() or value <= 0.0:
 		return
 	var safe_name := viewer_name if not viewer_name.is_empty() else viewer_id
-	var entry: Dictionary = _viewers.get(viewer_id, {"name": safe_name, "spend": 0.0})
+	var entry: Dictionary = _viewers.get(viewer_id, {"name": safe_name, "spend": 0.0, "gifts": 0})
 	entry["name"] = safe_name
 	entry["spend"] = float(entry.get("spend", 0.0)) + value
+	entry["gifts"] = int(entry.get("gifts", 0)) + maxi(1, gift_count)
 	if is_commander:
 		entry["commander_spend"] = float(entry.get("commander_spend", 0.0)) + value
 	_viewers[viewer_id] = entry
@@ -56,6 +57,12 @@ func get_viewer_spend(viewer_id: String) -> float:
 		return 0.0
 	var e: Dictionary = _viewers.get(viewer_id, {})
 	return float(e.get("spend", 0.0))
+
+func get_total_spend() -> float:
+	var total := 0.0
+	for vid in _viewers:
+		total += float(_viewers[vid].get("spend", 0.0))
+	return total
 
 func get_title(viewer_id: String) -> String:
 	return _title_for_spend(get_viewer_spend(viewer_id)).title
@@ -77,6 +84,7 @@ func get_leaderboard(limit: int = LEADERBOARD_SIZE) -> Array:
 			"viewer_id": vid,
 			"name": str(e.get("name", vid)),
 			"spend": float(e.get("spend", 0.0)),
+			"gifts": int(e.get("gifts", 0)),
 			"title": _title_for_spend(float(e.get("spend", 0.0))).title,
 			"color": _title_for_spend(float(e.get("spend", 0.0))).color,
 		})

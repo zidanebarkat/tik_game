@@ -17,6 +17,7 @@ extends CanvasLayer
 @onready var spectate_portrait: TextureRect = $SpectatePanel/SpectateBox/SpectatePortrait
 @onready var leaderboard_panel: PanelContainer = $LeaderboardPanel
 @onready var leaderboard_box: VBoxContainer = $LeaderboardPanel/LeaderboardBox
+@onready var leaderboard_title: Label = $LeaderboardPanel/LeaderboardBox/LeaderboardTitle
 @onready var arrival_panel: PanelContainer = $ArrivalPanel
 @onready var arrival_portrait: TextureRect = $ArrivalPanel/ArrivalBox/ArrivalPortrait
 @onready var arrival_label: Label = $ArrivalPanel/ArrivalBox/ArrivalInfo/ArrivalLabel
@@ -30,9 +31,15 @@ signal arrival_began(viewer_name: String)
 var battle_manager = null
 var main_scene = null
 var commander_manager = null
+var team_manager = null
 var max_feed_items: int = 10
 var max_kill_feed_items: int = 5
-var _leaderboard_labels: Array = []
+var _leaderboard_rows: Array = []
+
+const TEAM_RED := Color(0.9, 0.3, 0.3)
+const TEAM_BLUE := Color(0.35, 0.6, 0.95)
+const TEAM_NONE := Color(0.92, 0.92, 0.92)
+const RANK_GOLD := Color(1, 0.85, 0.4, 1)
 
 const ARRIVAL_HOLD := 2.6
 var _arrival_queue: Array = []
@@ -132,9 +139,10 @@ func _update_spectate_panel() -> void:
 		spectate_tag.text = ""
 		spectate_portrait.visible = false
 
-func setup(bm, ms = null) -> void:
+func setup(bm, ms = null, tm = null) -> void:
 	battle_manager = bm
 	main_scene = ms
+	team_manager = tm
 	battle_manager.state_changed.connect(_on_state_changed)
 	battle_manager.countdown_tick.connect(_on_countdown_tick)
 	battle_manager.battle_ended.connect(_on_battle_ended)
@@ -237,13 +245,64 @@ func _on_kill_feed_entry(entry: Dictionary) -> void:
 		kill_feed.remove_child(first)
 		first.queue_free()
 
-func _get_leaderboard_label(index: int) -> Label:
-	while _leaderboard_labels.size() <= index:
-		var label = Label.new()
-		label.add_theme_font_size_override("font_size", 13)
-		leaderboard_box.add_child(label)
-		_leaderboard_labels.append(label)
-	return _leaderboard_labels[index]
+func _get_leaderboard_row(index: int) -> HBoxContainer:
+	while _leaderboard_rows.size() <= index:
+		var row := HBoxContainer.new()
+		row.add_theme_constant_override("separation", 8)
+
+		var rank := Label.new()
+		rank.name = "Rank"
+		rank.custom_minimum_size = Vector2(20, 0)
+		rank.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		rank.vertical_alignment = VerticalAlignment.VERTICAL_ALIGNMENT_CENTER
+		rank.add_theme_font_size_override("font_size", 16)
+		rank.add_theme_color_override("font_color", RANK_GOLD)
+		rank.add_theme_color_override("font_outline_color", Color(0, 0, 0, 1))
+		rank.add_theme_constant_override("outline_size", 3)
+		row.add_child(rank)
+
+		var portrait := TextureRect.new()
+		portrait.name = "Portrait"
+		portrait.custom_minimum_size = Vector2(40, 40)
+		portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		row.add_child(portrait)
+
+		var info := VBoxContainer.new()
+		info.name = "Info"
+		info.add_theme_constant_override("separation", 0)
+		var name_label := Label.new()
+		name_label.name = "Name"
+		name_label.add_theme_font_size_override("font_size", 14)
+		name_label.add_theme_color_override("font_outline_color", Color(0, 0, 0, 1))
+		name_label.add_theme_constant_override("outline_size", 3)
+		info.add_child(name_label)
+		var stats := Label.new()
+		stats.name = "Stats"
+		stats.add_theme_font_size_override("font_size", 12)
+		stats.add_theme_color_override("font_color", Color(0.8, 0.8, 0.8, 1))
+		info.add_child(stats)
+		row.add_child(info)
+
+		leaderboard_box.add_child(row)
+		_leaderboard_rows.append(row)
+	return _leaderboard_rows[index]
+
+func _team_tag(team: int) -> String:
+	match team:
+		0:
+			return "[RED]"
+		1:
+			return "[BLUE]"
+	return ""
+
+func _team_tag_color(team: int) -> Color:
+	match team:
+		0:
+			return TEAM_RED
+		1:
+			return TEAM_BLUE
+	return TEAM_NONE
 
 func _refresh_leaderboard() -> void:
 	var eng = RegistryAccess.get_engagement()
@@ -256,15 +315,32 @@ func _refresh_leaderboard() -> void:
 		leaderboard_panel.visible = false
 		return
 	leaderboard_panel.visible = true
+	if leaderboard_title:
+		leaderboard_title.text = "TOP ENGAGED   ·   TOTAL %d" % int(eng.get_total_spend())
 	for i in range(3):
-		var label: Label = _get_leaderboard_label(i)
+		var row: HBoxContainer = _get_leaderboard_row(i)
 		if i < entries.size():
 			var e = entries[i]
-			var title: String = str(e.title)
-			if str(e.title).is_empty():
-				title = "-"
-			label.text = "%d. %s   %s   (%d)" % [i + 1, e.name, title, int(e.spend)]
-			label.add_theme_color_override("font_color", e.color)
-			label.visible = true
+			var team := -1
+			if team_manager:
+				team = team_manager.get_team(str(e.viewer_id))
+			var rank: Label = row.get_node("Rank")
+			var portrait: TextureRect = row.get_node("Portrait")
+			var name_label: Label = row.get_node("Info/Name")
+			var stats: Label = row.get_node("Info/Stats")
+			rank.text = str(i + 1)
+			var tag := _team_tag(team)
+			name_label.text = ("%s %s" % [tag, e.name]).strip_edges()
+			name_label.add_theme_color_override("font_color", _team_tag_color(team))
+			var title_part := ""
+			if not str(e.title).is_empty():
+				title_part = "  ·  %s" % e.title
+			stats.text = "%d pts  ·  %d gifts%s" % [int(e.spend), int(e.get("gifts", 0)), title_part]
+			var cm = commander_manager if commander_manager else RegistryAccess.get_commander_manager()
+			if cm and cm.has_method("get_viewer_portrait"):
+				portrait.texture = cm.get_viewer_portrait(str(e.viewer_id))
+			else:
+				portrait.texture = null
+			row.visible = true
 		else:
-			label.visible = false
+			row.visible = false
