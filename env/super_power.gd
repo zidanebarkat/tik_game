@@ -25,6 +25,8 @@ var _battle_manager = null
 var _last_trigger := -INF
 var _telegraph_nodes: Array = []
 
+signal detonated(pos: Vector3, faction_id: int)
+
 func setup(bm) -> void:
 	_battle_manager = bm
 
@@ -118,6 +120,7 @@ func _set_glow_alpha(a: float, mat: StandardMaterial3D, color: Color) -> void:
 
 func _detonate(pos: Vector3, faction_id: int) -> void:
 	pos.y = 0.0
+	detonated.emit(pos, faction_id)
 	_flash(pos)
 	_particles(pos)
 	for u in _battle_manager.get_nearby_units(pos, radius, null):

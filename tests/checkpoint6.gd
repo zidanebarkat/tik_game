@@ -39,23 +39,29 @@ func _run() -> void:
 	var cmdrs = reg.get_alive_commanders()
 	var c = cmdrs[0] if cmdrs.size() > 0 else null
 	check(c != null and c.is_marching(), "commander marching toward field")
-	var arr_cam = scene.get_node_or_null("ArrivalCam")
-	check(arr_cam != null, "arrival cut camera created on warband spawn")
-	if arr_cam:
-		check(arr_cam.is_current(), "arrival camera is current for broadcast")
+	var director = scene.get_node("DirectorCam")
+	check(director != null and director.is_active(), "director auto-follow active during battle")
 	var rts = scene.get_node("RTSCamera")
-	check(not rts.current, "RTS camera released during arrival cut")
 	if c:
 		c.march_speed = 60.0
-	await create_timer(4.0).timeout
-	check(rts.is_current(), "arrival cut auto-returned to RTS camera")
+	# wait for the march to finish: the director should cut to an ARRIVAL shot
+	var t := 0.0
+	while t < 4.0 and director._mode != director.MODE.ARRIVAL:
+		await create_timer(0.1).timeout
+		t += 0.1
+	check(director._mode == director.MODE.ARRIVAL, "director cuts to ARRIVAL on warband arrival")
+	check(not rts.is_current(), "RTS camera released during arrival shot")
+	# the auto-follower keeps following the fight; no manual return mid-battle
+	await create_timer(1.0).timeout
+	check(director.is_active(), "director keeps following the fight after arrival")
 
 	sc._toggle_on()
+	await create_timer(0.1).timeout
 	check(sc.is_spectating(), "spectating viewer engaged")
+	check(not director.is_active(), "director yields to manual spectate mode")
 	cm.debug_spawn("bronze", "CamCheck2", "cam2")
 	await create_timer(0.4).timeout
-	arr_cam = scene.get_node_or_null("ArrivalCam")
-	check(arr_cam == null or not arr_cam.is_current(), "no arrival cut while viewer spectates")
+	check(not director.is_active(), "no director cut while viewer spectates")
 	check(sc.is_spectating(), "viewer spectating uninterrupted")
 	sc._toggle_off()
 	scene.queue_free()

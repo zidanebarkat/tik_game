@@ -23,6 +23,7 @@ const TEST_SPAWN_KEYS := {
 @onready var camera: Camera3D = $RTSCamera
 @onready var battle_camera: Camera3D = $BattleCamera
 @onready var super_power = $SuperPower
+@onready var director = $DirectorCam
 @onready var world_env: WorldEnvironment = $WorldEnvironment
 @onready var dir_light: DirectionalLight3D = $DirectionalLight3D
 
@@ -57,7 +58,8 @@ func _process(delta: float) -> void:
 			_restore_broadcast_camera()
 	if _overview_active:
 		_update_overview_cut(delta)
-	elif overview_cut_enabled and _arrival_cut_timer <= 0.0:
+	elif overview_cut_enabled and _arrival_cut_timer <= 0.0 \
+			and not (director and director.is_active()):
 		var sc = RegistryAccess.get_spectator()
 		if battle_manager and battle_manager.current_state == battle_manager.BattleState.BATTLE \
 				and sc and sc.is_spectating():
@@ -80,6 +82,11 @@ func _restore_to_current_mode() -> void:
 		sc.battle_camera.make_current()
 	elif camera:
 		camera.make_current()
+
+## Public hook for the cinematic director camera: return the view to whichever
+## manual camera mode the user had selected before it took over.
+func restore_manual_camera() -> void:
+	_restore_to_current_mode()
 
 ## Part 10: a periodic wide strategic pan across the whole field, interleaved
 ## with the spectator cuts, so the broadcast alternates between "look how many
@@ -145,6 +152,8 @@ func _ready() -> void:
 	gift_manager.super_power = super_power
 	if super_power and super_power.has_method("setup"):
 		super_power.setup(battle_manager)
+	if director and director.has_method("setup"):
+		director.setup(battle_manager, self)
 	team_manager.battle_manager = battle_manager
 	var cm = RegistryAccess.get_commander_manager()
 	if cm:
@@ -238,6 +247,8 @@ func _on_warband_spawned(viewer_name: String, viewer_id: String, tier: String, c
 		hud.queue_arrival(viewer_name, viewer_id, tier, portrait)
 
 func _on_arrival_began(_viewer_name: String) -> void:
+	if director and director.is_active():
+		return
 	if not arrival_cut_enabled:
 		return
 	if _pending_cut_cmd == null or not is_instance_valid(_pending_cut_cmd):
@@ -302,6 +313,9 @@ func _unhandled_input(event: InputEvent) -> void:
 				battle_manager.change_state(battle_manager.BattleState.MENU)
 				if main_menu:
 					main_menu.visible = true
+			KEY_F4:
+				if director:
+					director.toggle()
 			KEY_F5:
 				battle_manager.toggle_pause()
 			KEY_F6:

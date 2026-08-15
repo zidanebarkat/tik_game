@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://c1l44tgrf6ewr"]
+[gd_scene load_steps=23 format=3 uid="uid://c1l44tgrf6ewr"]
 
 [ext_resource type="Script" path="res://maps/main_battlefield.gd" id="0_main"]
 [ext_resource type="Script" path="res://battle/battle_manager.gd" id="1_bm"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://c2775lgmqsfo2" path="res://assets/environments/mountain_panorama.png" id="17_pano"]
 [ext_resource type="Script" path="res://camera/battle_camera.gd" id="18_bc"]
 [ext_resource type="Script" path="res://env/super_power.gd" id="19_sp"]
+[ext_resource type="Script" path="res://camera/director_cam.gd" id="20_dc"]
 
 [sub_resource type="PanoramaSkyMaterial" id="sky_mat"]
 panorama = ExtResource("17_pano")
@@ -67,6 +68,9 @@ script = ExtResource("5_gm")
 
 [node name="SuperPower" type="Node3D" parent="."]
 script = ExtResource("19_sp")
+
+[node name="DirectorCam" type="Node" parent="."]
+script = ExtResource("20_dc")
 
 [node name="RTSCamera" type="Camera3D" parent="."]
 transform = Transform3D(0.777146, -0.228601, 0.586332, -0.31466, 0.665719, 0.676615, -0.545007, -0.710324, 0.445429, 0, 226.395, 40)
