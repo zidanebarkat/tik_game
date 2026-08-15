@@ -3,32 +3,35 @@ extends Camera3D
 ## free cam, with damped smooth movement and safe clamps.
 ##
 ##   WASD / arrows : move forward / back / strafe relative to where you look
-##   Q / E         : descend / ascend
+##   Q / E         : descend / ascend (PageDown / PageUp also work)
 ##   Right-drag    : look around (free yaw + pitch, not orbit-locked)
 ##   Middle-drag   : pan (translate without turning)
-##   Mouse wheel   : raise / lower travel speed
+##   Mouse wheel   : zoom in / out along your view direction
+##   Shift / Ctrl  : fly 2.5x faster / 0.4x slower
 ##
 ## Movement glides toward its targets (exponential smoothing), and the camera
 ## can never sink below the arena floor or drift off the play field.
 
 @export var move_speed: float = 60.0     # travel speed at 1x (units / s)
 @export var rotate_speed: float = 0.22   # look-around sensitivity (degrees / px)
-@export var min_speed: float = 4.0       # slowest the scroll wheel can go
-@export var max_speed: float = 400.0     # fastest the scroll wheel can go
 @export var floor_height: float = 0.0    # arena floor Y (camera stays above it)
 @export var min_cam_height: float = 2.0  # how close the camera may get to the floor
+@export var max_cam_height: float = 500.0
 @export var arena_bound: float = 700.0   # +/- X/Z play-field clamp
 
 const POS_SMOOTH := 9.0
 const ROT_SMOOTH := 14.0
 const SPEED_SMOOTH := 5.0
 const PITCH_LIMIT_DEG := 85.0
-const WHEEL_STEP := 1.18
+const ZOOM_STEP := 0.12
 const PAN_SCALE := 0.12
+const FAST_MULT := 2.5
+const SLOW_MULT := 0.4
 
 const MOVE_KEYS := [
 	KEY_W, KEY_A, KEY_S, KEY_D,
 	KEY_Q, KEY_E,
+	KEY_PAGEUP, KEY_PAGEDOWN,
 	KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT,
 ]
 
@@ -77,10 +80,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		match event.button_index:
 			MOUSE_BUTTON_WHEEL_UP:
 				if event.pressed:
-					_speed_t = clampf(_speed_t * WHEEL_STEP, min_speed, max_speed)
+					_tpos += _view_forward() * (ZOOM_STEP * _speed)
+					_clamp_target()
 			MOUSE_BUTTON_WHEEL_DOWN:
 				if event.pressed:
-					_speed_t = clampf(_speed_t / WHEEL_STEP, min_speed, max_speed)
+					_tpos -= _view_forward() * (ZOOM_STEP * _speed)
+					_clamp_target()
 			MOUSE_BUTTON_RIGHT:
 				_rotating = event.pressed
 			MOUSE_BUTTON_MIDDLE:
@@ -111,15 +116,20 @@ func _process(delta: float) -> void:
 		dir.x -= 1.0
 	if Input.is_key_pressed(KEY_D) or Input.is_key_pressed(KEY_RIGHT):
 		dir.x += 1.0
-	if Input.is_key_pressed(KEY_E):
+	if Input.is_key_pressed(KEY_E) or Input.is_key_pressed(KEY_PAGEUP):
 		dir.y += 1.0
-	if Input.is_key_pressed(KEY_Q):
+	if Input.is_key_pressed(KEY_Q) or Input.is_key_pressed(KEY_PAGEDOWN):
 		dir.y -= 1.0
 	if not dir.is_zero_approx():
 		var fwd := Vector3(-sin(_yaw), 0.0, -cos(_yaw))
 		var rgt := Vector3(cos(_yaw), 0.0, -sin(_yaw))
 		var move := (fwd * -dir.z + rgt * dir.x + Vector3.UP * dir.y).normalized()
-		_tpos += move * _speed * delta
+		var speed := _speed
+		if Input.is_key_pressed(KEY_SHIFT):
+			speed *= FAST_MULT
+		elif Input.is_key_pressed(KEY_CTRL):
+			speed *= SLOW_MULT
+		_tpos += move * speed * delta
 	_clamp_target()
 
 	_speed = lerpf(_speed, _speed_t, 1.0 - exp(-SPEED_SMOOTH * delta))
@@ -140,9 +150,14 @@ func _process(delta: float) -> void:
 	global_position = _pos
 
 func _clamp_target() -> void:
-	_tpos.y = maxf(_tpos.y, floor_height + min_cam_height)
+	_tpos.y = clampf(_tpos.y, floor_height + min_cam_height, max_cam_height)
 	_tpos.x = clampf(_tpos.x, -arena_bound, arena_bound)
 	_tpos.z = clampf(_tpos.z, -arena_bound, arena_bound)
+
+## Current looking direction (pitch included) — used by wheel zoom.
+func _view_forward() -> Vector3:
+	var cp := cos(_pitch)
+	return Vector3(-sin(_yaw) * cp, sin(_pitch), -cos(_yaw) * cp)
 
 ## Build an orthonormal yaw + pitch basis (no roll) so the view always sits
 ## upright and never tips sideways.

@@ -1,8 +1,8 @@
 extends SceneTree
 ## Part 16 checkpoint: the RTS free cam. Verifies it seeds yaw/pitch from its
 ## scene transform, keeps an upright right-handed basis, pans camera-relative,
-## clamps to the arena floor and play field, turns with the mouse, and scales
-## travel speed with the wheel.
+## clamps to the arena floor and play field, turns with the mouse, and zooms
+## along the view with the wheel.
 
 var _pass := 0
 var _fail := 0
@@ -76,13 +76,23 @@ func _run() -> void:
 	cam._rotating = false
 	check(cam._yaw_t < before, "drag right turns right (yaw decreased)")
 
-	# wheel changes speed up
-	var before_sp = cam._speed_t
+	# wheel zooms toward the view direction (yaw=0, pitch=0 -> forward is -Z)
+	cam._yaw = 0.0
+	cam._pitch = 0.0
+	cam._pos = Vector3(0, 20, 100)
+	cam._tpos = Vector3(0, 20, 100)
 	var wev = InputEventMouseButton.new()
 	wev.button_index = MOUSE_BUTTON_WHEEL_UP
 	wev.pressed = true
 	cam._unhandled_input(wev)
-	check(cam._speed_t > before_sp, "wheel up raises speed")
+	check(cam._tpos.z < 100.0 and absf(cam._tpos.x) < 0.001, \
+			"wheel up zooms in along view, got " + str(cam._tpos))
+	var wev2 = InputEventMouseButton.new()
+	wev2.button_index = MOUSE_BUTTON_WHEEL_DOWN
+	wev2.pressed = true
+	var z_after = cam._tpos.z
+	cam._unhandled_input(wev2)
+	check(cam._tpos.z > z_after, "wheel down zooms back out")
 
 	print("CHECKPOINT16 RESULT pass=%d fail=%d" % [_pass, _fail])
 	quit(_fail > 0)
