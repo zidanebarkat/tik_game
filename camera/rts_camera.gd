@@ -46,8 +46,12 @@ var _speed := 60.0
 var _speed_t := 60.0
 var _rotating := false
 var _panning := false
+var _home_pos := Vector3.ZERO
+var _home_basis := Basis()
 
 func _ready() -> void:
+	_home_pos = transform.origin
+	_home_basis = transform.basis
 	_speed = move_speed
 	_speed_t = move_speed
 	_pos = global_position
@@ -55,6 +59,18 @@ func _ready() -> void:
 	_sync_from_transform()
 	_sync_basis()
 	global_position = _pos
+
+## Snap the free cam back to its scene-defined drone home and make it current.
+## Used when returning to the menu so the next round starts from the classic
+## high overview instead of wherever the user flew during the last fight.
+func reset_to_home() -> void:
+	transform = Transform3D(_home_basis, _home_pos)
+	_sync_from_transform()
+	_sync_basis()
+	_pos = _home_pos
+	_tpos = _home_pos
+	global_position = _pos
+	make_current()
 
 ## Seed yaw / pitch from wherever the scene placed the camera so the first
 ## frame frames the arena instead of snapping to a canned angle.

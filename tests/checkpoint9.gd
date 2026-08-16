@@ -24,6 +24,7 @@ func _run() -> void:
 	await create_timer(0.3).timeout
 	var bm = scene.get_node("BattleManager")
 	var cm = RegistryAccess.get_commander_manager()
+	scene.result_return_enabled = false
 	bm.start_game()
 	var militia = load("res://units/resources/militia.tres")
 	var knight = load("res://units/resources/knight.tres")

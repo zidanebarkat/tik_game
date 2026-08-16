@@ -1,6 +1,9 @@
 # Godot
 .godot/
 
+# Android build template (extracted from export templates, regenerable)
+android/
+
 # Node
 node_modules/
 

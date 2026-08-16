@@ -48,6 +48,14 @@ var _overview_elapsed := 0.0
 var _overview_mid: Vector3 = Vector3.ZERO
 var _overview_span: Vector3 = Vector3.RIGHT
 
+## How long the result is shown after a fight before returning to the menu.
+## `result_return_enabled` can be turned off by tests / integration harnesses
+## that need the battlefield to stay populated after a faction is wiped.
+var result_return_enabled := true
+var result_return_delay := 5.0
+var _result_timer := -1.0
+var _last_result_text := ""
+
 func _process(delta: float) -> void:
 	if _arrival_cut_timer > 0.0:
 		_arrival_cut_timer -= delta
@@ -67,6 +75,10 @@ func _process(delta: float) -> void:
 			if _overview_timer >= overview_cut_interval:
 				_overview_timer = 0.0
 				_start_overview_cut()
+	if _result_timer >= 0.0:
+		_result_timer -= delta
+		if _result_timer <= 0.0:
+			_return_to_menu()
 
 func _restore_broadcast_camera() -> void:
 	if _arrival_cam and _arrival_cam.is_current():
@@ -176,9 +188,11 @@ func _ready() -> void:
 	battle_manager.battle_ended.connect(_on_battle_ended)
 
 func start_game() -> void:
+	_result_timer = -1.0
 	battle_manager.start_game()
 
 func request_countdown() -> bool:
+	_result_timer = -1.0
 	return battle_manager.request_countdown()
 
 func _on_gift_received(gift_name: String, sender: String, count: int, user_id: String = "") -> void:
@@ -273,13 +287,34 @@ func _on_arrival_began(_viewer_name: String) -> void:
 func _on_battle_ended(winning_faction) -> void:
 	_end_overview_cut()
 	_restore_broadcast_camera()
+	var msg := "Draw!" if winning_faction == -1 else "Victory!"
+	if winning_faction >= 0:
+		var f = battle_manager.get_faction(winning_faction)
+		if f and f.faction_data:
+			msg = "%s wins!" % f.faction_data.faction_name
+	_last_result_text = msg
 	if hud:
-		var msg = "Draw!" if winning_faction == -1 else "Victory!"
-		if winning_faction >= 0:
-			var f = battle_manager.get_faction(winning_faction)
-			if f and f.faction_data:
-				msg = "%s wins!" % f.faction_data.faction_name
 		hud.add_gift_feed_item("SYSTEM", msg, 0)
+	if result_return_enabled:
+		_result_timer = result_return_delay
+
+## End-of-game: show the result for a few seconds, then stop everything (units,
+## director, spectator) and return to the menu with the result displayed.
+func _return_to_menu() -> void:
+	_result_timer = -1.0
+	if director and director.has_method("stop"):
+		director.stop()
+	var sc = RegistryAccess.get_spectator()
+	if sc and sc.is_spectating():
+		sc._toggle_off()
+	if battle_manager.current_state != battle_manager.BattleState.MENU:
+		battle_manager.change_state(battle_manager.BattleState.MENU)
+	if camera and camera.has_method("reset_to_home"):
+		camera.reset_to_home()
+	if main_menu:
+		main_menu.visible = true
+		if main_menu.has_method("show_result"):
+			main_menu.show_result(_last_result_text)
 
 func _get_spawn_pos(faction_id: int) -> Vector3:
 	var faction = battle_manager.get_faction(faction_id)
@@ -310,9 +345,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				if battle_manager.current_state != battle_manager.BattleState.MENU:
 					battle_manager.start_game()
 			KEY_ESCAPE:
-				battle_manager.change_state(battle_manager.BattleState.MENU)
-				if main_menu:
-					main_menu.visible = true
+				_return_to_menu()
 			KEY_F4:
 				if director:
 					director.toggle()

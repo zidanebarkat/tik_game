@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bto1oej15m4ve"
 path.s3tc="res://.godot/imported/godzilla_rigged_animated_0.jpg-f2e97178a3f015f1edc1aff3b7325f4a.s3tc.ctex"
+path.etc2="res://.godot/imported/godzilla_rigged_animated_0.jpg-f2e97178a3f015f1edc1aff3b7325f4a.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/characters/godzilla_rigged_animated_0.jpg"
-dest_files=["res://.godot/imported/godzilla_rigged_animated_0.jpg-f2e97178a3f015f1edc1aff3b7325f4a.s3tc.ctex"]
+dest_files=["res://.godot/imported/godzilla_rigged_animated_0.jpg-f2e97178a3f015f1edc1aff3b7325f4a.s3tc.ctex", "res://.godot/imported/godzilla_rigged_animated_0.jpg-f2e97178a3f015f1edc1aff3b7325f4a.etc2.ctex"]
 
 [params]
 

@@ -43,6 +43,16 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 22
 
+[node name="LastResult" type="Label" parent="Center/VBox"]
+visible = false
+layout_mode = 2
+text = "RED WINS!"
+horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.45, 1, 0.55, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 34
+
 [node name="StartButton" type="Button" parent="Center/VBox"]
 layout_mode = 2
 custom_minimum_size = Vector2(280, 64)

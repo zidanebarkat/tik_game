@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://ba3afmpw2tug2"
 path.s3tc="res://.godot/imported/terrain_materials_14.png-b9da662fc0ebc973fdc2f54785050818.s3tc.ctex"
+path.etc2="res://.godot/imported/terrain_materials_14.png-b9da662fc0ebc973fdc2f54785050818.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/environments/terrain_materials_14.png"
-dest_files=["res://.godot/imported/terrain_materials_14.png-b9da662fc0ebc973fdc2f54785050818.s3tc.ctex"]
+dest_files=["res://.godot/imported/terrain_materials_14.png-b9da662fc0ebc973fdc2f54785050818.s3tc.ctex", "res://.godot/imported/terrain_materials_14.png-b9da662fc0ebc973fdc2f54785050818.etc2.ctex"]
 
 [params]
 

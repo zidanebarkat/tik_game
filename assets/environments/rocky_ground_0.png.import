@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://ct3h8pgqxcfgb"
 path.s3tc="res://.godot/imported/rocky_ground_0.png-363301c095cca6372ef6c59b78b23699.s3tc.ctex"
+path.etc2="res://.godot/imported/rocky_ground_0.png-363301c095cca6372ef6c59b78b23699.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/environments/rocky_ground_0.png"
-dest_files=["res://.godot/imported/rocky_ground_0.png-363301c095cca6372ef6c59b78b23699.s3tc.ctex"]
+dest_files=["res://.godot/imported/rocky_ground_0.png-363301c095cca6372ef6c59b78b23699.s3tc.ctex", "res://.godot/imported/rocky_ground_0.png-363301c095cca6372ef6c59b78b23699.etc2.ctex"]
 
 [params]
 

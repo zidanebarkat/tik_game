@@ -104,6 +104,17 @@ func toggle() -> void:
 		if main_scene and main_scene.has_method("restore_manual_camera"):
 			main_scene.restore_manual_camera()
 
+## Hard stop: cancel whatever shot is running and hand the view back to the
+## manual camera. Used when the game leaves the battlefield for the menu.
+func stop() -> void:
+	_mode = MODE.IDLE
+	_timer = 0.0
+	_active = false
+	if _cam:
+		_cam.current = false
+	if main_scene and main_scene.has_method("restore_manual_camera"):
+		main_scene.restore_manual_camera()
+
 func _process(delta: float) -> void:
 	if battle_manager == null:
 		return
